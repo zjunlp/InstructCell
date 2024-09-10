@@ -1,4 +1,4 @@
-<div align="center">
+
 <h1 align="center"> 🎨 InstructCell </h1>
 <b>InstructCell: A Multimodal Cell Language Model for Single-cell Analysis</b>
 
