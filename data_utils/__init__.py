@@ -20,6 +20,9 @@ from metadata import (
     COUNT_DATA_FILE_NAME, 
     CELL_LABEL, 
     RESPONSE_LABEL, 
+    TASKS, 
+    CTA, 
+    DSP, 
 ) 
 from typing import (
     Dict,  
@@ -296,7 +299,7 @@ class TextCellDataset(Dataset):
         end_tag = f"</{modality}>"
         signal = ''.join([f"<{modality}{i}>" for i in range(1, num_signal_tokens + 1)])
         
-        if task_type in ["cell type annotation", "drug sensitivity prediction"]:
+        if task_type in [CTA, DSP]:
             # for these tasks, each input only contains one single cell 
             outputs["input_counts_indexer"] = [np.array([i]) for i in range(len(adata))] 
             outputs["text_inputs"]["input"] = np.array([f"{start_tag}{placeholder}{end_tag}"] * len(adata))
