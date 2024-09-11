@@ -882,7 +882,7 @@ class CellTextLLM(nn.Module):
             Additional keyword arguments passed to the ``forward`` method of cell generative model if output cell counts 
             are provided.
         **base_model_kwargs: dict
-            Additional keyword arguments passed to the ``foward`` method of base language model.
+            Additional keyword arguments passed to the ``forward`` method of base language model.
 
         Returns
         -------
