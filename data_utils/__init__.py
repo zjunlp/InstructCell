@@ -107,11 +107,7 @@ class TextCellDataset(Dataset):
         Random state or seed for reproducibility.
     """
 
-    _SUPPORTED_CELL_TASKS = {
-        "cell type annotation", 
-        "conditional pseudo cell generation", 
-        "drug sensitivity prediction", 
-    }
+    _SUPPORTED_CELL_TASKS = set(TASKS.keys())
 
     def __init__(
         self,
