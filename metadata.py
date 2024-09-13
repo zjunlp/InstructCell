@@ -18,6 +18,13 @@ TASKS = {
     CPCG: CELL_GENERATION_DIR,
 }
 
+# fields for the metadata 
+SPECIES = "species"
+SEQUENCING_METHOD = "sequencing_method"
+TISSUE = "tissue"
+REFERENCE = "reference"
+DRUG = "drug"
+
 DATASET_IDENTITY = {
     "Segerstolpe-2016": {
         "species": "human",
