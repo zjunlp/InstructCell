@@ -1,4 +1,5 @@
 import os 
+from collections import OrderedDict 
 
 DATA_DIR = "../data"
 # count data file name 
@@ -12,11 +13,13 @@ CELL_TYPE_DIR = os.path.join(DATA_DIR, '_'.join(CTA.split()))
 CELL_GENERATION_DIR = os.path.join(DATA_DIR, '_'.join(CPCG.split()))
 DRUG_RESPONSE_DIR = os.path.join(DATA_DIR, '_'.join(DSP.split()))
 
-TASKS = {
-    CTA: CELL_TYPE_DIR,
-    DSP: DRUG_RESPONSE_DIR,
-    CPCG: CELL_GENERATION_DIR,
-}
+TASKS = OrderedDict(
+    [
+        (CTA, CELL_TYPE_DIR),
+        (DSP, DRUG_RESPONSE_DIR),
+        (CPCG, CELL_GENERATION_DIR),
+    ]
+)
 
 # fields for the metadata 
 SPECIES = "species"
