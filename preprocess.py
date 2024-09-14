@@ -52,7 +52,7 @@ if __name__ == "__main__":
             if os.path.isdir(path):
                 adata = anndata.read_h5ad(os.path.join(path, COUNT_DATA_FILE_NAME))
                 print(f"Processing {sub_dir} in {task_dir} ...")
-                if (adata.X.sum(axis=-1).astype(np.int32) != adata.X.sum(axis=-1)).sum() != 0:
+                if (adata.X.astype(np.int32) != adata.X).sum() != 0:
                     # get the raw count data 
                     print("The count data is not integer. Use the raw count data instead.")
                     var2index = {var_name: i for i, var_name in enumerate(adata.raw.var_names)}
