@@ -20,8 +20,10 @@ from metadata import (
     OPTION_DIR, 
     OPTION_FILE_NAME, 
     UNDEFINED, 
-    COUNT_DATA_FILE_NAME,   
+    COUNT_DATA_FILE_NAME, 
+    SPECIES,   
 )
+import pandas as pd 
 from utils import find_duplicates_uppercase, str2bool
 import argparse
 import warnings 
@@ -42,8 +44,11 @@ if __name__ == "__main__":
     # construct gene vocabulary
     options = {} 
     counter = Counter() 
+    gene2species = {} 
     for task_dir in TASKS.values():
-        for sub_dir in os.listdir(task_dir):
+        # note: after conducting all experiments, we found that the order of os.listdir is random 
+        # so we need to sort the subdirectories
+        for sub_dir in sorted(os.listdir(task_dir)):
             path = os.path.join(task_dir, sub_dir)
             if os.path.isdir(path):
                 adata = anndata.read_h5ad(os.path.join(path, COUNT_DATA_FILE_NAME))
@@ -65,6 +70,27 @@ if __name__ == "__main__":
                         counter[gene.upper()] += 1
                     else:
                         counter[gene] += 1
+                    # consider copies of the same gene symbol
+                    current_species = adata.var.loc[gene, SPECIES]
+                    if isinstance(current_species, pd.Series):
+                        current_species = current_species.values[0]
+                    if gene not in gene2species:
+                        gene2species[gene] = current_species
+                    else:
+                        if gene2species[gene] != current_species:
+                            print(f"Warning: {gene} has multiple species: {gene2species[gene]} and {adata.var.loc[gene, SPECIES]}")
+                            assert_mouse = False 
+                            # some gene symbols like H19 are shared by both human and mouse
+                            # but it is not in pybiomart Dataset 
+                            for ch in gene:
+                                if ch.isalpha() and 'a' <= ch <= 'z':
+                                    assert_mouse = True 
+                                    break
+                            if assert_mouse:
+                                gene2species[gene] = "mouse"
+                            else:
+                                gene2species[gene] = "human"
+
                 tag = DATASET_IDENTITY[sub_dir]["tag"]
                 # for those classification tasks, we need to save the corresponding options
                 if tag == DSP:
@@ -87,10 +113,12 @@ if __name__ == "__main__":
     # save the gene vocabulary
     # sort the genes so we can reproduce the result 
     gene_vocab = np.array([gene for gene in sorted(counter.keys())])
+    species = np.array([gene2species[gene] for gene in gene_vocab])
     print(f"Number of genes in the vocabulary: {len(gene_vocab)}")
     dir_name = Path(GENE_VOCAB_DIR)
     dir_name.mkdir(parents=True, exist_ok=True)
     np.save(os.path.join(dir_name, "gene_vocab.npy"), gene_vocab)
+    np.save(os.path.join(dir_name, "gene_species.npy"), species)
 
     # save options used in classification tasks
     dir_name = Path(OPTION_DIR)
