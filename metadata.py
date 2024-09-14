@@ -89,7 +89,7 @@ DATASET_IDENTITY = {
     },
     "Tabular-Sapiens-Blood": {
         "species": "human", 
-        "tissue": "peripheral blood",
+        "tissue": "blood",
         "sequencing_method": "10xGenomics (Chromium Next GEM Single Cell 3′ Kit v3.1)",
         "tag": CPCG, 
         "reference": "The Tabula Sapiens Consortium*, Jones R C, Karkanias J, et al. The Tabula Sapiens: A multiple-organ, single-cell transcriptomic atlas of humans[J]. Science, 2022, 376(6594): eabl4896."
