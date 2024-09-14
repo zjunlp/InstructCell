@@ -54,7 +54,7 @@ if __name__ == "__main__":
                 print(f"Processing {sub_dir} in {task_dir} ...")
                 if (adata.X.astype(np.int32) != adata.X).sum() != 0:
                     # get the raw count data 
-                    print("The count data is not integer. Use the raw count data instead.")
+                    print("The count data are not integers. Use the raw count data instead.")
                     var2index = {var_name: i for i, var_name in enumerate(adata.raw.var_names)}
                     X = adata.raw.X[:, [var2index[var_name] for var_name in adata.var_names if var_name in var2index]]
                     assert X.shape == adata.X.shape, "The raw count data should have the same genes as the count data."
