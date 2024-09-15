@@ -8,6 +8,7 @@ from tqdm import tqdm
 import numpy as np 
 from functools import partial 
 from metadata import SEED
+from utils import str2bool 
 from typing import (
     List, 
     Iterable, 
@@ -192,7 +193,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--stream", 
         default=True, 
-        type=bool,  
+        type=str2bool,  
         help="Whether to stream the response from the OpenAI API."
     )
     parser.add_argument(
@@ -287,7 +288,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--debug", 
         default=True, 
-        type=bool, 
+        type=str2bool, 
         help="Whether to enable the debug mode."
     )
     parser.add_argument(
@@ -296,6 +297,13 @@ if __name__ == "__main__":
         type=float, 
         help="The ratio of input templates of classification tasks containing available options."
     )
+
+    parser.add_argument(
+        "--only_synthesize_world_knowledge", 
+        default=False, 
+        type=str2bool,
+        help="whehter to synthesize the world knowledge only." 
+   )
 
     # parameters of filtering 
     parser.add_argument(
@@ -326,7 +334,7 @@ if __name__ == "__main__":
     top_p = args.top_p
     max_tolerance = args.max_tolerance
 
-    if args.knowledge_dir is None:
+    if len(args.knowledge_dir) == 0:
         # word_knowledge mode is enabled
         objects = ["motivation", "personality"]
         prompt = INSTRUCTIONS["world_knowledge"]
@@ -377,195 +385,157 @@ if __name__ == "__main__":
                 json.dump(outputs, f, indent=4)
         args.knowledge_dir = args.output_dir 
 
-    previous_templates = {} 
-    input_file = os.path.join(args.knowledge_dir, "motivation.json")
-    with open(input_file, 'r') as f:
-        motivations = json.load(f)
-    input_file = os.path.join(args.knowledge_dir, "personality.json")
-    with open(input_file, 'r') as f:
-        personalities = json.load(f)
-    proficiency = ["high", "low, layman, no need for explanation"]
-
-    input_file = None 
-    if args.previous_inst_dir is not None:
-        input_file = os.path.join(args.previous_inst_dir, "raw_templates.json")
-    if input_file is not None and os.path.exists(input_file):
+    if not args.only_synthesize_world_knowledge:
+        previous_templates = {} 
+        input_file = os.path.join(args.knowledge_dir, "motivation.json")
         with open(input_file, 'r') as f:
-            raw_templates = json.load(f)
-        for key, value in raw_templates.items():
-            previous_templates[key] = value
-    if args.optional_attributes is None:
-        args.optional_attributes = ["Sequencing method", "Tissue", "Species"]
-    args.optional_attributes.append("Options")
+            motivations = json.load(f)
+        input_file = os.path.join(args.knowledge_dir, "personality.json")
+        with open(input_file, 'r') as f:
+            personalities = json.load(f)
+        proficiency = ["high", "low, layman, no need for explanation"]
 
-    if len(args.questioner_factors) != len(args.questioner_comb_probs):
-        raise ValueError("The length of questioner_factors and questioner_comb_probs should be the same.")
-    if sum(args.questioner_comb_probs) != 1.0:
-        raise ValueError("The sum of questioner_comb_probs should be 1.0.")
-    available_key = {
-        "Motivation", 
-        "Personality",
-        "Level of proficiency in single-cell analysis",
-    }
-    for questioner_factor in args.questioner_factors:
-        if questioner_factor not in available_key:
-            raise ValueError(f"{questioner_factor} is not a valid key for questioner_factors.")
-    if len(args.questioner_factors) == 0 and args.no_questioner_metadata_ratio != 1.0:
-        warnings.warn(
-            "The ratio of no questioner metadata is not 1.0, but the questioner_factors is empty. " + 
-            "It seems that the questioner_factors is not set correctly." + 
-            "The ratio of no questioner metadata is set to 1.0.",
-            UserWarning
+        input_file = None 
+        if args.previous_inst_dir is not None:
+            input_file = os.path.join(args.previous_inst_dir, "raw_templates.json")
+        if input_file is not None and os.path.exists(input_file):
+            with open(input_file, 'r') as f:
+                raw_templates = json.load(f)
+            for key, value in raw_templates.items():
+                previous_templates[key] = value
+        if args.optional_attributes is None:
+            args.optional_attributes = ["Sequencing method", "Tissue", "Species"]
+        args.optional_attributes.append("Options")
+
+        if len(args.questioner_factors) != len(args.questioner_comb_probs):
+            raise ValueError("The length of questioner_factors and questioner_comb_probs should be the same.")
+        if sum(args.questioner_comb_probs) != 1.0:
+            raise ValueError("The sum of questioner_comb_probs should be 1.0.")
+        available_key = {
+            "Motivation", 
+            "Personality",
+            "Level of proficiency in single-cell analysis",
+        }
+        for questioner_factor in args.questioner_factors:
+            if questioner_factor not in available_key:
+                raise ValueError(f"{questioner_factor} is not a valid key for questioner_factors.")
+        if len(args.questioner_factors) == 0 and args.no_questioner_metadata_ratio != 1.0:
+            warnings.warn(
+                "The ratio of no questioner metadata is not 1.0, but the questioner_factors is empty. " + 
+                "It seems that the questioner_factors is not set correctly." + 
+                "The ratio of no questioner metadata is set to 1.0.",
+                UserWarning
+            )
+            args.no_questioner_metadata_ratio = 1.0
+
+        # start to synthesize data 
+        scorer = rouge_scorer.RougeScorer(['rougeL'], use_stemmer=False)
+        inst_gen_prompt = INSTRUCTIONS["instruction_generation"]
+        inst_req_prompt = REQUIREMENTS["instruction_generation"]
+        resp_gen_prompt = INSTRUCTIONS["response_generation"]
+        resp_req_prompt = REQUIREMENTS["response_generation"]
+        generator = np.random.default_rng(args.seed)
+
+
+        progress_bar = tqdm(
+            total=len(task_names) * args.num_templates_for_task, 
+            desc=f"Generating templates, target directory: {args.output_dir}"
         )
-        args.no_questioner_metadata_ratio = 1.0
-
-    # start to synthesize data 
-    scorer = rouge_scorer.RougeScorer(['rougeL'], use_stemmer=False)
-    inst_gen_prompt = INSTRUCTIONS["instruction_generation"]
-    inst_req_prompt = REQUIREMENTS["instruction_generation"]
-    resp_gen_prompt = INSTRUCTIONS["response_generation"]
-    resp_req_prompt = REQUIREMENTS["response_generation"]
-    generator = np.random.default_rng(args.seed)
-
-
-    progress_bar = tqdm(
-        total=len(task_names) * args.num_templates_for_task, 
-        desc=f"Generating templates, target directory: {args.output_dir}"
-    )
-    progress_bar.update(sum(len(previous_templates.get(task_name, {"instruction": []})["instruction"]) for task_name in task_names))
-    for task_name in task_names:
-        if task_name not in previous_templates:
-            previous_templates[task_name] = defaultdict(list)
-        task_metadata = OrderedDict()
-        for attr in TASK_META_DATA[task_name]["attributes"]:
-            task_metadata[attr] = ATTRIBUTES[attr] 
-        hint = TASK_META_DATA[task_name]["hint"]
-        prompt = inst_gen_prompt.format(task_name=task_name, hint=hint) 
-        optional_task_attr = set(TASK_META_DATA[task_name]["optional_attributes"])
-        for attr in args.optional_attributes:
-            if attr in optional_task_attr:
-                task_metadata[attr] = ATTRIBUTES[attr]
-        expected_result = TASK_META_DATA[task_name]["expected_result"]
-        task_motivations = motivations[task_name]
-        # used to generate the response
-        response_condition = TASK_META_DATA[task_name]["response_condition"]
-        response_constraint = TASK_META_DATA[task_name]["response_constraint"]
-        response_prompt = resp_gen_prompt.format(task_name=task_name)
-        # to generate new instruction and response templates
-        for _ in range(len(previous_templates[task_name]), args.num_templates_for_task):
-            slots = list(task_metadata.keys())
-            words = list(task_metadata.values())
-            if "Options" in task_metadata and generator.random() > args.options_ratio:
-                slots = slots[:-1]
-                words = words[:-1]
-            inst_extract_func = partial(
-                extract_content, 
-                start_tag="<result>", 
-                end_tag="</result>", 
-                filters=[
-                    partial(check_text_length, max_length=args.max_length, min_length=1), 
-                    partial(check_target_words, words=words), 
-                ],
-            )
-            resp_extract_func = partial(
-                extract_content, 
-                start_tag="<response>", 
-                end_tag="</response>", 
-                filters=[
-                    partial(check_target_words, words=["{output}"]), 
-                    partial(check_text_length, max_length=args.max_length, min_length=1)
-                ] if task_name != "conditional pseudo cell generation" else [
-                    partial(check_last_token, last_token="{output}"),
-                    partial(check_text_length, max_length=args.max_length, min_length=1), 
-                    partial(check_target_words, words=["{output}"]), 
-                    partial(
-                        check_banned_words, 
-                        banned_words=[
-                            "geneA", 
-                            "gene A", 
-                            "GeneA", 
-                            "Gene A", 
-                            "gene 1", 
-                            "gene1",
-                            "Gene1",
-                            "GENE1",
-                            "Gene 1", 
-                            "GENE 1", 
-                        ],
-                    )
-                ], 
-            )
-            # first generate the instruction templates 
-            current_prompt = prompt
-            if generator.random() > args.no_questioner_metadata_ratio:
-                # add questioner metadata
-                current_prompt = f"{current_prompt}# Relevant information about the questioner:\n"
-                num_questioner_var = generator.choice(list(range(len(args.questioner_factors))), p=args.questioner_comb_probs)
-                selected_var = generator.choice(
-                    args.questioner_factors, 
-                    size=num_questioner_var, 
-                    replace=False
+        progress_bar.update(sum(len(previous_templates.get(task_name, {"instruction": []})["instruction"]) for task_name in task_names))
+        for task_name in task_names:
+            if task_name not in previous_templates:
+                previous_templates[task_name] = defaultdict(list)
+            task_metadata = OrderedDict()
+            for attr in TASK_META_DATA[task_name]["attributes"]:
+                task_metadata[attr] = ATTRIBUTES[attr] 
+            hint = TASK_META_DATA[task_name]["hint"]
+            prompt = inst_gen_prompt.format(task_name=task_name, hint=hint) 
+            optional_task_attr = set(TASK_META_DATA[task_name]["optional_attributes"])
+            for attr in args.optional_attributes:
+                if attr in optional_task_attr:
+                    task_metadata[attr] = ATTRIBUTES[attr]
+            expected_result = TASK_META_DATA[task_name]["expected_result"]
+            task_motivations = motivations[task_name]
+            # used to generate the response
+            response_condition = TASK_META_DATA[task_name]["response_condition"]
+            response_constraint = TASK_META_DATA[task_name]["response_constraint"]
+            response_prompt = resp_gen_prompt.format(task_name=task_name)
+            # to generate new instruction and response templates
+            for _ in range(len(previous_templates[task_name]), args.num_templates_for_task):
+                slots = list(task_metadata.keys())
+                words = list(task_metadata.values())
+                if "Options" in task_metadata and generator.random() > args.options_ratio:
+                    slots = slots[:-1]
+                    words = words[:-1]
+                inst_extract_func = partial(
+                    extract_content, 
+                    start_tag="<result>", 
+                    end_tag="</result>", 
+                    filters=[
+                        partial(check_text_length, max_length=args.max_length, min_length=1), 
+                        partial(check_target_words, words=words), 
+                    ],
                 )
-                for key_var in selected_var:
-                    if key_var == 'Motivation':
-                        options = task_motivations
-                    elif key_var == 'Personality':
-                        options = personalities
-                    else:
-                        options = proficiency
-                    current_prompt = f"{current_prompt}{key_var}: {generator.choice(options)}\n"
-                current_prompt = f"{current_prompt}\n"
-            # add task-related information
-            slots_ = generator.permutation(slots)
-            slot_value_pair = '\n'.join([f"{slot}: {task_metadata[slot]}" for slot in slots_])
-            current_prompt = f"{current_prompt}# Task-Related Information:\n{slot_value_pair}\n\n"
-            if slots[-1] != "Options":
-                current_prompt = f"{current_prompt}# Expected Response of Task:\n{expected_result}\n\n{inst_req_prompt}"
-            else:
-                current_prompt = f"{current_prompt}# Expected Response of Task:\n{expected_result} " + \
-                    f"The prediction is one of the options provided by the questioner.\n\n{inst_req_prompt}"
-            messages = [{"role": "user", "content": current_prompt}]
-            response_dict = client.get_text_generation_output(
-                messages,
-                post_processor=inst_extract_func,
-                max_tolerance=max_tolerance,
-                model=model, 
-                stream=stream, 
-                temperature=temperature, 
-                top_p=top_p, 
-            )
-            total_cost += response_dict["cost"] 
-            total_time += response_dict["time"]
-            new_instruction = response_dict["processed_content"]
-            if new_instruction is None:
-                warnings.warn(
-                    "Postprocessing function fails to get the final response. " + \
-                    f"The raw content: {response_dict['content']}", 
-                    UserWarning 
-                ) 
-                progress_bar.update(1)
-                continue 
-            scorer_func = np.vectorize(
-                lambda prediction: scorer.score(
-                    new_instruction, 
-                    prediction
-                )['rougeL'].fmeasure
-            )
-            if len(previous_templates[task_name]["instruction"]) > 0:
-                scores = scorer_func(previous_templates[task_name]["instruction"])
-            else:
-                scores = np.array([0.0])
-            max_score = np.max(scores)
-            current_refinement_step = 0 
-            # refine the input instruction to make it more diverse
-            while max_score > args.similarity_threshold and current_refinement_step < args.num_refinement_steps:
-                current_refinement_step += 1
-                total_refinement_steps += 1 
-                inst_rephasing_prompt, rephasing_req_prompt = INSTRUCTIONS["rephrasing"], REQUIREMENTS["rephrasing"]
-                rephasing_prompt = f"{inst_rephasing_prompt}# Original Sentence:\n{new_instruction}\n\n{rephasing_req_prompt}"
-                rephasing_messages = [{"role": "user", "content": rephasing_prompt}]
+                resp_extract_func = partial(
+                    extract_content, 
+                    start_tag="<response>", 
+                    end_tag="</response>", 
+                    filters=[
+                        partial(check_target_words, words=["{output}"]), 
+                        partial(check_text_length, max_length=args.max_length, min_length=1)
+                    ] if task_name != "conditional pseudo cell generation" else [
+                        partial(check_last_token, last_token="{output}"),
+                        partial(check_text_length, max_length=args.max_length, min_length=1), 
+                        partial(check_target_words, words=["{output}"]), 
+                        partial(
+                            check_banned_words, 
+                            banned_words=[
+                                "geneA", 
+                                "gene A", 
+                                "GeneA", 
+                                "Gene A", 
+                                "gene 1", 
+                                "gene1",
+                                "Gene1",
+                                "GENE1",
+                                "Gene 1", 
+                                "GENE 1", 
+                            ],
+                        )
+                    ], 
+                )
+                # first generate the instruction templates 
+                current_prompt = prompt
+                if generator.random() > args.no_questioner_metadata_ratio:
+                    # add questioner metadata
+                    current_prompt = f"{current_prompt}# Relevant information about the questioner:\n"
+                    num_questioner_var = generator.choice(list(range(len(args.questioner_factors))), p=args.questioner_comb_probs)
+                    selected_var = generator.choice(
+                        args.questioner_factors, 
+                        size=num_questioner_var, 
+                        replace=False
+                    )
+                    for key_var in selected_var:
+                        if key_var == 'Motivation':
+                            options = task_motivations
+                        elif key_var == 'Personality':
+                            options = personalities
+                        else:
+                            options = proficiency
+                        current_prompt = f"{current_prompt}{key_var}: {generator.choice(options)}\n"
+                    current_prompt = f"{current_prompt}\n"
+                # add task-related information
+                slots_ = generator.permutation(slots)
+                slot_value_pair = '\n'.join([f"{slot}: {task_metadata[slot]}" for slot in slots_])
+                current_prompt = f"{current_prompt}# Task-Related Information:\n{slot_value_pair}\n\n"
+                if slots[-1] != "Options":
+                    current_prompt = f"{current_prompt}# Expected Response of Task:\n{expected_result}\n\n{inst_req_prompt}"
+                else:
+                    current_prompt = f"{current_prompt}# Expected Response of Task:\n{expected_result} " + \
+                        f"The prediction is one of the options provided by the questioner.\n\n{inst_req_prompt}"
+                messages = [{"role": "user", "content": current_prompt}]
                 response_dict = client.get_text_generation_output(
-                    rephasing_messages,
+                    messages,
                     post_processor=inst_extract_func,
                     max_tolerance=max_tolerance,
                     model=model, 
@@ -575,68 +545,112 @@ if __name__ == "__main__":
                 )
                 total_cost += response_dict["cost"] 
                 total_time += response_dict["time"]
-                if response_dict["processed_content"] is not None:
-                    new_instruction = response_dict["processed_content"]
-                    scores = scorer_func(previous_templates[task_name]["instruction"])
-                    max_score = np.max(scores)
-            if max_score <= args.similarity_threshold:
-                # then generate the response templates   
-                current_prompt = response_prompt 
-                current_prompt = f"{current_prompt}{response_condition} Therefore, you are organizing your response now.\n\n"
-                current_prompt = f"{current_prompt}# Utterance of Questioner:\n{new_instruction}\n\n"
-                if slots[-1] != "Options":
-                    current_prompt = f"{current_prompt}# Constraint of Response:\n{response_constraint}\n\n"
-                else:
-                    current_prompt = f"{current_prompt}# Constraint of Response:\n{response_constraint}\n" + \
-                        "3. Cannot contain {choices}.\n\n"
-                current_prompt = f"{current_prompt}{resp_req_prompt}"
-                messages = [{"role": "user", "content": current_prompt}]
-                response_dict = client.get_text_generation_output(
-                    messages,
-                    post_processor=resp_extract_func,
-                    max_tolerance=max_tolerance,
-                    model=model, 
-                    stream=stream, 
-                    temperature=temperature, 
-                    top_p=top_p, 
+                new_instruction = response_dict["processed_content"]
+                if new_instruction is None:
+                    warnings.warn(
+                        "Postprocessing function fails to get the final response. " + \
+                        f"The raw content: {response_dict['content']}", 
+                        UserWarning 
+                    ) 
+                    progress_bar.update(1)
+                    continue 
+                scorer_func = np.vectorize(
+                    lambda prediction: scorer.score(
+                        new_instruction, 
+                        prediction
+                    )['rougeL'].fmeasure
                 )
-                total_cost += response_dict["cost"] 
-                total_time += response_dict["time"]
-                if response_dict["processed_content"] is not None:
-                    new_response = response_dict["processed_content"]
-                    scorer_func = np.vectorize(
-                        lambda prediction: scorer.score(
-                            new_response, 
-                            prediction
-                        )['rougeL'].fmeasure
+                if len(previous_templates[task_name]["instruction"]) > 0:
+                    scores = scorer_func(previous_templates[task_name]["instruction"])
+                else:
+                    scores = np.array([0.0])
+                max_score = np.max(scores)
+                current_refinement_step = 0 
+                # refine the input instruction to make it more diverse
+                while max_score > args.similarity_threshold and current_refinement_step < args.num_refinement_steps:
+                    current_refinement_step += 1
+                    total_refinement_steps += 1 
+                    inst_rephasing_prompt, rephasing_req_prompt = INSTRUCTIONS["rephrasing"], REQUIREMENTS["rephrasing"]
+                    rephasing_prompt = f"{inst_rephasing_prompt}# Original Sentence:\n{new_instruction}\n\n{rephasing_req_prompt}"
+                    rephasing_messages = [{"role": "user", "content": rephasing_prompt}]
+                    response_dict = client.get_text_generation_output(
+                        rephasing_messages,
+                        post_processor=inst_extract_func,
+                        max_tolerance=max_tolerance,
+                        model=model, 
+                        stream=stream, 
+                        temperature=temperature, 
+                        top_p=top_p, 
                     )
-                    if len(previous_templates[task_name]["response"]) > 0:
-                        response_scores = scorer_func(previous_templates[task_name]["response"])
+                    total_cost += response_dict["cost"] 
+                    total_time += response_dict["time"]
+                    if response_dict["processed_content"] is not None:
+                        new_instruction = response_dict["processed_content"]
+                        scores = scorer_func(previous_templates[task_name]["instruction"])
+                        max_score = np.max(scores)
+                if max_score <= args.similarity_threshold:
+                    # then generate the response templates   
+                    current_prompt = response_prompt 
+                    current_prompt = f"{current_prompt}{response_condition} Therefore, you are organizing your response now.\n\n"
+                    current_prompt = f"{current_prompt}# Utterance of Questioner:\n{new_instruction}\n\n"
+                    if slots[-1] != "Options":
+                        current_prompt = f"{current_prompt}# Constraint of Response:\n{response_constraint}\n\n"
                     else:
-                        response_scores = np.array([0.0])
-                    response_max_score = np.max(response_scores)
-                    for key, value in zip(
-                        ["instruction", "response", "instruction_score", "response_score"], 
-                        [new_instruction, new_response, max_score, response_max_score]
-                    ):
-                        previous_templates[task_name][key].append(value)
-                    if args.debug:
-                        assert "instruction_most_similar_candidates" in previous_templates[task_name] or len(previous_templates[task_name]["instruction_most_similar_candidates"]) == 0, \
-                            "It seems that generation of previous templates are not in debugging mode."
-                        assert "response_most_similar_candidates" in previous_templates[task_name] or len(previous_templates[task_name]["response_most_similar_candidates"]) == 0, \
-                            "It seems that generation of previous templates are not in debugging mode."
-                        previous_templates[task_name]["instruction_most_similar_candidates"].append(
-                            [previous_templates[task_name]["instruction"][i] for i in np.argsort(scores)[-3: ]] if len(previous_templates[task_name]["instruction"]) > 1 else [] 
+                        current_prompt = f"{current_prompt}# Constraint of Response:\n{response_constraint}\n" + \
+                            "3. Cannot contain {choices}.\n\n"
+                    current_prompt = f"{current_prompt}{resp_req_prompt}"
+                    messages = [{"role": "user", "content": current_prompt}]
+                    response_dict = client.get_text_generation_output(
+                        messages,
+                        post_processor=resp_extract_func,
+                        max_tolerance=max_tolerance,
+                        model=model, 
+                        stream=stream, 
+                        temperature=temperature, 
+                        top_p=top_p, 
+                    )
+                    total_cost += response_dict["cost"] 
+                    total_time += response_dict["time"]
+                    if response_dict["processed_content"] is not None:
+                        new_response = response_dict["processed_content"]
+                        scorer_func = np.vectorize(
+                            lambda prediction: scorer.score(
+                                new_response, 
+                                prediction
+                            )['rougeL'].fmeasure
                         )
-                        previous_templates[task_name]["response_most_similar_candidates"].append(
-                            [previous_templates[task_name]["response"][i] for i in np.argsort(response_scores)[-3: ]] if len(previous_templates[task_name]["response"]) > 1 else []
-                        )
-            progress_bar.update(1)
-    progress_bar.close()
+                        if len(previous_templates[task_name]["response"]) > 0:
+                            response_scores = scorer_func(previous_templates[task_name]["response"])
+                        else:
+                            response_scores = np.array([0.0])
+                        response_max_score = np.max(response_scores)
+                        for key, value in zip(
+                            ["instruction", "response", "instruction_score", "response_score"], 
+                            [new_instruction, new_response, max_score, response_max_score]
+                        ):
+                            previous_templates[task_name][key].append(value)
+                        if args.debug:
+                            assert "instruction_most_similar_candidates" in previous_templates[task_name] or len(previous_templates[task_name]["instruction_most_similar_candidates"]) == 0, \
+                                "It seems that generation of previous templates are not in debugging mode."
+                            assert "response_most_similar_candidates" in previous_templates[task_name] or len(previous_templates[task_name]["response_most_similar_candidates"]) == 0, \
+                                "It seems that generation of previous templates are not in debugging mode."
+                            previous_templates[task_name]["instruction_most_similar_candidates"].append(
+                                [previous_templates[task_name]["instruction"][i] for i in np.argsort(scores)[-3: ]] if len(previous_templates[task_name]["instruction"]) > 1 else [] 
+                            )
+                            previous_templates[task_name]["response_most_similar_candidates"].append(
+                                [previous_templates[task_name]["response"][i] for i in np.argsort(response_scores)[-3: ]] if len(previous_templates[task_name]["response"]) > 1 else []
+                            )
+                progress_bar.update(1)
+        progress_bar.close()
 
-    print("Total Cost: {:.2f}$".format(total_cost))
-    print(f"Total Time: {str(datetime.timedelta(seconds=total_time))}")
-    print(f"Total Refinement Steps: {total_refinement_steps}")
+        print("Total Cost: {:.2f}$".format(total_cost))
+        print(f"Total Time: {str(datetime.timedelta(seconds=total_time))}")
+        print(f"Total Refinement Steps: {total_refinement_steps}")
+
+        output_file = os.path.join(args.output_dir, "raw_templates.json")
+        with open(output_file, 'w') as f:
+            json.dump(previous_templates, f, indent=4)
+
 
     output_file = os.path.join(args.output_dir, "raw_templates.json")
     with open(output_file, 'w') as f:
