@@ -268,8 +268,6 @@ if __name__ == '__main__':
     model_parameters = parse_parameters(MODEL_PARAMETERS)
 
     dir_names = TASKS
-    TASKS.pop("cell type annotation")
-    TASKS.pop("conditional pseudo cell generation")
     task_types = list(dir_names.keys())
 
     model_path = model_parameters["language_model"]["model_path"]
