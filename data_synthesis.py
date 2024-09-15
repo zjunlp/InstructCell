@@ -303,7 +303,7 @@ if __name__ == "__main__":
         default=False, 
         type=str2bool,
         help="whehter to synthesize the world knowledge only." 
-   )
+    )
 
     # parameters of filtering 
     parser.add_argument(
