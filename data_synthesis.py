@@ -650,8 +650,3 @@ if __name__ == "__main__":
         output_file = os.path.join(args.output_dir, "raw_templates.json")
         with open(output_file, 'w') as f:
             json.dump(previous_templates, f, indent=4)
-
-
-    output_file = os.path.join(args.output_dir, "raw_templates.json")
-    with open(output_file, 'w') as f:
-        json.dump(previous_templates, f, indent=4)
