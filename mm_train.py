@@ -150,6 +150,9 @@ def train(
     if args.save_dir is not None:
         args.save_dir = Path(args.save_dir)
         args.save_dir.mkdir(exist_ok=True, parents=True)
+    if args.best_model_dir is not None:
+        args.best_model_dir = Path(args.best_model_dir)
+        args.best_model_dir.mkdir(exist_ok=True, parents=True)
     
     best_metric = float('inf') if best_val is None else best_val
     best_fn = lambda x: x < best_metric
@@ -170,11 +173,11 @@ def train(
             logger[key + " (training mode)"].append(value)
         if valid_dataloader is not None:
             logs = evaluate_step(model if not args.distributed else model.module, valid_dataloader)
-            if args.best_model_name is not None:
+            if args.best_model_dir is not None:
                 metric = logs["eval_loss"]
                 if best_fn(metric):
                     best_metric = metric
-                    save_path = f"{args.best_model_name}.pkl"
+                    save_path = f"{str(args.best_model_dir)}/best_mm_model.pkl"
                     torch.save(model.state_dict() if not args.distributed else model.module.state_dict(), save_path)
             for key, value in logs.items():
                 logger[key + " (validation mode)"].append(value)
@@ -239,9 +242,9 @@ if __name__ == '__main__':
     parser.add_argument("--epochs", default=250, type=int, help="the number of training epochs")
     parser.add_argument("--learning_rate", default=1e-3, type=float, help="the learning rate of the optimizer")
     parser.add_argument("--print_freq", default=10, type=int, help="the frequency of printing training information")
-    parser.add_argument("--save_dir", default="./checkpoints/", type=str, help="the directory of saving checkpoints")
+    parser.add_argument("--save_dir", default="../checkpoints/", type=str, help="the directory of saving checkpoints")
     parser.add_argument("--save_freq", default=50, type=int, help="the frequency of saving checkpoints")
-    parser.add_argument("--best_model_name", default="best_mm_model", type=str, help="the file name of the best model")
+    parser.add_argument("--best_model_dir", default="../trained_models/", type=str, help="the directory of saving the best model")
     parser.add_argument(
         "--accumulation_steps",
         default=1,
@@ -257,7 +260,7 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         "--resume_path", 
-        default="./checkpoints/model_checkpoint.pth", 
+        default="../checkpoints/model_checkpoint.pth", 
         type=str, 
         help="the file path of the latest checkpoint"
     )
@@ -479,24 +482,22 @@ if __name__ == '__main__':
     # set model to the current device 
     mm_model.to(device=device)
 
-    # Recover the training states.
+    # recover the training states
     start_epoch = 1
     if args.resume_path is not None and args.resume:
-        # Load the model.
-        # If the states are on GPU, it will be converted to CPU first in order to avert 
-        # the GPU memory surge when loading the model.
-        state_dict = torch.load(args.resume_path, map_location='cpu')
-        mm_model.load_state_dict(state_dict['model'])
+        # load the model
+        state_dict = torch.load(args.resume_path, map_location="cpu")
+        mm_model.load_state_dict(state_dict["model"])
         if args.resume:
-            optimizer.load_state_dict(state_dict['optimizer'])
-            start_epoch = state_dict['epoch'] + 1
+            optimizer.load_state_dict(state_dict["optimizer"])
+            start_epoch = state_dict["epoch"] + 1
             print(f"Resume training from epoch {start_epoch}...")
             r_epochs = epochs - start_epoch + 1
             print(f"Total epochs remaining: {r_epochs}")
     
 
     epochs = args.epochs
-    # args.gpu has been set in init_distributed_mode() if args.distributed. 
+    # args.gpu has been set in init_distributed_mode() if args.distributed 
     if args.distributed:
         model_ = torch.nn.parallel.DistributedDataParallel(mm_model, device_ids=[args.gpu])
     else:
