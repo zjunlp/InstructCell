@@ -223,7 +223,7 @@ if __name__ == "__main__":
     )
 
     device_id = args.device_id
-    mm_model.load_state_dict(torch.load(best_model_path)) 
+    mm_model.load_state_dict(torch.load(best_model_path, map_location="cpu"))
     mm_model = mm_model.to(f"cuda:{device_id}")
     # close the dropout layers in feature encoder 
     mm_model.eval()
@@ -279,8 +279,6 @@ if __name__ == "__main__":
                 outputs = mm_model.generate(
                     batch["input_ids"],
                     batch["input_counts"], 
-                    top_p=0.95,
-                    top_k=50,
                     do_sample=False,
                     max_new_tokens=512,
                 )
@@ -366,8 +364,6 @@ if __name__ == "__main__":
                 outputs = mm_model.generate(
                     batch["input_ids"],
                     batch["input_counts"], 
-                    top_p=0.95,
-                    top_k=50,
                     do_sample=False,
                     max_new_tokens=512,
                 )
