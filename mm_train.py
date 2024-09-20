@@ -495,8 +495,6 @@ if __name__ == '__main__':
             r_epochs = epochs - start_epoch + 1
             print(f"Total epochs remaining: {r_epochs}")
     
-
-    epochs = args.epochs
     # args.gpu has been set in init_distributed_mode() if args.distributed 
     if args.distributed:
         model_ = torch.nn.parallel.DistributedDataParallel(mm_model, device_ids=[args.gpu])
