@@ -232,7 +232,7 @@ if __name__ == "__main__":
     test_adata = dataset.count_data.copy()
     # if we evaluate a single prompt's performance across all test samples
     if args.evaluate_single_prompt:
-        templates = dataset.templates[: args.num_single_prompts]
+        templates = dataset.templates[: args.num_single_prompt]
     else:
         templates = np.array(['#'])
 
