@@ -85,7 +85,7 @@ if __name__ == "__main__":
         help="whether to evaluate a single prompt or not"
     )
     parser.add_argument(
-        "--num_single_prompts", 
+        "--num_single_prompt", 
         default=20,
         type=int, 
         help="the number of single prompts to evaluate"
