@@ -122,7 +122,7 @@ python evaluate.py \
     --no_extra_output_ratio 1.0 
 ```
 - To evaluate the performance of InstructCell on other tasks, simply change the parameter `task_type`.
-- To evaluate the robustness of InstructCell for task descriptions, you can add `--evaluate_single_prompt True`. By default, 20 different task descriptions are used. If you want to change the number, for example to 40, you can add `--num_single_prompts 40`.
+- To evaluate the robustness of InstructCell for task descriptions, you can add `--evaluate_single_prompt True`. By default, 20 different task descriptions are used. If you want to change the number, for example to 40, you can add `--num_single_prompt 40`.
 - When evaluating InstructCell, you can adjust whether to just use the test templates which contain options. By default, all templates are used. You can add `--provide_choices True` to indicate that only test templates providing options should be used.
 - To evaluate the **chat** version of InstructCell, set the parameter `no_extra_output_ratio` to 0.0. This will generate content in a format that matches the JSON file required by xFinder. Then, use xFinder for the evaluation. For usage details, please refer to the [xFinder repository](https://github.com/IAAR-Shanghai/xFinder) 👈. 
 
