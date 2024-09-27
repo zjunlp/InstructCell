@@ -481,7 +481,7 @@ class TextCellDataset(Dataset):
                 )
             )
         else:
-            for dataset_name in os.listdir(dir_name):
+            for dataset_name in sorted(os.listdir(dir_name)):
                 path = os.path.join(dir_name, dataset_name)
                 if os.path.isdir(path):
                     results[dataset_name] = {}
