@@ -165,7 +165,7 @@ def prepare_cell_text_llm(
         replace_additional_special_tokens=False, 
     )
     _validate_added_special_tokens(tokenizer, added_tokens)
-    print(f"Follwing {len(added_tokens)} tokens are added for modality {modality_tag}:\n{added_tokens}")
+    print(f"Following {len(added_tokens)} tokens are added for modality {modality_tag}:\n{added_tokens}")
     
     # TO DO: placeholder tokens should be not added to the model's embedding layer 
     model.resize_token_embeddings(len(tokenizer), pad_to_multiple_of=pad_to_multiple_of)
