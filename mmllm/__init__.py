@@ -127,7 +127,7 @@ def prepare_cell_text_llm(
     ...     ignore_index=-100, 
     ...     pad_to_multiple_of=8, 
     ... )
-    Follwing 4 tokens are added for modality CELL:
+    Following 4 tokens are added for modality CELL:
     ['<CELL>', '</CELL>', '<CELL0>', '<CELL1>']
     >>> tokenizer.get_added_vocab() 
     {'</CELL>': 32101, '<CELL0>': 32102, '<CELL1>': 32103, '<CELL>': 32100}
