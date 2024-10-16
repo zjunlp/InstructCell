@@ -1,6 +1,7 @@
 from huggingface_hub import snapshot_download
 import argparse
 from pathlib import Path
+import os
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -38,8 +39,7 @@ if __name__ == '__main__':
 
     if args.proxy is not None:
         if args.proxy == "auto":
-            args.proxy = "http://127.0.0.1:7890"
-        import os 
+            args.proxy = "http://127.0.0.1:7890" 
         os.environ["HTTP_PROXY"] = args.proxy
         os.environ["HTTPS_PROXY"] = args.proxy
 
