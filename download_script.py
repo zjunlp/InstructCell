@@ -1,6 +1,5 @@
 from huggingface_hub import snapshot_download
 import argparse
-from pathlib import Path
 import os
 
 if __name__ == '__main__':
