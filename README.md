@@ -109,7 +109,9 @@ bash run_data_synthesis.sh
 
 
 <div align="center">
-  <img width="800" alt="image" src="https://github.com/user-attachments/assets/3ab185af-2504-4a0d-8e43-6876f7a579ce" />
+
+  <img width="800" alt="image" src="https://github.com/user-attachments/assets/d47ad0ec-645d-4b89-8c6a-1c22df3d8e70" />
+
 </div>
 
 ### 🚀 Training InstructCell 
