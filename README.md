@@ -47,7 +47,7 @@ The datasets used in the paper are all publicly available. The Jupyter notebooks
 Note that, for He-2020, the cell type annotation file is downloaded from Github repository [scRNA-AHCA](https://github.com/bei-lab/scRNA-AHCA/tree/master/Cell_barcode_and_corresponding_cell_types_of_AHCA) 👈. 
 
 <div align="center">
-  <img width="500" alt="image" src="https://github.com/user-attachments/assets/b2002629-a2dc-4009-976e-f63fa6d4aec6" />
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/b2002629-a2dc-4009-976e-f63fa6d4aec6" />
 </div>
 
 ### ⚙️ Installation 
@@ -133,7 +133,7 @@ torchrun --nproc_per_node=4 mm_train.py \
 
 
 <div align="center">
-     <img width="800" alt="image" src="https://github.com/user-attachments/assets/82ed82c4-5d9d-4e84-9ce2-dc11fc4e560e" />
+     <img width="700" alt="image" src="https://github.com/user-attachments/assets/82ed82c4-5d9d-4e84-9ce2-dc11fc4e560e" />
 </div>
 
 
