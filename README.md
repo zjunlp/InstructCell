@@ -14,7 +14,6 @@
 - python 3.10 and above are recommended
 - CUDA 11.7 and above are recommended 
 
-## 🗞️ Overview
 
 <h2 id="1">🗞️ Overview</h2>
 InstructCell is a multimodal AI assistant that integrates natural language with single-cell RNA sequencing (scRNA-seq) data, enabling researchers to perform tasks like cell type annotation, pseudo-cell generation, and drug sensitivity prediction through intuitive text commands. 
