@@ -6,7 +6,7 @@
 ![](https://img.shields.io/github/last-commit/zjunlp/InstructCell?color=green) 
 
 ## Table of Contents
-- 🗞️[Overview](#overview)
+- 🗞️[Overview](#1)
 - 🗝️[Quick Start](#quick-start)
 - 🔖[Citation](#citation)
 
@@ -16,6 +16,7 @@
 
 ## 🗞️ Overview
 
+<h2 id="1">🗞️ Overview</h2>
 InstructCell is a multimodal AI assistant that integrates natural language with single-cell RNA sequencing (scRNA-seq) data, enabling researchers to perform tasks like cell type annotation, pseudo-cell generation, and drug sensitivity prediction through intuitive text commands. 
 By leveraging a specialized multimodal architecture and our multimodal single-cell instruction dataset, InstructCell reduces technical barriers and enhances accessibility for single-cell analysis.
 
