@@ -16,6 +16,7 @@
 InstructCell is a multimodal AI assistant that integrates natural language with single-cell RNA sequencing (scRNA-seq) data, enabling researchers to perform tasks like cell type annotation, pseudo-cell generation, and drug sensitivity prediction through intuitive text commands. 
 By leveraging a specialized multimodal architecture and our multimodal single-cell instruction dataset, InstructCell reduces technical barriers and enhances accessibility for single-cell analysis.
 
+<img width="1876" alt="image" src="https://github.com/user-attachments/assets/3fefe71c-3c00-4c21-b388-cf2300fb9f90" />
 
 
 <h2 id="2">🗝️ Quick Start</h2>
@@ -44,6 +45,10 @@ The datasets used in the paper are all publicly available. The Jupyter notebooks
 |Tabular-Muris|mouse|conditional pseudo cell generation|Figshare|https://figshare.com/articles/dataset/Single-cell_RNA-seq_data_from_microfluidic_emulsion_v2_/5968960|
 
 Note that, for He-2020, the cell type annotation file is downloaded from Github repository [scRNA-AHCA](https://github.com/bei-lab/scRNA-AHCA/tree/master/Cell_barcode_and_corresponding_cell_types_of_AHCA) 👈. 
+
+<div align="center">
+  <img width="500" alt="image" src="https://github.com/user-attachments/assets/b2002629-a2dc-4009-976e-f63fa6d4aec6" />
+</div>
 
 ### ⚙️ Installation 
 Download the code: 
@@ -101,6 +106,12 @@ bash run_data_synthesis.sh
 > [!NOTE]
 > Before running `run_data_synthesis.sh`, you need to modify the parameters in the file, such as the API keys and base URL being used. You can also adjust the model used for template synthesis (`model` in the script) and the number of times each API key is called for each task (`num_templates_for_task` in the script).
 
+
+
+<div align="center">
+  <img width="875" alt="image" src="https://github.com/user-attachments/assets/3ab185af-2504-4a0d-8e43-6876f7a579ce" />
+</div>
+
 ### 🚀 Training InstructCell 
 You can run the following command to train InstructCell: 
 ```
@@ -119,6 +130,12 @@ torchrun --nproc_per_node=4 mm_train.py \
 - To resume training from a specific checkpoint (path: `YOUR_CHECKPOINT_PATH`), add `--resume True` and `--resume_path YOUR_CHECKPOINT_PATH`.
 - You can train InstructCell on a single task and a single dataset by modifying the `TASKS` in `metadata.py`, keeping only one dataset directory in the corresponding task directory, and adding `--unify_gene False`.
 - You can adjust the architecture of InstructCell, such as the number of query tokens in Q-Former or the dimension of the latent variables in the VAE, simply by modifying the `MODEL_PARAMETERS` in `metadata.py`.
+
+
+<div align="center">
+     <img width="800" alt="image" src="https://github.com/user-attachments/assets/82ed82c4-5d9d-4e84-9ce2-dc11fc4e560e" />
+</div>
+
 
 ### 📑 Evaluation
 Run the following command to evaluate performance of InstructCell on conditional pseudo cell generation: 
