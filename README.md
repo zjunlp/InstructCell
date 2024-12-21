@@ -133,7 +133,7 @@ torchrun --nproc_per_node=4 mm_train.py \
 
 
 <div align="center">
-     <img width="700" alt="image" src="https://github.com/user-attachments/assets/82ed82c4-5d9d-4e84-9ce2-dc11fc4e560e" />
+     <img width="650" alt="image" src="https://github.com/user-attachments/assets/82ed82c4-5d9d-4e84-9ce2-dc11fc4e560e" />
 </div>
 
 
