@@ -47,7 +47,7 @@ The datasets used in the paper are all publicly available. The Jupyter notebooks
 Note that, for He-2020, the cell type annotation file is downloaded from Github repository [scRNA-AHCA](https://github.com/bei-lab/scRNA-AHCA/tree/master/Cell_barcode_and_corresponding_cell_types_of_AHCA) 👈. 
 
 <div align="center">
-  <img width="600" alt="image" src="https://github.com/user-attachments/assets/b2002629-a2dc-4009-976e-f63fa6d4aec6" />
+  <img width="500" alt="image" src="https://github.com/user-attachments/assets/b2002629-a2dc-4009-976e-f63fa6d4aec6" />
 </div>
 
 ### ⚙️ Installation 
@@ -109,7 +109,7 @@ bash run_data_synthesis.sh
 
 
 <div align="center">
-  <img width="675" alt="image" src="https://github.com/user-attachments/assets/3ab185af-2504-4a0d-8e43-6876f7a579ce" />
+  <img width="700" alt="image" src="https://github.com/user-attachments/assets/3ab185af-2504-4a0d-8e43-6876f7a579ce" />
 </div>
 
 ### 🚀 Training InstructCell 
