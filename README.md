@@ -7,8 +7,8 @@
 
 ## Table of Contents
 - 🗞️[Overview](#1)
-- 🗝️[Quick Start](#quick-start)
-- 🔖[Citation](#citation)
+- 🗝️[Quick Start](#2)
+- 🔖[Citation](#3)
 
 ## 🪜 Requirements
 - python 3.10 and above are recommended
@@ -19,8 +19,7 @@
 InstructCell is a multimodal AI assistant that integrates natural language with single-cell RNA sequencing (scRNA-seq) data, enabling researchers to perform tasks like cell type annotation, pseudo-cell generation, and drug sensitivity prediction through intuitive text commands. 
 By leveraging a specialized multimodal architecture and our multimodal single-cell instruction dataset, InstructCell reduces technical barriers and enhances accessibility for single-cell analysis.
 
-
-## 🗝️ Quick Start
+<h2 id="2">🗝️ Quick Start</h2>
 Assume your current directory path is `DIR_PATH`. 
 ### 🧫 Collecting Raw Single Cell Datasets
 The datasets used in the paper are all publicly available. The Jupyter notebooks, `HumanUnified.ipynb` and `MouseUnified.ipynb`, provide links to each dataset. The information for each dataset is as follows. 
@@ -136,7 +135,8 @@ python evaluate.py \
 
 <!-- ## 🎬 Demo  --> 
 
-## 🔖 Citation
+
+<h2 id="3">🔖 Citation</h2>
 
 ## ✨ Contributors
 
