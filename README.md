@@ -1,5 +1,5 @@
 <h1 align="center"> 🎨 InstructCell </h1>
-<b>InstructCell: A Multimodal Cell Language Model for Single-cell Analysis</b>
+<b>InstructCell: A Multimodal AI Assistant for Natural Language-Driven Single-cell Analysis</b>
 
 [![Awesome](https://awesome.re/badge.svg)](https://github.com/zjunlp/InstructCell) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -15,6 +15,10 @@
 - CUDA 11.7 and above are recommended 
 
 ## 🗞️ Overview
+
+InstructCell is a multimodal AI assistant that integrates natural language with single-cell RNA sequencing (scRNA-seq) data, enabling researchers to perform tasks like cell type annotation, pseudo-cell generation, and drug sensitivity prediction through intuitive text commands. 
+By leveraging a specialized multimodal architecture and our multimodal single-cell instruction dataset, InstructCell reduces technical barriers and enhances accessibility for single-cell analysis.
+
 
 ## 🗝️ Quick Start
 Assume your current directory path is `DIR_PATH`. 
