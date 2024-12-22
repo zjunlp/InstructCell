@@ -7,7 +7,15 @@ from collections import defaultdict, OrderedDict
 from tqdm import tqdm 
 import numpy as np 
 from functools import partial 
-from metadata import SEED
+from metadata import (
+    SEED,
+    CELL_LABEL, 
+    SEQUENCING_METHOD, 
+    TISSUE,
+    SPECIES,
+    DRUG,
+    CHOICES, 
+) 
 from utils import str2bool 
 from typing import (
     List, 
@@ -52,12 +60,12 @@ REQUIREMENTS = {
 
 
 ATTRIBUTES = {
-    "Cell type": "{cell_type}", 
-    "Sequencing method": "{sequencing_method}",
-    "Tissue": "{tissue}",
-    "Species": "{species}", 
-    "Drug": "{drug}",
-    "Options": "{choices}", 
+    "Cell type": f"{{{CELL_LABEL}}}", 
+    "Sequencing method": f"{{{SEQUENCING_METHOD}}}",
+    "Tissue": f"{{{TISSUE}}}",
+    "Species": f"{{{SPECIES}}}", 
+    "Drug": f"{{{DRUG}}}",
+    "Options": f"{{{CHOICES}}}", 
     "Single cell to be annotated": "{input}", 
     "Single cell whose response to a drug is to be predicted": "{input}",
 }
@@ -422,7 +430,7 @@ if __name__ == "__main__":
         if len(args.questioner_factors) == 0 and args.no_questioner_metadata_ratio != 1.0:
             warnings.warn(
                 "The ratio of no questioner metadata is not 1.0, but the questioner_factors is empty. " + 
-                "It seems that the questioner_factors is not set correctly." + 
+                "It seems that the questioner_factors is not set correctly. " + 
                 "The ratio of no questioner metadata is set to 1.0.",
                 UserWarning
             )
