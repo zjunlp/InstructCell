@@ -966,6 +966,8 @@ class CellTextLLM(nn.Module):
             output_counts,  
             **generative_model_kwargs
         )
-        outputs.loss = outputs.loss + generative_outputs.loss 
+        batch_size = input_ids.shape[0]
+        num_generative_samples = output_counts.shape[0]
+        outputs.loss = outputs.loss + generative_outputs.loss * num_generative_samples / batch_size
         
         return outputs
