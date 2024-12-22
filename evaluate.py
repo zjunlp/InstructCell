@@ -294,7 +294,7 @@ if __name__ == "__main__":
                             {
                                 "question": input_instances[index],
                                 "llm_output": output_instances[index],
-                                "model_name": "ChatCell", 
+                                "model_name": "InstructCell", 
                                 "key_answer_type": "categorical label",
                                 "correct_answer": targets[pointer],
                                 "dataset": source, 
