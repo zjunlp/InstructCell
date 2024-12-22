@@ -42,7 +42,6 @@ The datasets used in the paper are all publicly available. The Jupyter notebooks
 |Bastidas-Ponce-2019|mouse|cell type annotation|GEO|https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE132188|
 |GSE110894|mouse|drug sensitivity predictio|GEO|https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110894|
 |Mouse-Atlas|mouse|conditional pseudo cell generation|GEO|https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4505404|
-|Tabular-Muris|mouse|conditional pseudo cell generation|Figshare|https://figshare.com/articles/dataset/Single-cell_RNA-seq_data_from_microfluidic_emulsion_v2_/5968960|
 
 Note that, for He-2020, the cell type annotation file is downloaded from Github repository [scRNA-AHCA](https://github.com/bei-lab/scRNA-AHCA/tree/master/Cell_barcode_and_corresponding_cell_types_of_AHCA) 👈. 
 
@@ -117,10 +116,10 @@ bash run_data_synthesis.sh
 ### 🚀 Training InstructCell 
 You can run the following command to train InstructCell: 
 ```
-torchrun --nproc_per_node=4 mm_train.py \
-    --epochs 250 \
-    --save_freq 50 \
-    --batch_size 128 \
+torchrun --nproc_per_node=8 mm_train.py \
+    --epochs 160 \
+    --save_freq 20 \
+    --batch_size 64 \
     --train_template_dir ../output/train_templates \
     --valid_template_dir ../output/valid_templates \
     --save_dir ../checkpoints \
