@@ -47,6 +47,7 @@ from utils import (
     set_global_random_seed, 
     parse_parameters, 
 )
+from copy import deepcopy 
 import argparse
 from typing import (
     Optional,
@@ -195,7 +196,7 @@ def train(
                 "optimizer": optimizer.state_dict(),
                 "epoch": i + 1
             }
-            torch.save(state_dict, save_path)
+            torch.save(state_dict, save_path) 
 
     return logger, best_metric
     
@@ -251,6 +252,12 @@ if __name__ == '__main__':
         type=int,
         help="the number of accumulation steps" 
     )
+    parser.add_argument(
+        "--num_epochs_freeze_encoder",
+        default=None,
+        type=int,
+        help="the number of training epochs before freezing encoder" 
+    )
     # parameters of checkpoints 
     parser.add_argument(
         "--resume", 
@@ -260,7 +267,7 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         "--resume_path", 
-        default="../checkpoints/model_checkpoint.pth", 
+        default=None, 
         type=str, 
         help="the file path of the latest checkpoint"
     )
@@ -477,6 +484,8 @@ if __name__ == '__main__':
 
     # begin training 
     epochs = args.epochs
+    if args.num_epochs_freeze_encoder is not None and args.num_epochs_freeze_encoder >= epochs:
+        args.num_epochs_freeze_encoder = None
     optimizer = Adafactor(mm_model.parameters(), lr=args.learning_rate, relative_step=False)
     device = args.device 
     # set model to the current device 
@@ -484,24 +493,41 @@ if __name__ == '__main__':
 
     # recover the training states
     start_epoch = 1
-    if args.resume_path is not None and args.resume:
+    if args.resume_path is not None:
         # load the model
         state_dict = torch.load(args.resume_path, map_location="cpu")
         mm_model.load_state_dict(state_dict["model"])
         if args.resume:
-            optimizer.load_state_dict(state_dict["optimizer"])
             start_epoch = state_dict["epoch"] + 1
             print(f"Resume training from epoch {start_epoch}...")
             r_epochs = epochs - start_epoch + 1
             print(f"Total epochs remaining: {r_epochs}")
-    
+            if args.num_epochs_freeze_encoder is not None and args.num_epochs_freeze_encoder < start_epoch:
+                if mm_model.feature_encoder is not None:
+                    for param in mm_model.feature_encoder.parameters():
+                        param.requires_grad = False
+                learned_parameters = list(mm_model.base_model.parameters())
+                if mm_model.feature_decoder is not None:
+                    learned_parameters.extend(list(mm_model.feature_decoder.parameters()))
+                optimizer = Adafactor(
+                    learned_parameters, 
+                    lr=args.learning_rate, 
+                    relative_step=False
+                )
+            if args.num_epochs_freeze_encoder is None or args.num_epochs_freeze_encoder + 1 != start_epoch:
+                optimizer.load_state_dict(state_dict["optimizer"])
+            if args.num_epochs_freeze_encoder is not None and args.num_epochs_freeze_encoder < start_epoch:
+                args.num_epochs_freeze_encoder = None 
+
     # args.gpu has been set in init_distributed_mode() if args.distributed 
     if args.distributed:
         model_ = torch.nn.parallel.DistributedDataParallel(mm_model, device_ids=[args.gpu])
     else:
-        model_ = mm_model
+        model_ = mm_model    
 
-    train(
+    if args.num_epochs_freeze_encoder is not None:
+        args.epochs = args.num_epochs_freeze_encoder 
+    _, best_val = train(
         model_, 
         args, 
         optimizer, 
@@ -509,3 +535,35 @@ if __name__ == '__main__':
         valid_dataloader, 
         start_epoch=start_epoch,
     )
+    if args.num_epochs_freeze_encoder is not None:
+        args.epochs = epochs
+        start_epoch = args.num_epochs_freeze_encoder + 1 
+        if args.distributed:
+            mm_model = deepcopy(model_.module)
+        else:
+            mm_model = deepcopy(model_)
+        del model_ 
+        if mm_model.feature_encoder is not None:
+            for param in mm_model.feature_encoder.parameters():
+                param.requires_grad = False
+        learned_parameters = list(mm_model.base_model.parameters())
+        if mm_model.feature_decoder is not None:
+            learned_parameters.extend(list(mm_model.feature_decoder.parameters()))
+        optimizer = Adafactor(
+            learned_parameters, 
+            lr=args.learning_rate, 
+            relative_step=False
+        )
+        if args.distributed:
+            model_ = torch.nn.parallel.DistributedDataParallel(mm_model, device_ids=[args.gpu])
+        else:
+            model_ = mm_model    
+        train(
+            model_, 
+            args, 
+            optimizer, 
+            train_dataloader, 
+            valid_dataloader, 
+            start_epoch=start_epoch,
+            best_val=best_val, 
+        )
