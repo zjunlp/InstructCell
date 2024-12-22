@@ -223,7 +223,7 @@ if __name__ == "__main__":
     )
 
     device_id = args.device_id
-    mm_model.load_state_dict(torch.load(best_model_path, map_location="cpu"))
+    mm_model.load_state_dict(torch.load(best_model_path, map_location="cpu")) 
     mm_model = mm_model.to(f"cuda:{device_id}")
     # close the dropout layers in feature encoder 
     mm_model.eval()
@@ -243,12 +243,10 @@ if __name__ == "__main__":
             targets = test_adata.obs[CELL_LABEL].values
         else:
             targets = test_adata.obs[RESPONSE_LABEL].values.astype(str)
-        choices = dataset.choices
-        if len(choices) == 0:
-            choices_path = os.path.join(OPTION_DIR, OPTION_FILE_NAME)
-            with open(choices_path, "rb") as f:
-                choices = pickle.load(f) 
-            choices = {source: choices.get(source, {}).get(task_type, []) for source in dataset_sources}
+        choices_path = os.path.join(OPTION_DIR, OPTION_FILE_NAME)
+        with open(choices_path, "rb") as f:
+            choices = pickle.load(f) 
+        choices = {source: choices.get(source) for source in dataset_sources} 
         for template_id, template in enumerate(tqdm(templates)):
             if template == '#':
                 dataloader = DataLoader(
@@ -324,9 +322,7 @@ if __name__ == "__main__":
                 for source in source_outputs:
                     all_outputs[source][template_id] = source_outputs[source]
     else:
-        # you may delete the following code for your own data
-        dataset_sources = np.array(["Tabular-Sapiens", "Tabular-Muris", "PBMC68K", "Mouse-Atlas"])
-
+        dataset_sources = np.unique(test_adata.obs["_source"].values)
         sc.pp.normalize_total(test_adata, target_sum=TOTAL_SUM)
         sc.pp.log1p(test_adata, base=BASE)
         pca = TruncatedSVD(n_components=50, n_iter=20, random_state=SEED)
@@ -395,7 +391,7 @@ if __name__ == "__main__":
                 }
                 for k in k_list:
                     for metric_name, func in zip(
-                        [f"SKNN ({k})", f"RKNN ({k})", f"SKNN ({k}) for Real Data"], 
+                        [f"sKNN ({k})", f"pKNN ({k})", f"sKNN ({k}) for Real Data"], 
                         [measure_bio_preservation, measure_simulation, measure_bio_preservation]
                     ): 
                         if not metric_name.endswith("Data"):
