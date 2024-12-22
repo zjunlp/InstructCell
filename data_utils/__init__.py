@@ -14,7 +14,6 @@ from collections import OrderedDict
 from scipy.sparse import issparse, csr_matrix 
 import torch 
 from metadata import (
-    DATASET_IDENTITY, 
     OPTION_DIR,
     OPTION_FILE_NAME, 
     COUNT_DATA_FILE_NAME, 
@@ -23,6 +22,7 @@ from metadata import (
     TASKS, 
     CTA, 
     DSP, 
+    CHOICES, 
 ) 
 from typing import (
     Dict,  
@@ -189,9 +189,6 @@ class TextCellDataset(Dataset):
                     self.text_outputs[key] = [] 
                 self.text_outputs[key].append(outputs["text_outputs"][key]) 
         self._flatten()
-        self.metadata = {
-            source: datasets[source]["metadata"] for source in datasets
-        } 
         self.choices = {
             source: datasets[source]["choices"] for source in datasets
         } 
@@ -332,23 +329,37 @@ class TextCellDataset(Dataset):
 
         # get count data 
         input_counts = np.array([]) 
+        metadata = {} 
         if len(self.input_counts_indexer) > 0:
             input_counts_idx = self.input_counts_indexer[index]
             input_counts = self.count_data.X[input_counts_idx].toarray()
             input_counts = input_counts.astype(np.float32)
+            metadata = self.count_data.obs.iloc[input_counts_idx].to_dict("list")
+            if len(input_counts_idx) == 1:
+                metadata = {
+                    key: metadata[key][0] for key in metadata
+                }
+            else:
+                # we have multiple input cells 
+                multi_metadata = {} 
+                for key in metadata:
+                    for i in range(len(metadata[key])):
+                        multi_metadata[f"{key}_{i}"] = metadata[key][i]
+                metadata = multi_metadata
         output_counts = np.array([])
         if len(self.output_counts_indexer) > 0:
             output_counts_idx = self.output_counts_indexer[index]
             output_counts = self.count_data.X[output_counts_idx].toarray()
-            output_counts = output_counts.astype(np.float32)
+            output_counts = output_counts.astype(np.float32) 
+            if len(metadata) == 0:
+                # as output_counts_idx is an integer
+                metadata = self.count_data.obs.iloc[output_counts_idx].to_dict()
         item["input_counts"] = input_counts 
         item["output_counts"] = output_counts
 
         # get text data 
-        source = self.count_data.obs["_source"].values[index]
         template = self.templates[self.template_indexer[index]]
 
-        metadata = self.metadata[source]
         if self.predefined_choices is not None:
             choices = self.predefined_choices[index]
         else:
@@ -356,7 +367,7 @@ class TextCellDataset(Dataset):
         if len(choices) > 0:
             metadata = {
                 **metadata, 
-                "choices": choices
+                CHOICES: choices
             }
         text_input_data = {key: self.text_inputs[key][index] for key in self.text_inputs}
         text_output_data = {key: self.text_outputs[key][index] for key in self.text_outputs}
@@ -494,11 +505,6 @@ class TextCellDataset(Dataset):
         for dataset_name in results:
             if not issparse(results[dataset_name]["count_data"].X): 
                 results[dataset_name]["count_data"].X = csr_matrix(results[dataset_name]["count_data"].X)
-        
-        # read related metadata 
-        for source in results:
-            metadata = DATASET_IDENTITY.get(source, {}) 
-            results[source]["metadata"] = metadata 
 
         # read related choices
         for sources in results:
@@ -518,7 +524,7 @@ class TextCellDataset(Dataset):
                 )
 
         return results 
-
+    
 class TextCellCollator(DataCollatorForSeq2Seq):
     """
     A custom data collator class for handling single-cell tasks with sequence-to-sequence (Seq2Seq) models.
@@ -574,4 +580,3 @@ class TextCellCollator(DataCollatorForSeq2Seq):
             batch["output_counts"] = None
 
         return batch 
-    
