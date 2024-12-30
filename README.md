@@ -6,9 +6,10 @@
 ![](https://img.shields.io/github/last-commit/zjunlp/InstructCell?color=green) 
 
 ## Table of Contents
-- 🗞️[Overview](#1)
-- 🗝️[Quick Start](#2)
-- 🔖[Citation](#3)
+- 🗞️ [Overview](#1)
+- 🗝️ [Quick start](#2)
+- 🚀 [How to run](#3)
+- 🔖 [Citation](#4)
 
 
 <h2 id="1">🗞️ Overview</h2>
@@ -19,7 +20,9 @@ By leveraging a specialized multimodal architecture and our multimodal single-ce
 <img width="1876" alt="image" src="https://github.com/user-attachments/assets/3fefe71c-3c00-4c21-b388-cf2300fb9f90" />
 
 
-<h2 id="2">🗝️ Quick Start</h2>
+<h2 id="2">🗝️ Quick start</h2>
+
+<h2 id="3">🚀 How to run</h2>
 
 ### 🪜 Requirements
 - python 3.10 and above are recommended
@@ -160,7 +163,7 @@ python evaluate.py \
 <!-- ## 🎬 Demo  --> 
 
 
-<h2 id="3">🔖 Citation</h2>
+<h2 id="4">🔖 Citation</h2>
 
 ## ✨ Contributors
 
