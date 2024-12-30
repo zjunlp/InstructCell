@@ -33,6 +33,11 @@ By leveraging a specialized multi-modal architecture and our multi-modal single-
 Assume your current directory path is `DIR_PATH`. 
 
 ### 🧫 Collecting Raw Single-Cell Datasets
+
+<div align="center">
+  <img width="500" alt="image" src="https://github.com/user-attachments/assets/b2002629-a2dc-4009-976e-f63fa6d4aec6" />
+</div>
+
 The datasets used in the paper are all publicly available. 
 Detailed instructions and dataset links are provided in the Jupyter notebooks: [`HumanUnified.ipynb`](https://github.com/zjunlp/InstructCell/blob/main/HumanUnified.ipynb) and [`MouseUnified.ipynb`](https://github.com/zjunlp/InstructCell/blob/main/MouseUnified.ipynb). Below is a summary of the datasets and their corresponding details:
 
@@ -52,9 +57,7 @@ Detailed instructions and dataset links are provided in the Jupyter notebooks: [
 
 Note that, for He-2020, the cell type annotation file is downloaded from Github repository [scRNA-AHCA](https://github.com/bei-lab/scRNA-AHCA/tree/master/Cell_barcode_and_corresponding_cell_types_of_AHCA) 👈. 
 
-<div align="center">
-  <img width="500" alt="image" src="https://github.com/user-attachments/assets/b2002629-a2dc-4009-976e-f63fa6d4aec6" />
-</div>
+
 
 ### ⚙️ Installation 
 Download the code: 
