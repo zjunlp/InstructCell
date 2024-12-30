@@ -1,5 +1,5 @@
 <h1 align="center"> 🎨 InstructCell </h1>
-<b>A Multi-Modal AI Copilot for Single-Cell Analysis with Instruction Following</b>
+<h3 align="center"> A Multi-Modal AI Copilot for Single-Cell Analysis with Instruction Following </h3>
 
 [![Awesome](https://awesome.re/badge.svg)](https://github.com/zjunlp/InstructCell) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
