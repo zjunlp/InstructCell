@@ -22,11 +22,13 @@ By leveraging a specialized multi-modal architecture and our multi-modal single-
 
 <h2 id="2">🗝️ Quick start</h2>
 
-<h2 id="3">🚀 How to run</h2>
-
 ### 🪜 Requirements
 - python 3.10 and above are recommended
-- CUDA 11.7 and above are recommended 
+- CUDA 11.7 and above are recommended
+
+
+  
+<h2 id="3">🚀 How to run</h2>
 
 Assume your current directory path is `DIR_PATH`. 
 
