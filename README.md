@@ -55,16 +55,21 @@ Detailed instructions and dataset links are provided in the Jupyter notebooks: [
 |GSE110894|mouse|drug sensitivity predictio|GEO|https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110894|
 |Mouse-Atlas|mouse|conditional pseudo cell generation|GEO|https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4505404|
 
+🔗 Please Note:
+
 For the **He-2020** dataset, the cell type annotation file is sourced from the GitHub repository [scRNA-AHCA](https://github.com/bei-lab/scRNA-AHCA/tree/master/Cell_barcode_and_corresponding_cell_types_of_AHCA) 👈. 
 
 
 
-### ⚙️ Installation 
-Download the code: 
+### ⚙️ Installation Guide
+
+Follow these steps to set up InstructCell:
+
+1. Clone the repository:
 ```
 git clone https://github.com/zjunlp/InstructCell.git
 ```
-Create a virtual environment and install the dependencies:
+2. Set up a virtual environment and install the dependencies:
 ```
 conda create -n instructcell python=3.10
 conda activate instructcell
@@ -72,10 +77,10 @@ cd InstructCell
 pip install -r requirements.txt
 ```
 
-### 🌐 Downloading Pretrained Language Models 
-The language model used in the paper is T5-base, you can download it from 🤗 [Hugging Face](https://huggingface.co/google-t5/t5-base) and place the corresponding model directory under `DIR_PATH`.
+### 🌐 Downloading Pre-trained Language Models 
+The pre-trained language model used in this project is **T5-base**. You can download it from 🤗 [Hugging Face](https://huggingface.co/google-t5/t5-base) and place the corresponding model directory under `DIR_PATH`.
 
-You can use `download_script.py` to download the model: 
+Alternatively, you can use the provided script to automate the download process:
 ```
 python download_script.py --repo_id google-t5/t5-base --parent_dir ..
 ```
