@@ -66,11 +66,11 @@ For the **He-2020** dataset, the cell type annotation file is sourced from the G
 Follow these steps to set up InstructCell:
 
 1. Clone the repository:
-```
+```sh
 git clone https://github.com/zjunlp/InstructCell.git
 ```
 2. Set up a virtual environment and install the dependencies:
-```
+```sh
 conda create -n instructcell python=3.10
 conda activate instructcell
 cd InstructCell
@@ -81,13 +81,13 @@ pip install -r requirements.txt
 The pre-trained language model used in this project is **T5-base**. You can download it from 🤗 [Hugging Face](https://huggingface.co/google-t5/t5-base) and place the corresponding model directory under `DIR_PATH`.
 
 Alternatively, you can use the provided script to automate the download process:
-```
+```sh
 python download_script.py --repo_id google-t5/t5-base --parent_dir ..
 ```
 
 ### 🛠️ Single Cell Data Preprocessing
-Navigate back to the parent directory `DIR_PATH`, then create a data folder and three task-specific folders within it to organize your data：
-```
+Navigate to the parent directory `DIR_PATH` and organize your data by creating a main data folder and three task-specific subfolders:
+```sh
 cd ..
 mkdir data 
 cd data
@@ -96,36 +96,48 @@ mkdir drug_sensitivity_prediction
 mkdir conditional_pseudo_cell_generation
 cd ..
 ```
-We provide two Jupyter notebooks as references for preprocessing datasets. `HumanUnified.ipynb` is used for preprocessing human datasets, while `MouseUnified.ipynb` is used for preprocessing mouse datasets.
+
+For dataset preprocessing, refer to the previously mentioned Jupyter notebooks:
+- [HumanUnified.ipynb](https://github.com/zjunlp/InstructCell/blob/main/HumanUnified.ipynb) for human datasets.
+- [MouseUnified.ipynb](https://github.com/zjunlp/InstructCell/blob/main/MouseUnified.ipynb) for mouse datasets.
+
+
 
 > [!NOTE]
-> Matching orthologous genes between mouse and human is based on [pybiomart](https://github.com/jrderuiter/pybiomart/tree/develop) and [pyensembl](https://github.com/openvax/pyensembl). Therefore, before preprocessing mouse datasets, make sure the corresponding Ensembl data are downloaded. You can run the following command to download them: 
-```
+> Matching orthologous genes between mouse and human is based on [pybiomart](https://github.com/jrderuiter/pybiomart/tree/develop) and [pyensembl](https://github.com/openvax/pyensembl). Before preprocessing mouse datasets, ensure the corresponding Ensembl data are downloaded by running:
+```sh
 pyensembl install --release 100 --species mus_musculus
 ```
 
-After preprocessing, split each dataset and build a gene vocabulary: 
-```
+After completing the preprocessing steps, split each dataset and build a gene vocabulary using the following command: 
+```sh
 cd InstructCell
 python preprocess.py --n_top_genes 3600 
 ```
-You can adjust the parameter `n_top_genes`, for example, to 2000, which will give you a smaller gene vocabulary.
+To customize the size of the gene vocabulary, adjust the `n_top_genes` parameter as needed. For instance, setting it to 2000 will generate a smaller vocabulary.
 
-### 🧺 Instruction-Response Templates Construction
-The template construction process consists of four parts. The first part involves prompting the large language model to list possible motivations for each task and personalities (handled in `data_synthesis.py`). The second part is to run multiple APIs in parallel, where each API is called a certain number of times to synthesize some templates (handled in `data_synthesis.py`). The third part merges all the synthesized templates together (handled in `merge_templates.py`). The fourth part further filters the synthesized templates and then splits them (handled in `split_templates.py`). The `run_data_synthesis.sh` script covers these four steps, and you only need to execute the following command:
-```
+
+### 🧺 Instruction-Response Template Construction
+
+The construction of instruction-response templates is divided into four stages:
+	1.	**Motivation and personality generation**: In this stage, the large language model is prompted to generate potential motivations for each task and corresponding personalities. This step is implemented in the `data_synthesis.py` script.
+  2.  **Template synthesis via parallel API calls**: Multiple APIs are run in parallel to synthesize templates, with each API invoked a specified number of times per task. This process is also implemented in the `data_synthesis.py` script.
+  3.  **Merging synthesized templates**: The generated templates are consolidated into a unified collection using the `merge_templates.py` script.
+  4.  **Filtering and splitting templates**: Finally, the templates are filtered for quality and divided into specific datasets using the `split_templates.py` script.
+
+
+To execute all four stages in sequence, use the `run_data_synthesis.sh` script:
+```sh
 bash run_data_synthesis.sh  
 ```
 
 > [!NOTE]
-> Before running `run_data_synthesis.sh`, you need to modify the parameters in the file, such as the API keys and base URL being used. You can also adjust the model used for template synthesis (`model` in the script) and the number of times each API key is called for each task (`num_templates_for_task` in the script).
+> Before executing `run_data_synthesis.sh`, ensure the parameters in the script are configured correctly. Update the API keys and base URL as needed, specify the model for template synthesis (`model` in the script), and adjust the number of API calls per task (`num_templates_for_task` in the script).
 
 
 <div align="center">
 
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/a58e5c62-c6dd-4fac-8677-c47c4cb7c093" />
-
-
 
 </div>
 
