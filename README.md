@@ -1,5 +1,5 @@
 <h1 align="center"> 🎨 InstructCell </h1>
-<b>InstructCell: A Multimodal AI Assistant for Natural Language-Driven Single-cell Analysis</b>
+<b>A Multi-Modal AI Copilot for Single-Cell Analysis with Instruction Following</b>
 
 [![Awesome](https://awesome.re/badge.svg)](https://github.com/zjunlp/InstructCell) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -13,7 +13,7 @@
 
 <h2 id="1">🗞️ Overview</h2>
 
-**InstructCell** is a multimodal AI assistant that integrates natural language with single-cell RNA sequencing (scRNA-seq) data, enabling researchers to perform tasks like cell type annotation, pseudo-cell generation, and drug sensitivity prediction through intuitive text commands. 
+**InstructCell** is a multimodal AI copilot that integrates natural language with single-cell RNA sequencing (scRNA-seq) data, enabling researchers to perform tasks like cell type annotation, pseudo-cell generation, and drug sensitivity prediction through intuitive text commands. 
 By leveraging a specialized multimodal architecture and our multimodal single-cell instruction dataset, InstructCell reduces technical barriers and enhances accessibility for single-cell analysis.
 
 <img width="1876" alt="image" src="https://github.com/user-attachments/assets/3fefe71c-3c00-4c21-b388-cf2300fb9f90" />
@@ -106,10 +106,11 @@ bash run_data_synthesis.sh
 > Before running `run_data_synthesis.sh`, you need to modify the parameters in the file, such as the API keys and base URL being used. You can also adjust the model used for template synthesis (`model` in the script) and the number of times each API key is called for each task (`num_templates_for_task` in the script).
 
 
-
 <div align="center">
 
-  <img width="800" alt="image" src="https://github.com/user-attachments/assets/d47ad0ec-645d-4b89-8c6a-1c22df3d8e70" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/a58e5c62-c6dd-4fac-8677-c47c4cb7c093" />
+
+
 
 </div>
 
