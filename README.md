@@ -32,8 +32,10 @@ By leveraging a specialized multi-modal architecture and our multi-modal single-
 
 Assume your current directory path is `DIR_PATH`. 
 
-### 🧫 Collecting Raw Single Cell Datasets
-The datasets used in the paper are all publicly available. The Jupyter notebooks, [`HumanUnified.ipynb`](https://github.com/zjunlp/InstructCell/blob/main/HumanUnified.ipynb) and `MouseUnified.ipynb`, provide links to each dataset. The information for each dataset is as follows. 
+### 🧫 Collecting Raw Single-Cell Datasets
+The datasets used in the paper are all publicly available. 
+Detailed instructions and dataset links are provided in the Jupyter notebooks: [`HumanUnified.ipynb`](https://github.com/zjunlp/InstructCell/blob/main/HumanUnified.ipynb) and [`MouseUnified.ipynb`](https://github.com/zjunlp/InstructCell/blob/main/MouseUnified.ipynb). Below is a summary of the datasets and their corresponding details:
+
 
 |Dataset|Species|Task|Data Repository|Download Link|
 |:-------:|:-------:|:----:|:---------------:|:-------------:|
