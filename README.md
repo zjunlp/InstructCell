@@ -15,7 +15,7 @@
 <h2 id="1">🗞️ Overview</h2>
 
 **InstructCell** is a multi-modal AI copilot that integrates natural language with single-cell RNA sequencing data, enabling researchers to perform tasks like cell type annotation, pseudo-cell generation, and drug sensitivity prediction through intuitive text commands. 
-By leveraging a specialized multimodal architecture and our multimodal single-cell instruction dataset, InstructCell reduces technical barriers and enhances accessibility for single-cell analysis.
+By leveraging a specialized multi-modal architecture and our multi-modal single-cell instruction dataset, InstructCell reduces technical barriers and enhances accessibility for single-cell analysis.
 
 <img width="1876" alt="image" src="https://github.com/user-attachments/assets/3fefe71c-3c00-4c21-b388-cf2300fb9f90" />
 
