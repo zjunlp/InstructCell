@@ -119,11 +119,17 @@ To customize the size of the gene vocabulary, adjust the `n_top_genes` parameter
 
 ### 🧺 Instruction-Response Template Construction
 
+<div align="center">
+
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/a58e5c62-c6dd-4fac-8677-c47c4cb7c093" />
+
+</div>
+
 The construction of instruction-response templates is divided into four stages:
-	1.	**Motivation and personality generation**: In this stage, the large language model is prompted to generate potential motivations for each task and corresponding personalities. This step is implemented in the `data_synthesis.py` script.
-  2.  **Template synthesis via parallel API calls**: Multiple APIs are run in parallel to synthesize templates, with each API invoked a specified number of times per task. This process is also implemented in the `data_synthesis.py` script.
-  3.  **Merging synthesized templates**: The generated templates are consolidated into a unified collection using the `merge_templates.py` script.
-  4.  **Filtering and splitting templates**: Finally, the templates are filtered for quality and divided into specific datasets using the `split_templates.py` script.
+1. **Motivation and personality generation**: In this stage, the large language model is prompted to generate potential motivations for each task and corresponding personalities. This step is implemented in the `data_synthesis.py` script.
+2. **Template synthesis via parallel API calls**: Multiple APIs are run in parallel to synthesize templates, with each API invoked a specified number of times per task. This process is also implemented in the `data_synthesis.py` script.
+3. **Merging synthesized templates**: The generated templates are consolidated into a unified collection using the `merge_templates.py` script.
+4. **Filtering and splitting templates**: Finally, the templates are filtered for quality and divided into specific datasets using the `split_templates.py` script.
 
 
 To execute all four stages in sequence, use the `run_data_synthesis.sh` script:
@@ -135,15 +141,14 @@ bash run_data_synthesis.sh
 > Before executing `run_data_synthesis.sh`, ensure the parameters in the script are configured correctly. Update the API keys and base URL as needed, specify the model for template synthesis (`model` in the script), and adjust the number of API calls per task (`num_templates_for_task` in the script).
 
 
+### 🚀 Training InstructCell 
+
 <div align="center">
-
-<img width="800" alt="image" src="https://github.com/user-attachments/assets/a58e5c62-c6dd-4fac-8677-c47c4cb7c093" />
-
+     <img width="650" alt="image" src="https://github.com/user-attachments/assets/82ed82c4-5d9d-4e84-9ce2-dc11fc4e560e" />
 </div>
 
-### 🚀 Training InstructCell 
-You can run the following command to train InstructCell: 
-```
+To train InstructCell, use the following command: 
+```sh
 torchrun --nproc_per_node=8 mm_train.py \
     --epochs 160 \
     --save_freq 20 \
@@ -155,30 +160,26 @@ torchrun --nproc_per_node=8 mm_train.py \
     --train_no_extra_output_ratio 1.0 \
     --eval_no_extra_output_ratio 1.0
 ```
-- You can get **chat** version of InstructCell by setting the parameters `train_no_extra_output_ratio` and `eval_no_extra_output_ratio` to 0. 
-- To resume training from a specific checkpoint (path: `YOUR_CHECKPOINT_PATH`), add `--resume True` and `--resume_path YOUR_CHECKPOINT_PATH`.
-- You can train InstructCell on a single task and a single dataset by modifying the `TASKS` in `metadata.py`, keeping only one dataset directory in the corresponding task directory, and adding `--unify_gene False`.
-- You can adjust the architecture of InstructCell, such as the number of query tokens in Q-Former or the dimension of the latent variables in the VAE, simply by modifying the `MODEL_PARAMETERS` in `metadata.py`.
+- To obtain the chat version of InstructCell, set both `train_no_extra_output_ratio` and `eval_no_extra_output_ratio` to 0. 
+- To resume training from a specific checkpoint (`YOUR_CHECKPOINT_PATH`), include the flags `--resume True` and `--resume_path YOUR_CHECKPOINT_PATH`.
+- For training on a single task and dataset, modify the `TASKS` parameter in `metadata.py`, retain only one dataset directory in the corresponding task folder, and set `--unify_gene False`.
+- You can customize the architecture of InstructCell (e.g., the number of query tokens in Q-Former or the latent variable dimensions in the VAE) by modifying the `MODEL_PARAMETERS` in `metadata.py`.
 
-
-<div align="center">
-     <img width="650" alt="image" src="https://github.com/user-attachments/assets/82ed82c4-5d9d-4e84-9ce2-dc11fc4e560e" />
-</div>
 
 
 ### 📑 Evaluation
-Run the following command to evaluate performance of InstructCell on conditional pseudo cell generation: 
-```
+To evaluate the performance of InstructCell on conditional pseudo-cell generation, run:
+```sh
 python evaluate.py \
     --best_model_path ../trained_models/best_mm_model.pkl \
     --task_type "conditional pseudo cell generation" \
     --template_dir_name ../output/test_templates \
     --no_extra_output_ratio 1.0 
 ```
-- To evaluate the performance of InstructCell on other tasks, simply change the parameter `task_type`.
-- To evaluate the robustness of InstructCell for task descriptions, you can add `--evaluate_single_prompt True`. By default, 20 different task descriptions are used. If you want to change the number, for example to 40, you can add `--num_single_prompt 40`.
-- When evaluating InstructCell, you can adjust whether to just use the test templates which contain options. By default, all templates are used. You can add `--provide_choices True` to indicate that only test templates providing options should be used.
-- To evaluate the **chat** version of InstructCell, set the parameter `no_extra_output_ratio` to 0.0. This will generate content in a format that matches the JSON file required by xFinder. Then, use xFinder for the evaluation. For usage details, please refer to the [xFinder repository](https://github.com/IAAR-Shanghai/xFinder) 👈. 
+- To evaluate InstructCell on other tasks, modify the `task_type` parameter accordingly.
+- To test InstructCell’s robustness to different task descriptions, add the flag `--evaluate_single_prompt True`. By default, 20 different task descriptions are used. To increase this number (e.g., to 40), include `--num_single_prompt 40`.
+- If you want to evaluate only test templates that contain options, add `--provide_choices True`. By default, all test templates are evaluated.
+- To evaluate the **chat** version of InstructCell, set the `no_extra_output_ratio` parameter to 0.0.  This will generate content formatted for xFinder’s JSON input requirements.  For detailed evaluation procedures using xFinder, please visit the [xFinder repository](https://github.com/IAAR-Shanghai/xFinder) 👈. 
 
 <!-- ## 🧬 Extracting Marker Genes -->
 
