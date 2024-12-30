@@ -55,7 +55,7 @@ Detailed instructions and dataset links are provided in the Jupyter notebooks: [
 |GSE110894|mouse|drug sensitivity predictio|GEO|https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE110894|
 |Mouse-Atlas|mouse|conditional pseudo cell generation|GEO|https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4505404|
 
-Note that, for He-2020, the cell type annotation file is downloaded from Github repository [scRNA-AHCA](https://github.com/bei-lab/scRNA-AHCA/tree/master/Cell_barcode_and_corresponding_cell_types_of_AHCA) 👈. 
+For the **He-2020** dataset, the cell type annotation file is sourced from the GitHub repository [scRNA-AHCA](https://github.com/bei-lab/scRNA-AHCA/tree/master/Cell_barcode_and_corresponding_cell_types_of_AHCA) 👈. 
 
 
 
