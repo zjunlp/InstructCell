@@ -119,6 +119,8 @@ To customize the size of the gene vocabulary, adjust the `n_top_genes` parameter
 
 ### 🧺 Instruction-Response Template Construction
 
+The instruction-response templates used in the projects are stored in this `[folder](https://github.com/zjunlp/InstructCell/tree/main/exp_templates)`.
+
 <div align="center">
 
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/a58e5c62-c6dd-4fac-8677-c47c4cb7c093" />
