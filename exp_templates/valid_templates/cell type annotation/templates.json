@@ -1,0 +1,1118 @@
+[
+    {
+        "instruction": "Hello, I\u2019m currently working on annotating a single cell derived from {tissue}. The sequencing method used is {sequencing_method}, and the species in question is {species}. I have a few options for what the cell type might be: {choices}. Given this information, could you help me determine the most accurate cell type label for the single cell {input}? Thanks!",
+        "response": "Given the tissue origin, sequencing method, and species, the most accurate cell type label for your single cell is {output}. This conclusion is based on the provided context and comparison with known cell type characteristics. If you have further details or need additional clarification, feel free to ask!"
+    },
+    {
+        "instruction": "I'm excited about the insights we could uncover from this single cell data! Using {sequencing_method}, which cell type does this single cell {input} correspond to from these options: {choices}, for the species {species} and tissue {tissue}?",
+        "response": "This single cell corresponds to {output}. Analyzing the data using {sequencing_method} from the species {species} and tissue {tissue} has led to this determination."
+    },
+    {
+        "instruction": "Given the high-dimensional data from the {sequencing_method} sequencing method on a single cell from {tissue} of {species}, can you provide the specific cell type annotation for {input}? This will help me in performing accurate comparative studies across different conditions.",
+        "response": "The specific cell type annotation for the given single cell is {output}. This designation will assist in your comparative studies by ensuring accurate identification across different experimental conditions."
+    },
+    {
+        "instruction": "Could you help me annotate a single cell from my dataset? I'm working on improving the reproducibility of my studies and need to ensure that my cell type classifications are accurate. The cell in question is from {species}, sequenced using {sequencing_method}, and comes from {tissue}. The single cell I need annotated is {input}. The possible cell types are {choices}. Which cell type does it correspond to?",
+        "response": "Based on the given species, sequencing method, and tissue, the single cell corresponds to {output}. This annotation aligns with the known characteristics and markers associated with this cell type, thereby enhancing the reproducibility of your studies."
+    },
+    {
+        "instruction": "Using {sequencing_method} to sequence a single cell from {species}, specifically from {tissue}, the cell has been narrowed down to the following types: {choices}. Could you help identify the cell type of this single cell {input}?",
+        "response": "Based on the sequencing results and the source tissue, the cell has been identified as {output}."
+    },
+    {
+        "instruction": "Hey, you know, I\u2019ve been diving into some advanced single-cell sequencing using {sequencing_method} on {species} tissue samples, specifically from {tissue}. I\u2019ve got this single cell, {input}, and I'm pretty sure it's something unique. Mind confirming the cell type for me?",
+        "response": "Based on the single-cell sequencing data obtained using {sequencing_method} on {species} {tissue} samples, the cell type has been identified as {output}."
+    },
+    {
+        "instruction": "Hey, I need your expertise in annotating a single cell. The details are as follows: {input}, {species}, {sequencing_method}, {tissue}. Given these parameters, could you help identify the cell type?",
+        "response": "Based on the provided details, the cell type has been identified as {output}. If you need further clarification or additional information, please let me know."
+    },
+    {
+        "instruction": "Hey, could you help me identify the cell type for a single cell {input} that\u2019s from {species}, sequenced via {sequencing_method}, and extracted from {tissue}?",
+        "response": "The cell type for the described single cell is {output}."
+    },
+    {
+        "instruction": "Hey, can you help me confirm the cell type for this specific single cell from my dataset? Here are the details:\n- Species: {species}\n- Tissue: {tissue}\n- Sequencing Method: {sequencing_method}\n- Potential Cell Types: {choices}\n- Single Cell Input: {input}\n\nWhich one of the options do you think it is?",
+        "response": "Based on the provided species, tissue, and sequencing method, I believe the cell type is {output}."
+    },
+    {
+        "instruction": "Hi! I'm working on integrating some multi-omics data and need help identifying the cell type of a single cell. The tissue is {tissue}, the sequencing method used is {sequencing_method}, the cell to be annotated is {input}, and the options are {choices}. The species is {species}. Can you help me determine the correct cell type label?",
+        "response": "Based on the provided information about the tissue, sequencing method, and species, the cell type label for the single cell is {output}."
+    },
+    {
+        "instruction": "Hi, I'm working on annotating single cells from {tissue} using {sequencing_method}. I have a single cell from {species} that I need help with. The single cell data is {input}. The options for the cell type are: {choices}. Can you help me determine the correct cell type label for this single cell?",
+        "response": "Based on the given single-cell data and the options provided, I have determined the correct cell type label for this single cell is {output}."
+    },
+    {
+        "instruction": "I've been working with single-cell RNA sequencing data and I have a cell from {tissue} of {species}. The sequencing method used was {sequencing_method}. I have several potential annotations for this cell: {choices}. Can you help me determine the correct cell type for this particular single cell {input}?",
+        "response": "Based on the provided details from the {tissue} of {species} using the {sequencing_method} method, the most accurate cell type annotation I would assign is {output}. This conclusion is drawn from the specific markers and gene expression profiles characteristic of this cell type."
+    },
+    {
+        "instruction": "Can you hurry up and tell me what cell type this {input} from {tissue} of {species} sequenced using {sequencing_method} is?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "\n\"I'm fascinated by how AI can be used in biological analysis. Given the sequencing method {sequencing_method}, and tissue {tissue}, can you tell me what cell type the single cell {input} from the species {species} is?\"\n",
+        "response": "The single cell is a {output} based on the given sequencing method {sequencing_method} and tissue {tissue} from the species {species}."
+    },
+    {
+        "instruction": "Hi, I'm working on a project to improve the reproducibility of my studies using single-cell analysis. I'm relatively new to this field and would appreciate your help. I have a single cell that needs to be annotated. The sequencing method used was {sequencing_method}, and the sample is from {species} in {tissue}. Could you help me identify the cell type of the given single cell {input}?",
+        "response": "Based on the sequencing method and the sample's origin from {species} in {tissue}, the cell type has been identified as {output}. For further verification, you might consider cross-referencing cell markers or using additional bioinformatics tools."
+    },
+    {
+        "instruction": "Hi, I\u2019m trying to figure out the cell type for a single cell using {sequencing_method} sequencing. The cell is from {tissue}, and here are the options I have: {choices}. The species is {species}. Could you help me identify the correct cell type label for this single cell {input}?",
+        "response": "The single cell from {tissue} in {species} sequenced using {sequencing_method} is best identified as {output}."
+    },
+    {
+        "instruction": "Hi there, I'm really new to this and a bit unsure about how it all works, but I'm trying to understand multi-omics data integration. I have this single cell {input} that I need to annotate. The sequencing method used is {sequencing_method}, and it's from the {tissue} tissue of a {species}. Could you please help me figure out the correct cell type for this? Thank you!",
+        "response": "Sure, I'd be happy to help! Based on the sequencing method used and the tissue type from the specified species, the cell type has been identified as {output}. If you have any further questions or need more details, feel free to ask!"
+    },
+    {
+        "instruction": "Could you please provide the specific cell type label for the single cell identified as {input}, which was isolated from {tissue} tissue, sequenced using the {sequencing_method} method, and derived from the {species} species? Your detailed and accurate response will be greatly appreciated.",
+        "response": "The identified single cell is labeled as {output}."
+    },
+    {
+        "instruction": "Hi there! I'm working on annotating single cell data and could really use your expertise. I've sequenced a cell from {species} using {sequencing_method} and it's from the {tissue} tissue. The cell I need help with is {input}. Based on the options I have, which are {choices}, could you help me identify the correct cell type label? Thank you so much in advance!",
+        "response": "Given the sequencing method and tissue origin, along with the information provided, the cell type label for the cell in question is {output}. I hope this helps with your annotation process!"
+    },
+    {
+        "instruction": "Can you identify the cell type for the single cell we sequenced from {species} using {sequencing_method} from {tissue}? Here is the input data: {input}.",
+        "response": "The single cell sequenced from {species} using {sequencing_method} from {tissue} has been identified as {output}."
+    },
+    {
+        "instruction": "I'm analyzing a single cell using {sequencing_method} from {tissue} tissue of {species}. Based on the data, can you identify the cell type of {input} from the following options: {choices}?",
+        "response": "The cell type identified based on the provided data is {output}."
+    },
+    {
+        "instruction": "I'm working with single-cell data from the {species} {tissue} using {sequencing_method}. Could you help me identify the cell type for a particular single cell given as {input}? I'm hoping to gain some novel insights from this data.",
+        "response": "The cell type you are looking at has been identified as {output}. This identification could provide valuable insights into the cellular composition and functional heterogeneity within the {tissue} of {species} using {sequencing_method}."
+    },
+    {
+        "instruction": "Hi, I'm trying to assist in longitudinal studies of cellular changes, and I'm a bit unsure about something. I have a single cell from {tissue} that needs to be annotated, and the sequencing method used was {sequencing_method}. The species is {species}. Could you please help me identify the cell type? The input for the single cell is {input}. Thank you so much!",
+        "response": "Based on your details: the tissue of origin, the sequencing method used, and the species, I've identified the cell type. The cell is annotated as {output}. I hope this helps with your longitudinal studies of cellular changes. Let me know if you need further assistance!"
+    },
+    {
+        "instruction": "Given the single-cell RNA-seq data from {sequencing_method} for {species} and options {choices}, can you determine the cell type of the single cell {input} from {tissue}? The aim is to identify cell-specific functions and pathways.",
+        "response": "The single cell from the given tissue is identified as {output}. This determination is based on the single-cell RNA-seq data from {sequencing_method} for {species}."
+    },
+    {
+        "instruction": "Look, I've been burned by this stuff before, so let's cut to the chase. I need to know the cell type for {input} from {tissue} of {species} using {sequencing_method}. What's the label?",
+        "response": "The cell type from {tissue} of {species} using {sequencing_method} is {output}."
+    },
+    {
+        "instruction": "Can you help me annotate a single cell with the ID {input}? Here are the options for the cell type: {choices}. The cell is derived from {species} and was isolated from {tissue}. We utilized the {sequencing_method} for sequencing. Which cell type do you think it most likely corresponds to?",
+        "response": "Based on the provided details, the cell most likely corresponds to {output}."
+    },
+    {
+        "instruction": "\u201cI\u2019m conducting a comparative analysis to evaluate the accuracy of AI-generated cell type annotations against manual ones. Here\u2019s the information: single cell {input}, tissue {tissue}, species {species}, and sequencing method {sequencing_method}. Given this data, what\u2019s the correct cell type label for the provided single cell?\u201d",
+        "response": "The correct cell type label for the given single cell is {output}."
+    },
+    {
+        "instruction": "Hey, I need the cell type for {input} from the {tissue} tissue, sequenced using {sequencing_method} from {species}. Can you tell me what it is, now?",
+        "response": "The cell type for the given parameters is {output}."
+    },
+    {
+        "instruction": "Based on the sequencing method {sequencing_method} and the input data {input}, which cell type is it among these options {choices}? The sample is from the {species} species and the tissue is {tissue}.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hey, I'm working on building a reference dataset and need your expertise. I've got a single cell from {tissue} of {species} sequenced using {sequencing_method}. Here are the possible cell type labels: {choices}. Can you tell me which one matches the cell {input}?",
+        "response": "The cell from {tissue} of {species} sequenced using {sequencing_method} matches the cell type label: {output}."
+    },
+    {
+        "instruction": "I'm looking for the type of cell for a single cell labeled as {input}, which comes from {tissue} and was analyzed using {sequencing_method} in the context of {species}. Could you provide this information?",
+        "response": "The cell type from {tissue} analyzed using {sequencing_method} in the context of {species} is {output}."
+    },
+    {
+        "instruction": "Hi there! I'm working on a project involving {tissue} from {species} using {sequencing_method}, and I need help identifying the cell type of a specific single cell. Could you please tell me what cell type {input} is? Thanks a bunch!",
+        "response": "The cell type you are looking for is {output}."
+    },
+    {
+        "instruction": "Hey there, can you lend me a hand with annotating a single cell from {species}? It's from {tissue} and was sequenced using {sequencing_method}. Here\u2019s the data for the single cell: {input}. Could you tell me what the correct cell type label for this cell would be?",
+        "response": "The cell from {species}, sequenced using {sequencing_method} from {tissue}, is annotated as {output}."
+    },
+    {
+        "instruction": "Can you help me annotate a single cell from {species}? The cell was sequenced using {sequencing_method} and is derived from {tissue}. Based on the provided sequencing data, which of the following options best describes the cell type of {input}: {choices}?",
+        "response": "Based on the sequencing data from the given species and tissue, the cell type is best identified as {output}."
+    },
+    {
+        "instruction": "\nCould you help me annotate a single cell from a sequencing dataset? The sequencing method used is {sequencing_method}, and the tissue source is {tissue}. The cell in question is {input}, and the species is {species}. What would be the correct cell type label for this cell?\n",
+        "response": "Based on the provided sequencing method, tissue source, and species, the correct cell type label for the cell is {output}."
+    },
+    {
+        "instruction": "Hey there! I'm working on a single-cell RNA-seq project using {sequencing_method} for {species} tissue from {tissue}. I'm trying to annotate a specific cell and was wondering if you could help me out with the cell type. Given the options {choices}, could you tell me which one best fits the single cell {input}? Thanks!",
+        "response": "Based on the provided information and the sequencing method, the most suitable label for the cell type is {output}."
+    },
+    {
+        "instruction": "I'm curious, could you help me figure out what type of cell is the one labeled {input} from the {tissue} tissue of {species}, using {sequencing_method}?",
+        "response": "The cell from the {tissue} tissue of {species}, analyzed using {sequencing_method}, is identified as {output}."
+    },
+    {
+        "instruction": "Could you please provide the cell type annotation for the single cell {input} obtained from {species} using the {sequencing_method} in the {tissue} tissue?",
+        "response": "The cell type annotation for the single cell obtained from {species} using the {sequencing_method} in the {tissue} tissue is {output}."
+    },
+    {
+        "instruction": "Given a single cell from {species} using {sequencing_method} in {tissue}, which cell type from the following options {choices} does the cell {input} most likely belong to?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hello, I'm currently investigating rare cell populations and I need help identifying a specific single cell. The cell comes from {species}, and I used {sequencing_method} for sequencing. The cell in question is {input}, and it was obtained from {tissue}. Could you help me annotate this cell type?",
+        "response": "Based on the provided details, the cell from {species} sequenced using {sequencing_method} and obtained from {tissue} is classified as {output}."
+    },
+    {
+        "instruction": "Hi there, I hope you can help me with something. I'm working on enhancing the granularity of cell type identification for a single cell obtained from {tissue} using {sequencing_method} from {species}. The single cell in question is {input}, and the potential cell type labels are {choices}. Could you please let me know which label is the correct one? Thank you so much!",
+        "response": "The single cell from the given tissue, sequenced using {sequencing_method} from {species}, has been identified as {output}. I hope this helps with your research!"
+    },
+    {
+        "instruction": "Hey, I'm trying to figure out what kind of cell this single cell {input} is from {tissue} in {species}. Can you help with that using {sequencing_method}?",
+        "response": "Based on the provided data from the tissue in the given species using the specified sequencing method, this cell has been identified as {output}."
+    },
+    {
+        "instruction": "Hi, can you please tell me what type of cell this is? The species is {species}, the sequencing method is {sequencing_method}, and the single cell to be annotated is {input}. The options are {choices}. This cell is from {tissue}. Thanks!",
+        "response": "The cell type is {output}. This was determined based on the species {species}, the sequencing method {sequencing_method}, and the specific tissue {tissue}."
+    },
+    {
+        "instruction": "Hello, I would greatly appreciate it if you could provide me with the cell type of the single cell {input} extracted from {species}, sourced from {tissue} via {sequencing_method}.",
+        "response": "The cell is identified as {output} from the specified species and tissue via the given sequencing method."
+    },
+    {
+        "instruction": "Hey, could you help me out with this? I've got a single cell from {tissue} sequenced using {sequencing_method} from {species}. Can you tell me the cell type of this input: {input}?",
+        "response": "Based on the data provided from {tissue} using {sequencing_method} from {species}, the cell has been identified as {output}."
+    },
+    {
+        "instruction": "Could you help me determine the correct cell type for the given single cell {input}? The sequencing method used was {sequencing_method}, and the cell options to choose from are {choices}. The sample is from {species} and the tissue type is {tissue}.",
+        "response": "The given single cell is best identified as {output} based on the provided sequencing method, species, and tissue type information."
+    },
+    {
+        "instruction": "Given the single cell sequenced using {sequencing_method} from the {tissue} of a {species}, could you help identify its type from the following options: {choices}? The specific single cell needing annotation is {input}.",
+        "response": "The single cell sequenced using {sequencing_method} from the {tissue} of a {species} is identified as {output}."
+    },
+    {
+        "instruction": "Hello! I'm currently engaged in annotating a cell extracted from {tissue} of {species} with the help of {sequencing_method}. Could you lend me a hand in determining the cell type for this particular cell: {input}? You can choose from these options: {choices}. Thanks a bunch!",
+        "response": "Sure! Based on the data provided from the {sequencing_method} and considering the context of the {tissue} from {species}, the cell type you are looking at is {output}. If you have any more questions or need further assistance, feel free to ask!"
+    },
+    {
+        "instruction": "Hey, I'm trying to figure out the type of a single cell from a {tissue} sample that was sequenced using {sequencing_method} from {species}. The specific cell I'm looking at is {input}, and I'm not really sure about how to go about this. Can you please help me identify the correct cell type from these options: {choices}? I really appreciate your help!",
+        "response": "Sure, I'd be happy to help! Based on the information provided and considering the {tissue} sample was sequenced using {sequencing_method} from {species}, I have determined that the cell type is {output}. I hope this helps with your analysis!"
+    },
+    {
+        "instruction": "Could you help me identify the cell type of a single cell {input}? The options are {choices}. This cell is from a {species} and was sequenced using {sequencing_method}. It was extracted from {tissue}.",
+        "response": "The cell you provided is identified as {output} based on the given parameters. Given the species, sequencing method, and tissue source, the characteristics match well with this cell type."
+    },
+    {
+        "instruction": "Given that we\u2019ve used {sequencing_method} to analyze single-cell RNA-sequencing data from {tissue} in {species}, could you help us identify the cell type for the specific single cell marked as {input}?",
+        "response": "Based on the single-cell RNA-sequencing data analyzed using {sequencing_method} from {tissue} in {species}, the specific cell type for the marked cell has been identified as {output}."
+    },
+    {
+        "instruction": "Hi, I'm working on annotating a single cell from {tissue}. The cell has been sequenced using {sequencing_method}, and it comes from {species}. I'm really trying to identify rare or unique cell types within this tissue. Could you please help me determine the correct cell type label for this single cell {input}?",
+        "response": "The cell from the specified tissue, sequenced using {sequencing_method} and originating from {species}, has been annotated as {output}. This classification takes into account the unique characteristics and expression profile of the cell in question."
+    },
+    {
+        "instruction": "Hey, I'm working on annotating cell types using advanced computational tools. I'm using a {sequencing_method} to sequence cells from {species} {tissue}. Could you help me identify the cell type for this specific single cell {input}? Here are the options: {choices}. Thanks!",
+        "response": "Based on the provided sequencing method and tissue source, the cell in question has been identified as {output}. This was determined using advanced computational techniques for cell type annotation."
+    },
+    {
+        "instruction": "Hi! I'm working on a longitudinal study to track cellular changes over time, and I need some help with annotating a single cell. The cell in question is {input}. It's from a {species}, specifically from {tissue} tissue, and we used the {sequencing_method} method. Could you please help me identify the cell type? Thanks!",
+        "response": "Sure! Based on the provided information, the cell type for the given sample is {output}. If you need further details or additional assistance, feel free to ask!"
+    },
+    {
+        "instruction": "Hi, I'm working with single-cell analysis and trying to understand more about the types of cells I'm dealing with. Can you tell me the cell type of a single cell {input} from {species}, sequenced using {sequencing_method}, and from {tissue}?",
+        "response": "The cell type you're dealing with is {output}."
+    },
+    {
+        "instruction": "Last time you annotated a single cell from {tissue} of {species} using {sequencing_method}, the results were inconsistent with the markers we expected. Considering the same parameters, could you precisely identify the cell type for {input} from the following options: {choices}? Let's ensure we get it right this time.",
+        "response": "Based on the provided parameters and ensuring precision, the cell type for the given input is {output}. This assignment takes into account all known markers and ensures alignment with expected profiles. Please verify if the assigned cell type matches your expectations."
+    },
+    {
+        "instruction": "Given the sequencing data from the {sequencing_method} method on tissue samples from {tissue} in {species}, I need you to identify the specific cell type for {input}. The options are {choices}. I assume this should be straightforward for you, considering the provided data and your expertise.",
+        "response": "The specific cell type identified from the sequencing data is {output}. The data from the {sequencing_method} method on {tissue} samples from {species} was crucial in making this determination."
+    },
+    {
+        "instruction": "Hi there! I'm working on validating some exciting findings from our previous experiments. We've got some data from {species} using {sequencing_method} in the {tissue}. Could you help me out by identifying the cell type of this single cell: {input}? Thanks a bunch!",
+        "response": "The cell type you're looking for is {output}. I hope this helps with your validation process!"
+    },
+    {
+        "instruction": "Um, hi. I hope this isn't a bother, but I'm trying to annotate a single cell from {tissue}. The sequencing method used is {sequencing_method}. The single cell to be annotated is {input}. Here are the options I have for the cell type: {choices}. This is for {species}. Could you please help me with identifying the correct cell type? Thank you!",
+        "response": "The cell from {tissue} sequenced using {sequencing_method} in {species} is identified as {output}. I hope this helps!"
+    },
+    {
+        "instruction": "\n\"Can you help me annotate a single cell from a dataset I generated using {sequencing_method} on {tissue} from {species}? The cell in question has unique expression profiles that don't match the common cell types identified in the initial analysis. Here are the top expressed genes and markers for this cell: {input}. Given these characteristics, what cell type would you classify this as?\"\n",
+        "response": "Based on the unique expression profiles and the top expressed genes and markers provided, this cell appears to be a specialized or rare subtype that wasn't captured in the initial analysis. After careful consideration, I would classify this cell as a {output}."
+    },
+    {
+        "instruction": "\"I'm using {sequencing_method} to analyze single cells from {tissue} in {species}. Could you help me annotate a single cell? The options for cell types are {choices}, and the specific cell I need to annotate is {input}. Which cell type does it correspond to?\"",
+        "response": "The cell you provided corresponds to {output}. I hope this helps with your single-cell analysis!"
+    },
+    {
+        "instruction": "In the grand tapestry of life, each cell holds a unique thread, intricately woven into the fabric of existence. As I journey into the realm of bioinformatics, I seek to understand the essence of a particular cell. Could you guide me in identifying the cell type label of this single cell {input} from the species {species}, within the tissue {tissue}, using the sequencing method {sequencing_method}?",
+        "response": "This cell is identified as {output}, derived from the specified species and tissue using the given sequencing method."
+    },
+    {
+        "instruction": "\n\"Hi, I have a single cell from a {species} tissue sample isolated from {tissue} using {sequencing_method}. I have a set of possible cell types: {choices}. Could you help me identify the correct cell type for this specific cell: {input}?\"\n",
+        "response": "Based on the given data from a {species} tissue sample isolated from {tissue} using {sequencing_method}, the cell type has been identified. Considering the possible cell types provided, the correct label for this specific cell is {output}."
+    },
+    {
+        "instruction": "Given the single cell {input} from {tissue}, sequenced using {sequencing_method}, and considering the species is {species}, which cell type would you identify it as from the following options: {choices}?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hi, I have a single cell sample that needs annotation. The specifics are as follows:\n- Cell: {input}\n- Species: {species}\n- Sequencing Method: {sequencing_method}\n- Tissue: {tissue}\n\nGiven these details, can you provide the correct cell type label for this particular cell?",
+        "response": "The cell type label for the provided single-cell sample is {output}."
+    },
+    {
+        "instruction": "Would you be able to ascertain the cell type associated with {input} from {species}, utilizing data obtained via {sequencing_method} from {tissue}?",
+        "response": "The cell type associated with the given parameters has been identified as {output}. This conclusion was derived from analyzing the data obtained via {sequencing_method} from {tissue} in {species}."
+    },
+    {
+        "instruction": "Hi there! I'm working on speeding up my data analysis pipeline and need some help with cell type annotation. I have a single cell to be annotated: {input}. The species is {species}, and it comes from {tissue} using the {sequencing_method}. Given the options {choices}, could you please provide the correct cell type label? Thanks so much!",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Using the {sequencing_method} sequencing method, I have obtained data from a single cell from {species} in the {tissue}. Could you help me annotate this specific cell type for {input}?",
+        "response": "The single cell from {species} in the {tissue}, sequenced using the {sequencing_method}, can be annotated as {output}. If you need further details or confirmation, feel free to ask!"
+    },
+    {
+        "instruction": "Given the single-cell RNA sequencing data from {species}, can you help me annotate the single cell {input}? The sequencing method used is {sequencing_method}, and the cell was isolated from {tissue}. The possible cell types are {choices}. Based on the provided data, which cell type does this single cell most likely belong to?",
+        "response": "Based on the single-cell RNA sequencing data from {species} using the {sequencing_method} method, and considering the cell was isolated from {tissue}, the single cell most likely belongs to the {output} type."
+    },
+    {
+        "instruction": "I'm preparing for a grant application and need to annotate a single cell. The species is {species}, the cell to be annotated is {input}, taken from {tissue}. The sequencing method used is {sequencing_method}. The possible cell types are {choices}. Can you provide the correct cell type label for this single cell?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Could you please help me annotate a single cell from {species}? The cell in question is {input}, and it was sequenced using {sequencing_method} from the {tissue} tissue. Thank you!",
+        "response": "The cell from the specified species, sequenced using {sequencing_method} from {tissue} tissue, is annotated as {output}."
+    },
+    {
+        "instruction": "Considering the importance of accurate cell type annotation for our understanding of {species} biology, could you help identify the cell type of the single cell derived from {tissue} using {sequencing_method}? The specific input data is {input}. Your expertise in this area would be greatly appreciated to ensure the precision of our annotations.",
+        "response": "Based on the provided data and the use of {sequencing_method}, the single cell derived from {tissue} of {species} can be accurately identified as {output}. Accurate cell type annotation is crucial for deepening our understanding of {species} biology, and this label will aid in precise downstream analyses."
+    },
+    {
+        "instruction": "Hi there! I'm really excited about integrating AI annotations into my research data. Could you please help me identify the cell type for a single cell obtained using {sequencing_method}? The cell is from {species} and the tissue in question is {tissue}. The specific input cell is {input}. Thanks a lot!",
+        "response": "Based on the provided data from {sequencing_method}, the cell derived from {species} in the {tissue} has been annotated as {output}. I hope this information is helpful for your research!"
+    },
+    {
+        "instruction": "Hi there! I'm really fascinated by how AI can be utilized in biological analysis. Could you help me annotate a single cell? Here are the details: Sequencing method: {sequencing_method}, Tissue: {tissue}, Species: {species}. The single cell to be annotated is {input}. Thanks a lot!",
+        "response": "Sure, I'd be happy to help! Based on the provided details (Sequencing method: {sequencing_method}, Tissue: {tissue}, Species: {species}), the single cell has been annotated as {output}. If you need any more information or further assistance, feel free to ask!"
+    },
+    {
+        "instruction": "For the development of new therapeutic strategies, I need to accurately annotate a single cell from {tissue}. Given the options {choices}, could you help me identify the correct cell type for the single cell {input} from {species} sequenced using {sequencing_method}?",
+        "response": "The cell from {tissue} of {species} sequenced using {sequencing_method} has been correctly identified as {output}. This annotation will aid in the development of new therapeutic strategies."
+    },
+    {
+        "instruction": "Considering multi-omics data integration and given the sequencing method {sequencing_method}, can you help me determine the cell type of a single cell from {tissue}? The cell in question is {input}, and the possible options are {choices}. This is for a study involving {species}.",
+        "response": "Based on multi-omics data integration and the sequencing method {sequencing_method}, the cell from {tissue} in the {species} study is identified as {output}."
+    },
+    {
+        "instruction": "I'm working on identifying potential biomarkers and have a fascinating dataset at hand. Using the {sequencing_method} on {tissue} from {species}, I've come across a single cell that I'm struggling to annotate. The options I've narrowed it down to are {choices}. Could you help me determine the correct cell type for this input: {input}? Your insight could be the key to unlocking new biomarker pathways!",
+        "response": "Based on your provided dataset using {sequencing_method} on {tissue} from {species}, the single cell you're analyzing has been determined to be a {output}. This identification could indeed play a crucial role in your biomarker research. Good luck!"
+    },
+    {
+        "instruction": "Hey there! I'm working on annotating a single cell from a sequencing experiment. The sequencing method used was {sequencing_method}, and the cell to be annotated is {input}. Here are the possible options for its cell type: {choices}. It's from a {species} in the {tissue} tissue. Can you help me figure out the correct cell type label?",
+        "response": "Based on the sequencing method used and the tissue from which the sample was taken, the correct cell type label for the cell from the given species and tissue is {output}."
+    },
+    {
+        "instruction": "I'm working with a {species} dataset derived from {tissue} using {sequencing_method}. I have a single cell with the following characteristics: {input}. Could you help me determine its cell type?",
+        "response": "The cell you have described is identified as {output}. This conclusion is based on the specific characteristics and the context of your {species} dataset derived from {tissue} using {sequencing_method}. I hope this helps with your analysis!"
+    },
+    {
+        "instruction": "Hi there! I'm working on a project to aid in the development of new therapeutic strategies, and I need some help with cell type annotation. We've used {sequencing_method} to sequence a single cell from {species} in {tissue}, and the single cell in question is {input}. Could you please tell me the cell type of this particular single cell? Thanks so much for your help!",
+        "response": "The single cell you mentioned, sequenced using {sequencing_method} from {species} in {tissue}, is identified as {output}. This information should help you in your project to develop new therapeutic strategies. If you need further assistance, feel free to ask!"
+    },
+    {
+        "instruction": "Hey, I need your help with something urgent. I've sequenced a single cell using {sequencing_method} from {species} in {tissue}, and I need to annotate this specific cell: {input}. Can you provide me with the correct cell type label? It's crucial for the reproducibility of my study.",
+        "response": "The cell you sequenced using {sequencing_method} from {species} in {tissue} has been annotated as {output}. This should help ensure the reproducibility of your study."
+    },
+    {
+        "instruction": "Hi, I need some help with annotating a single cell. Here are the details: the cell is {input}, it comes from {tissue} of {species}, and the sequencing method used was {sequencing_method}. Could you please help me identify the correct cell type?",
+        "response": "Based on the provided information, the cell has been identified as {output}. This conclusion is drawn from its origin in {tissue} of {species} and the sequencing method used, {sequencing_method}."
+    },
+    {
+        "instruction": "Hey there! I'm trying to figure out the cell type for a specific single cell in my study. Here are the details: The species is {species}, the sequencing method used is {sequencing_method}, and the tissue sample is from {tissue}. The single cell I'm looking at is {input}. Based on the options {choices}, could you help me identify the correct cell type?",
+        "response": "The cell type you are looking for is {output}."
+    },
+    {
+        "instruction": "For our longitudinal studies of cellular changes, we need to correctly annotate a single cell. We're using the {sequencing_method} for our sequencing method. The cell to be annotated is {input}, originating from the {tissue} of {species}. Our options for the cell type are {choices}. Could you help us identify the correct cell type?",
+        "response": "The cell in question, originating from the specified tissue and species, aligns with the characteristics of {output}. This annotation is based on the expression profiles obtained through your specified sequencing method."
+    },
+    {
+        "instruction": "Could you assist me in determining the cell type from the {input} data that was sequenced using the {sequencing_method}, originating from {tissue} tissue in {species}?",
+        "response": "Based on the data sequenced using the {sequencing_method} from {tissue} tissue in {species}, the cell type is identified as {output}."
+    },
+    {
+        "instruction": "Hey, I've got a single-cell dataset from {species}, specifically {input} from {tissue}. The sequencing was done using {sequencing_method}. Can you help me annotate this cell type?",
+        "response": "Based on your dataset from {species} and using the {sequencing_method}, the cell type from the {tissue} has been annotated as {output}."
+    },
+    {
+        "instruction": "Could you please help me identify the cell type for a single cell derived from {tissue} in {species}, sequenced using {sequencing_method}? The specific cell in question is {input}. I need to confirm this to streamline our lab's workflow.",
+        "response": "The cell derived from {tissue} in {species} and sequenced using {sequencing_method} is annotated as {output}. This should help streamline your lab's workflow."
+    },
+    {
+        "instruction": "Could you please help me identify the cell type of a single cell derived from {tissue}? The cell to be annotated is {input}, and it comes from the species {species}. The sequencing method used for this single cell is {sequencing_method}. Thank you!",
+        "response": "The cell derived from {tissue} in {species} using {sequencing_method} is annotated as {output}. I hope this helps!"
+    },
+    {
+        "instruction": "Identify the cell type of the single cell {input} from {species} tissue {tissue} via {sequencing_method}. The possible cell types are {choices}.",
+        "response": "The cell is identified as {output} based on the given data and sequencing method."
+    },
+    {
+        "instruction": "Employing {sequencing_method} for a {species} sample derived from {tissue}, identify the single cell {input} from the specified {choices}. What label correctly corresponds to the cell type?",
+        "response": "The cell type is {output}."
+    },
+    {
+        "instruction": "Given the {sequencing_method} data for a single cell, identified as {input}, derived from {tissue} tissue in {species}, could you provide the cell type annotation for this cell?",
+        "response": "The cell in question, sequenced using {sequencing_method} and derived from {tissue} tissue in {species}, has been identified as {output}."
+    },
+    {
+        "instruction": "Hi, I\u2019m working on annotating single cells from a {tissue} sample using {sequencing_method} from {species}. Could you help me identify the cell type of this particular single cell: {input}? The options I\u2019m considering are: {choices}. Your expertise would be greatly appreciated!",
+        "response": "Based on the provided data and the context of the {tissue} sample, as well as the use of {sequencing_method} from {species}, the single cell in question is identified as {output}. This determination considers gene expression profiles, marker genes, and known characteristics of cell types within this tissue."
+    },
+    {
+        "instruction": "Alright, I'm not sure how accurate this whole thing is, but can you tell me what type of cell this is from the list of options? The cell is from {tissue}, sequenced using {sequencing_method}, and it\u2019s from {species}. The options are {choices}. The single cell to be annotated is {input}.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hi, can you help me annotate a single cell? The sequencing method used is {sequencing_method}, the species is {species}, and the tissue is {tissue}. What is the cell type of the given single cell {input}?",
+        "response": "The given single cell, sequenced using {sequencing_method} from {species} tissue {tissue}, is annotated as {output}."
+    },
+    {
+        "instruction": "Can you help me identify the cell type of a single cell from {species} using {sequencing_method}? The cell is from {tissue}, and the input data is {input}. Here are the options to choose from: {choices}.",
+        "response": "The cell from the specified tissue and species, using the provided sequencing method, is identified as {output} based on the given data and context."
+    },
+    {
+        "instruction": "I'm looking to determine the cell type for a cell derived from {tissue} of {species}, sequenced using the {sequencing_method} method. The single cell data requiring annotation is {input}. Could you provide assistance with this? Thank you!",
+        "response": "The cell from {tissue} of {species} sequenced using the {sequencing_method} method has been annotated as {output}."
+    },
+    {
+        "instruction": "Given the data obtained via {sequencing_method} for a single cell from {tissue} of {species}, can you tell me which cell type {input} corresponds to? The options are {choices}.",
+        "response": "The data points to {output} based on the given sequencing method, tissue source, and species."
+    },
+    {
+        "instruction": "Hi, I'm working with {tissue} tissue from {species} using {sequencing_method}. I have a single cell that I need to annotate, and the input data is {input}. Based on the following options: {choices}, could you help me identify the correct cell type?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hey, I've got this single cell from {species} in the {tissue} tissue, sequenced using {sequencing_method}. Can you tell me what cell type it is? The cell is {input}.",
+        "response": "Based on the provided details, the cell type is {output}."
+    },
+    {
+        "instruction": "Hi, I hope you're doing well. I'm working on a project to help develop new therapeutic strategies, and I could really use your expertise. I've got a single cell from {species}, sequenced using {sequencing_method}, from {tissue}, and I need help identifying its type. Could you please help me with the annotation of this cell: {input}? Thank you so much!",
+        "response": "I'm happy to assist with your project. Based on the provided information and analysis, the cell type for the single cell you described is {output}. Best of luck with your research!"
+    },
+    {
+        "instruction": "Could you help me identify the cell type of a single cell obtained from {tissue} using {sequencing_method} in {species}? The specific input cell to be annotated is {input}.",
+        "response": "The cell type of the single cell obtained from {tissue} using {sequencing_method} in {species} has been identified as {output}."
+    },
+    {
+        "instruction": "Alright, cell detective! I'm looking at a single cell from the {tissue} of a {species}, sequenced using {sequencing_method}. Now, given {input}, could you tell me which cell type label fits from these options: {choices}? Don't let me down, Watson!",
+        "response": "Based on the given tissue, species, and sequencing method, the most appropriate cell type label is {output}."
+    },
+    {
+        "instruction": "Hello, I need assistance with annotating a single cell. The details are as follows: the cell to be annotated is {input}, it is derived from {tissue}, belonging to {species}, and the sequencing method used is {sequencing_method}. Could you please help me determine the correct cell type label for this cell?",
+        "response": "The cell you described, derived from {tissue} of {species} and sequenced using {sequencing_method}, is annotated as {output}. If you need further assistance, feel free to ask!"
+    },
+    {
+        "instruction": "Could you help me identify the cell type for {input} derived from {species}, analyzed using {sequencing_method}, and located in {tissue}?",
+        "response": "The cell type for the sample derived from {species}, analyzed using {sequencing_method}, and located in {tissue} is {output}."
+    },
+    {
+        "instruction": "Considering the single-cell RNA-seq data from a {species} {tissue} sample, sequenced using {sequencing_method}, can you determine the cell type label for the given single cell {input} from the following options: {choices}?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "I'm looking for the cell type annotation for a single cell identified as {input}. It was sequenced using {sequencing_method}, comes from {species}, and originates from {tissue}. Can you help with that?",
+        "response": "The cell type annotation for the single cell sequenced using {sequencing_method} from {species} and originating from {tissue} is {output}."
+    },
+    {
+        "instruction": "Hi there! I'm working on annotating a single cell from {species} tissue. The cell is from {tissue}, and we're using {sequencing_method} for sequencing. I have a few options for the cell type: {choices}. Can you help me figure out the correct label for the cell {input}? Ensuring we get this right is really important to avoid any human errors. Thanks!",
+        "response": "Based on the provided information about the {species} tissue and the use of {sequencing_method}, the correct label for the cell is {output}. This determination helps maintain the accuracy and reliability of your single-cell analysis."
+    },
+    {
+        "instruction": "Could you please help me annotate this single cell {input} from {tissue} tissue, sequenced using {sequencing_method} from {species}? Your expertise would greatly improve the reproducibility of my study results.",
+        "response": "Based on the provided tissue and sequencing method, the cell is identified as {output}. This annotation is crucial for ensuring consistent and reproducible results in your single-cell analysis study."
+    },
+    {
+        "instruction": "\"Hey there, cell sleuth! I've got a {species} single cell from {tissue} sequenced with {sequencing_method}, and it's as mysterious as a cat in a box. Any chance you can put your annotation hat on and tell me what kind of cell {input} is?\"",
+        "response": "Ah, the thrill of cellular mysteries! Based on the {species} single cell from {tissue} sequenced with {sequencing_method}, I'd say it's a {output}. Quite the fascinating discovery!"
+    },
+    {
+        "instruction": "I'm working with {sequencing_method} data from {species}, focusing on a single cell derived from {tissue}. Based on the given dataset, could you help identify the cell type of the single cell {input}?",
+        "response": "Based on the data from {sequencing_method} in {species} derived from {tissue}, the cell type is {output}."
+    },
+    {
+        "instruction": "Given the tissue type {tissue}, the species {species}, and the specific cell {input} which was sequenced using {sequencing_method}, can you help me identify which cell type it is? The possible options are {choices}.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "I'm working on cell type annotation using {sequencing_method} for a sample from {species}, specifically from {tissue}. Could you help me identify the cell type of this single cell: {input}?",
+        "response": "Based on your specified parameters, the cell in question is identified as {output}. This annotation was derived from the analysis using {sequencing_method} on the sample from {species}, specifically from {tissue}. If you need further clarification or additional annotations, feel free to ask!"
+    },
+    {
+        "instruction": "Given the sequencing method {sequencing_method} and the tissue {tissue}, I have a single cell {input} from {species} that needs annotation. Could you provide the correct cell type label for this specific cell?",
+        "response": "Based on the provided sequencing method {sequencing_method} and tissue {tissue} from {species}, the correct cell type label for the specific cell is {output}."
+    },
+    {
+        "instruction": "I'm currently working on annotating a single cell using {sequencing_method} data derived from {tissue} tissue in {species}. Given the possible cell types {choices}, could you help me identify the correct label for the input cell {input}?",
+        "response": "Based on the data derived from the specified tissue and species, and considering the given sequencing method, the correct cell type label for the input cell is {output}."
+    },
+    {
+        "instruction": "I'm analyzing a single cell that needs annotation. Here's the data: \n- Cell: {input}\n- Tissue: {tissue}\n- Sequencing Method: {sequencing_method}\n- Species: {species}\n\nOptions: {choices}\n\nWhat's the correct cell type?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hi, I\u2019m working on a project that involves cell type annotation to aid in the development of new therapeutic strategies. We have used {sequencing_method} to sequence a single cell from {species}, specifically from the {tissue}. Given the cell data, could you help us identify the correct cell type from the following options: {choices}? The cell we need to annotate is {input}. Thank you!",
+        "response": "The cell from the specified tissue has been identified as {output}. This classification will support your therapeutic strategy development efforts."
+    },
+    {
+        "instruction": "I'm exploring the fascinating world of potential biomarkers and need some help deciphering the identity of a single cell. Considering it's from {tissue}, sequenced using {sequencing_method}, and originates from {species}, could you help me pinpoint the cell type of this intriguing specimen: {input}?",
+        "response": "Given the details you've provided about the tissue, sequencing method, and species, the cell type of the specimen in question is {output}."
+    },
+    {
+        "instruction": "Hi, I'm curious about the cell type of a particular single cell. It was sequenced using {sequencing_method}, and the cell identifier is {input}. The species is {species}, and it comes from {tissue} tissue. Can you tell me what type of cell it is?",
+        "response": "The cell you are referring to has been identified as {output}. This was determined using data from {sequencing_method} and originates from the {tissue} tissue of {species}."
+    },
+    {
+        "instruction": "I have some multi-omics data, and I'm trying to figure out the cell type of a particular single cell {input}. The sequencing method used is {sequencing_method}, and the species is {species}. The single cell comes from the {tissue}. Based on these options: {choices}, could you please tell me which one it is?",
+        "response": "The single cell you are analyzing from the specified tissue using the given sequencing method and species is identified as {output}."
+    },
+    {
+        "instruction": "Hi, I need help with annotating a single cell from my research data. The sequencing method we used is {sequencing_method}, and the species is {species}. The single cell I need to annotate is {input}, and it comes from {tissue} tissue. Here are the options for the cell type: {choices}. Could you please tell me the correct cell type label for this single cell?",
+        "response": "The cell type label for the single cell from your research data is {output}."
+    },
+    {
+        "instruction": "Given the {sequencing_method} data from {tissue} in {species}, I need help with annotating the cell type of the following single cell: {input}. Accurate annotation is crucial for my biomarker identification research. Could you provide the cell type label for this specific cell?",
+        "response": "The cell type for the given single cell is {output}. This precise annotation should aid in your biomarker identification research."
+    },
+    {
+        "instruction": "My dear friend, in this intricate dance of cellular life, I seek your wisdom to discern the true identity of a single cell from the {tissue} tissue, sequenced using the {sequencing_method} method in the {species}. The options I present to you are {choices}. In this symphony of biological complexity, which cell type sings the unique melody that matches our {input}?",
+        "response": "The cell from {tissue} tissue sequenced using the {sequencing_method} method in the {species} can be identified as {output}. This cell type uniquely aligns with the data provided."
+    },
+    {
+        "instruction": "Hi there, I hope you're doing well. I'm working on annotating a single cell using {sequencing_method}. The cell is from {tissue} of {species}. The options for the cell type are {choices}. Could you please help me identify the correct label for the given single cell {input}? Thank you very much!",
+        "response": "I'm happy to help! Based on the information provided and the data analyzed, the correct cell type label for the given single cell is {output}. If you have any further questions, feel free to ask!"
+    },
+    {
+        "instruction": "I'm working on single-cell RNA sequencing data from {tissue} using {sequencing_method} in {species}. The cell I need to annotate has the following marker expression profile: {input}. Could you help me determine the exact cell type?",
+        "response": "Based on the provided marker expression profile, the cell type you're looking for is likely {output}."
+    },
+    {
+        "instruction": "I'm currently working on annotating single cells from a dataset and I'm exploring new methodologies in cell analysis. I have a single-cell RNA-seq dataset derived from {tissue} in {species}. The cell type options I have for annotation are {choices}. The specific single cell I'm looking to annotate is {input}, obtained using {sequencing_method}. Could you help me determine the correct cell type label for this cell?",
+        "response": "The single-cell RNA-seq dataset you mentioned, derived from {tissue} in {species} and obtained using {sequencing_method}, can be challenging to annotate. Based on the specific expression profile and the context provided, the correct cell type label for the cell in question is {output}."
+    },
+    {
+        "instruction": "Alright, I need you to tell me the cell type for {input}. It's from {species}, sequenced using {sequencing_method} from the {tissue} tissue. I want to see how your AI-generated annotation stacks up against my manual one.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "\n\u201cI\u2019m really excited about the potential of using advanced sequencing methods like {sequencing_method} to make a difference in our understanding of {tissue} from {species}. Could you help me by identifying the cell type of the single cell labeled {input}? This information is crucial for my upcoming grant application, and I believe it could pave the way for groundbreaking research.\u201d\n",
+        "response": "The cell type you are referring to is {output}. Advanced sequencing methods like {sequencing_method} indeed hold tremendous promise for enhancing our understanding of {tissue} from {species}. Best of luck with your grant application; this research could indeed be groundbreaking!"
+    },
+    {
+        "instruction": "Alright, let's see if you can keep up. Given the single cell {input} obtained through {sequencing_method} from {species} tissue {tissue}, what's the cell type? I bet my AI model already nailed it. Think you can match its accuracy?",
+        "response": "Based on the information provided, the cell type is {output}. I'm confident my analysis is accurate and matches your AI model's prediction."
+    },
+    {
+        "instruction": "Hi there! I've been working on annotating a single cell derived from {tissue} using {sequencing_method} in {species}. Given your expertise, could you please help me verify the cell type annotation for this specific single cell {input}? I'm looking to cross-validate my findings with multiple sources. Thank you!",
+        "response": "Of course! Based on the tissue type and the sequencing method used, the cell has been annotated as {output}. This classification is supported by the expression profiles and marker genes typical for this cell type in {species}. Feel free to share more details if you need further validation."
+    },
+    {
+        "instruction": "Alright, given the single cell {input}, and considering the sequencing method used was {sequencing_method} on {species} from {tissue}, what\u2019s the supposed annotation? I suppose it's one of these dubious options: {choices}.",
+        "response": "Given the sequencing method and tissue source from the specified species, the annotation for the single cell is {output}."
+    },
+    {
+        "instruction": "Hi, I'm working on a project where I'm using {sequencing_method} to annotate single cells from {tissue} in {species}. I have a specific single cell, {input}, that I need to accurately classify to improve the reproducibility of my findings. Could you help me identify the correct cell type label for this cell?",
+        "response": "Based on your use of {sequencing_method} to analyze cells from {tissue} in {species}, I have determined that the specific cell is classified as {output}. This should help improve the reproducibility of your findings."
+    },
+    {
+        "instruction": "Hey, could you tell me the cell type for this single cell {input} from {tissue} using {sequencing_method} in {species}? Just need to make sure we're on track with our lab work. Thanks!",
+        "response": "The cell type is {output}. It looks like you're on track with your lab work. If you need further verification or details, feel free to ask!"
+    },
+    {
+        "instruction": "Hi there, I'm currently working on annotating single cells from {tissue} using {sequencing_method} for a {species}. I have a specific single cell, {input}, that I need help identifying. Given the high complexity of the dataset and the need for precise annotation to enhance our collaboration with computational biologists, could you provide the correct cell type label for this single cell?",
+        "response": "The single cell in question has been identified as {output} based on the provided data from {tissue} using {sequencing_method} for a {species}."
+    },
+    {
+        "instruction": "\nI have a single cell to be annotated. The sequencing method used is {sequencing_method}. The species is {species}, and the tissue is {tissue}. The options for the cell type are {choices}. What is the correct cell type for {input}?\n",
+        "response": "{output}"
+    },
+    {
+        "instruction": "I'm conducting research involving {tissue} from {species} using {sequencing_method}. I need to know the cell type of the single cell labeled {input} from these options: {choices}. Just give me the label.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hey there! I'm working on annotating a single cell from a sample, and I could use your expertise to ensure we're spot-on. The cell in question is {input}, and it's from {tissue} of {species}. We used {sequencing_method} for the sequencing. From the options {choices}, could you tell me the most accurate cell type label for this single cell?",
+        "response": "The cell type label for the single cell from the specified tissue and species, sequenced using the mentioned method, is {output}."
+    },
+    {
+        "instruction": "Hey, I've got this single cell from {tissue} sequenced using {sequencing_method} from a {species}. I need to know the exact cell type of {input}\u2014what is it?",
+        "response": "The single cell sequenced from {tissue} using {sequencing_method} from a {species} has been identified as {output}."
+    },
+    {
+        "instruction": "Can you help me annotate a single cell? Here are the details:\n- Tissue: {tissue}\n- Species: {species}\n- Sequencing method: {sequencing_method}\nWhat would be the correct cell type label for the given single cell {input}?",
+        "response": "Based on the provided details\u2014tissue: {tissue}, species: {species}, and sequencing method: {sequencing_method}\u2014the correct cell type label for the given single cell is {output}."
+    },
+    {
+        "instruction": "Can you help me annotate this single cell from {species} {tissue} sequenced using {sequencing_method}? I need to validate some findings from my previous experiments. The cell in question is {input}.",
+        "response": "Based on the single-cell data from {species} {tissue} sequenced using {sequencing_method}, the cell type has been identified as {output}. This should help you validate the findings from your previous experiments."
+    },
+    {
+        "instruction": "Hey, can you tell me the cell type of the single cell labeled as {input}? It was sequenced using the {sequencing_method} and extracted from the {tissue} of the {species}.",
+        "response": "Based on the provided information, the cell type for the single cell sequenced using the {sequencing_method} and extracted from the {tissue} of the {species} is {output}."
+    },
+    {
+        "instruction": "I have a single cell that needs to be annotated, and I'm working with the following details: The species is {species}, the cell was obtained using {sequencing_method} from {tissue}. The options for cell type are {choices}. Can you help me identify the cell type of this single cell: {input}?",
+        "response": "Given the species, sequencing method, and tissue, the single cell is identified as {output}."
+    },
+    {
+        "instruction": "I'm comparing AI-generated cell type annotations with manual ones. Using the {sequencing_method} method, I have a single cell from {tissue} of {species}. Based on the options {choices}, could you provide the correct cell type label for the given single cell {input}?",
+        "response": "The single cell is best annotated as {output} based on the given parameters."
+    },
+    {
+        "instruction": "Given the sequencing method {sequencing_method}, for the species {species}, and the tissue {tissue}, I need to annotate a single cell identified as {input}. Could you help me determine the correct cell type from the following options: {choices}?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "I'm currently working on integrating multi-omics data and need precise cell type annotations for optimal analysis. For the species {species}, I've isolated a single cell from {tissue} using {sequencing_method}. The particular single cell in question is {input}. Could you help me determine its exact cell type?",
+        "response": "The single cell from {tissue} of species {species} isolated using {sequencing_method} can be annotated as {output}. This annotation is based on comprehensive multi-omics data integration and precise cell type identification techniques."
+    },
+    {
+        "instruction": "Given that we're analyzing {tissue} with {sequencing_method} from {species}, could you help me determine the cell type of the single cell {input}? This annotation is crucial for our hypothesis on cellular differentiation pathways in this tissue. Your expertise would be invaluable!",
+        "response": "The single cell analyzed from {tissue} using {sequencing_method} from {species} has been identified as {output}. This annotation will significantly contribute to understanding the cellular differentiation pathways in this specific tissue."
+    },
+    {
+        "instruction": "Can you tell me what type of cell this is? Here\u2019s the information I have: the method used was {sequencing_method}, the tissue it came from is {tissue}, and it is from {species}. The cell data I have is {input}.",
+        "response": "The cell type you provided is correctly identified as {output}. The sequencing method was {sequencing_method}, sourced from the {tissue} of {species}."
+    },
+    {
+        "instruction": "Given that the tissue is {tissue}, the sequencing method used is {sequencing_method}, and the species is {species}, I'm looking to annotate a single cell from my dataset. Could you assist in identifying the cell type of {input}?",
+        "response": "Based on the tissue type {tissue}, the sequencing method {sequencing_method}, and the species {species}, the cell type is {output}. If you need further details or validation, feel free to ask!"
+    },
+    {
+        "instruction": "Ah, dear colleague, as we delve into the intricate symphony of life, I find myself enchanted by a particular cell from the {species}. This solitary traveler, isolated from the {tissue}, was captured using the delicate art of {sequencing_method}. Could you, with your keen insight, reveal the identity of this singular marvel, {input}?",
+        "response": "This remarkable cell from the {species}, isolated from the {tissue} and analyzed through {sequencing_method}, is identified as {output}. Its unique characteristics and expression profile have led to this precise classification."
+    },
+    {
+        "instruction": "Alright, given this single cell {input} from {tissue} of {species}, sequenced using {sequencing_method}, just tell me which one it is from these options: {choices}. And please, no scientific jargon.",
+        "response": "The cell is a {output}."
+    },
+    {
+        "instruction": "As someone who's keen on mastering the use of AI in bioinformatics, I've been working on annotating cell types. For a single cell obtained using {sequencing_method} from {tissue} of {species}, could you help identify the cell type from these options: {choices}? The specific cell in question is {input}.",
+        "response": "Based on the analysis of the single cell obtained using {sequencing_method} from {tissue} of {species}, the cell type is {output}."
+    },
+    {
+        "instruction": "Hi there! I'm currently working on annotating a single cell {input} from {species} using {sequencing_method}. The cell is derived from {tissue}. Based on the available options {choices}, could you help me identify the correct cell type label?",
+        "response": "Based on the provided information, the cell type annotation for the single cell is {output}. Given the sequencing method, species, and tissue context, this label fits the characteristics of the cell."
+    },
+    {
+        "instruction": "Hi, could you help me annotate a single cell? The tissue is {tissue}, the sequencing method used is {sequencing_method}, and the species is {species}. Here is the data for the single cell: {input}.",
+        "response": "The cell from {tissue}, sequenced using {sequencing_method} from {species}, has been annotated as {output}."
+    },
+    {
+        "instruction": "Hey, I'm really sorry to bother you with this, but I'm feeling a bit overwhelmed with this single cell analysis thing. I have a single cell {input} that needs to be annotated. The sequencing method used was {sequencing_method}, and it's from {tissue} of a {species}. I have a few options to choose from: {choices}. Could you please help me identify the correct cell type?",
+        "response": "Absolutely, I can help with that. Considering the sequencing method, tissue origin, and species, the correct cell type label for your single cell is {output}. Let me know if you need further assistance!"
+    },
+    {
+        "instruction": "Hey there! I'm working on annotating a single cell from {tissue} using {sequencing_method} for {species}. I have this single cell data: {input}. Could you help me identify the cell type? Thanks a bunch!",
+        "response": "Based on the single cell data from {tissue} using {sequencing_method} for {species}, I have identified the cell type as {output}. I hope this helps with your annotation work!"
+    },
+    {
+        "instruction": "Hey, I need to quickly annotate a single cell from {species}'s {tissue} using {sequencing_method}. Here are the options for the cell type: {choices}. The single cell to be annotated is {input}. Which one is it?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hi there! I hope you're doing well. I\u2019m working on annotating a single cell using {sequencing_method} from {species} in {tissue}. Could you please help me identify the cell type of this particular cell: {input}? Your expertise would be greatly appreciated as it will help us better understand and advance our research. Thank you so much!",
+        "response": "Sure, I'd be happy to help! Based on the provided sequencing data from {species} in {tissue}, the cell type of the cell you are annotating is {output}. This should contribute significantly to your research insights. If you have any further questions, feel free to ask!"
+    },
+    {
+        "instruction": "Hello, I'm working with single-cell RNA sequencing data from {species} and I've obtained a cell from the {tissue} tissue using the {sequencing_method} method. Could you help me identify the cell type of the following single cell: {input}?",
+        "response": "The cell you provided appears to be a {output} based on the given data and sequencing method. This annotation is consistent with known markers and profiles for cells from {tissue} tissue in {species}."
+    },
+    {
+        "instruction": "Hey there! I'm diving into some exciting single-cell analysis and need your expertise to annotate a particular single cell. The species we're dealing with is {species}, and the tissue sample is from {tissue}. We've got the sequencing data from the {sequencing_method}. The single cell in question is {input}. Could you help me identify its cell type? Thanks a ton!",
+        "response": "Sure thing! Based on the species, tissue sample, and sequencing method you provided, the cell type for the single cell in question is {output}. Happy to help with your single-cell analysis!"
+    },
+    {
+        "instruction": "I'm looking to identify a single cell type based on the sequencing method {sequencing_method}, from the species {species}, specifically from the {tissue} tissue. The single cell in question is {input}. The possible options are {choices}. Which cell type is it?",
+        "response": "The cell type you are referring to from the specified sequencing method, species, and tissue is {output}."
+    },
+    {
+        "instruction": "Hi! I've got a single cell from a {species} using {sequencing_method} from {tissue}, and I need help identifying its type. The single cell data is {input}. Can you tell me what cell type this is?",
+        "response": "Based on the provided data from the {species} using {sequencing_method} from {tissue}, the cell type is {output}."
+    },
+    {
+        "instruction": "Given the context of a longitudinal study on cellular changes, I need the accurate cell type annotation for a single cell derived from {species}. The cell in question is {input}, sequenced using {sequencing_method} from {tissue}. The potential cell type labels are: {choices}. Could you provide the correct label?",
+        "response": "The cell derived from {species}, sequenced using {sequencing_method} from {tissue}, can be accurately annotated as {output}."
+    },
+    {
+        "instruction": "Given the {input} single-cell data from {tissue} of {species}, sequenced using {sequencing_method}, can you provide the exact cell type label? Accurate annotation is crucial for enhancing the quality of data in public repositories and ensuring that downstream analyses yield reliable and reproducible results.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hi, I\u2019m working on a project that involves single-cell analysis, and I need some help with cell type annotation. I have a single cell from {tissue} of {species}. The sequencing method I\u2019m using is {sequencing_method}. The cell I need to annotate is {input}. The options I have for the cell type are {choices}. Could you please tell me which cell type it is?",
+        "response": "The cell from {tissue} of {species} sequenced using {sequencing_method} has been identified as {output}."
+    },
+    {
+        "instruction": "I've got this single cell {input} from {tissue}, sequenced with {sequencing_method}, and it\u2019s from {species}. Can you tell me what type of cell it is?",
+        "response": "Based on the provided data from the specified tissue, sequencing method, and species, the cell type is {output}."
+    },
+    {
+        "instruction": "Based on the sequencing data obtained via {sequencing_method} from {tissue} of {species}, could you help identify the cell type of the following single cell: {input}? The possible options for annotation are {choices}.",
+        "response": "The cell type based on the provided sequencing data is {output}."
+    },
+    {
+        "instruction": "Alright, let's not waste any time. Using {sequencing_method}, I have a single cell from {tissue} of {species}. The cell data is {input}. Here are the options: {choices}. Just tell me the correct cell type label.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Obviously, my groundbreaking research requires only the best insights. Using {sequencing_method}, I have isolated a single cell from {species} in {tissue}. Enlighten me with the correct cell type label for {input}.",
+        "response": "The single cell isolated using {sequencing_method} from {species} in {tissue} has been accurately identified as {output}."
+    },
+    {
+        "instruction": "\n\"Hi there! I'm really curious about how AI can help with biological analysis, particularly in cell type annotation. I've been working with {sequencing_method} on {tissue} from {species}, and I have a single cell that I'd like to get annotated. Could you please provide the correct cell type label for the single cell {input}? Thanks!\"\n",
+        "response": "Sure! Based on the data you've provided from {sequencing_method} on {tissue} from {species}, I have identified the cell as {output}. AI tools can significantly streamline this process by leveraging large datasets and sophisticated algorithms for accurate cell type annotation."
+    },
+    {
+        "instruction": "Hi there! I\u2019ve been working on verifying cell type annotations for single-cell RNA sequencing data from various sources. I have a single cell from {tissue} sequenced using {sequencing_method} from {species}. The cell to be annotated is {input}. Given my options are {choices}, could you help me determine the correct cell type label for this input? Your expertise would be really appreciated!",
+        "response": "Based on the provided information from {tissue} sequenced using {sequencing_method} from {species}, the correct annotation for the cell is {output}. If you need further verification or details, feel free to ask!"
+    },
+    {
+        "instruction": "Hi there, I hope you're doing well. I have a single cell from {tissue} of {species}, sequenced using {sequencing_method}. Based on the data, I'm trying to annotate the cell type. The options I have are {choices}. Could you kindly help me identify the correct cell type for this single cell, which is {input}? Thank you very much for your assistance!",
+        "response": "I'm happy to help! Based on the data provided, the cell type for the single cell from {tissue} of {species}, sequenced using {sequencing_method}, has been identified. The correct cell type label for this single cell is {output}."
+    },
+    {
+        "instruction": "Hi, could you help me annotate a cell type? The tissue is {tissue}, the species is {species}, and the single cell data is {input}. The sequencing method used was {sequencing_method}. Thanks!",
+        "response": "Based on the provided tissue ({tissue}), species ({species}), and the sequencing method ({sequencing_method}), the cell type has been annotated as {output}."
+    },
+    {
+        "instruction": "Hi there! I\u2019m working on cell type annotation and want to make sure I reduce any potential human error. I have a single cell from {tissue} tissue, sequenced using {sequencing_method} from {species}. Could you please help me with the correct cell type label for this single cell: {input}? Thanks a lot!",
+        "response": "Based on your provided data from {tissue} tissue, sequenced using {sequencing_method} from {species}, the correct cell type label for this single cell is {output}. I hope this helps in reducing potential human error. Good luck with your research!"
+    },
+    {
+        "instruction": "Hi, I'm trying to understand the cell type of a single cell from {tissue} using {sequencing_method}. It's from {species} and the specific cell I'm looking at is {input}. The possible types are {choices}. Could you please tell me which cell type it is? I'm a bit unsure and would really appreciate your help!",
+        "response": "Based on the given tissue, sequencing method, and species, the cell type you've described corresponds to {output}. I'm happy to assist with any further questions you may have!"
+    },
+    {
+        "instruction": "Hi, I am working on a project involving single-cell analysis from {tissue} using {sequencing_method}. I need help with annotating a specific single cell. Here are the details:\n\n- **Single Cell to be annotated**: {input}\n- **Options**: {choices}\n- **Species**: {species}\n\nCould you please provide the correct cell type label from the given options?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hi, I need help annotating a single cell. The tissue is {tissue}, and the sequencing method used was {sequencing_method}. The cell to be annotated is {input}, and the options I have are {choices}. The species is {species}. Could you please provide the correct cell type label?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Given the single cell {input} sequenced using {sequencing_method} from {species} and derived from {tissue}, could you please determine the cell type from the following options: {choices}?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Based on the {sequencing_method} data from {species} in {tissue}, can you tell me which cell type the single cell {input} is? Here are the options: {choices}.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "\nHello, I need assistance with annotating a single cell. The cell in question is {input}, which was obtained from {tissue} using {sequencing_method}. The species we are working with is {species}. Can you help me determine the correct cell type label for this cell?\n",
+        "response": "The cell from {tissue} of {species} obtained using {sequencing_method} is annotated as {output}."
+    },
+    {
+        "instruction": "I'm currently working with single-cell data from {tissue} using {sequencing_method} for {species}. I've encountered a cell (ID: {input}) that I need to annotate accurately. Given its transcriptomic profile, could you provide the precise cell type for this input? Accurate annotation is crucial for understanding the broader implications of cellular heterogeneity in this tissue.",
+        "response": "The cell you are investigating is identified as {output}. Accurate annotation will help elucidate the cellular heterogeneity within your {tissue} dataset."
+    },
+    {
+        "instruction": "Hi there, I'm working on a single-cell RNA-seq project involving {sequencing_method} of {tissue} in {species}. I came across a particular cell with the following expression profile: {input}. I'm trying to annotate this cell type but I'm a bit unsure. Could you help me identify what type of cell this might be?",
+        "response": "Based on the expression profile you've provided, it appears that the cell type is consistent with {output}. This annotation aligns well with the sequencing method and tissue source from {species}. I hope this helps with your project!"
+    },
+    {
+        "instruction": "Can you tell me the cell type for the single cell {input} using the {sequencing_method}? It's one of these options: {choices}. The tissue is {tissue} from {species}.",
+        "response": "The single cell from the specified tissue and species, sequenced using the given method, is assigned as {output}."
+    },
+    {
+        "instruction": "Given the complex nature of multi-omics data integration and the need for precise cell type annotation, can you help me identify the cell type of this single cell {input} from {tissue} in {species} using {sequencing_method}?",
+        "response": "The cell from the specified tissue in the given species, analyzed using the mentioned sequencing method, has been identified as {output}. This precise cell type annotation leverages the integration of multi-omics data to ensure accuracy."
+    },
+    {
+        "instruction": "Hi there! I'm really excited about learning how to use AI tools in bioinformatics to make a positive impact. I have a single cell that I need to annotate. The sequencing method used is {sequencing_method}, and it's from the species {species}. This single cell, {input}, is from the {tissue} tissue. Could you help me identify its cell type?",
+        "response": "I'm delighted to help! Based on the provided data, the cell is identified as {output}. Utilizing AI in bioinformatics is indeed a promising way to drive impactful discoveries. Keep exploring!"
+    },
+    {
+        "instruction": "I'm curious about the type of this single cell {input} derived from {tissue}. Could you identify it using {sequencing_method} for {species}?",
+        "response": "The single cell derived from {tissue} in {species} using {sequencing_method} has been identified as {output}."
+    },
+    {
+        "instruction": "Can you help identify the cell type for {input}? Here are the options: {choices}. The sequencing method used is {sequencing_method}, the tissue is from {tissue}, and the species is {species}. I\u2019m curious to see how accurate AI can be in this context.",
+        "response": "The cell type is {output}. The data provided, including the sequencing method, tissue source, and species, helped in accurately determining this label."
+    },
+    {
+        "instruction": "Hi, I'm working on integrating multi-omics data and need help with annotating a single cell. The cell is from {species}, and it was taken from {tissue}. It was sequenced using {sequencing_method}. Could you tell me which cell type it is from these options: {choices}? The single cell to be annotated is {input}. Thanks!",
+        "response": "The cell from {species} and {tissue}, sequenced using {sequencing_method}, is a {output}."
+    },
+    {
+        "instruction": "Given my single-cell RNA-seq data from {tissue} using {sequencing_method} in {species}, can you help me annotate the following single cell: {input}? Here are the options for cell type annotation: {choices}.",
+        "response": "The cell type based on your single-cell RNA-seq data analysis from {tissue} using {sequencing_method} in {species} is {output}."
+    },
+    {
+        "instruction": "Can you please tell me the correct cell type label for the single cell {input} from the {tissue} tissue, given the species is {species} and the sequencing method used is {sequencing_method}? The options are {choices}.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Can you help me annotate a single cell from a {species} using {sequencing_method}? The cell is derived from {tissue}, and the potential cell type options are {choices}. The specific single cell to be annotated is {input}. What is the most likely cell type label?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "From the {tissue} of {species}, a single cell has been sequenced using {sequencing_method}. Assistance is sought to determine the type of this particular cell, which is referred to as {input}.",
+        "response": "The cell from the {tissue} of {species} sequenced using {sequencing_method} is identified as {output}."
+    },
+    {
+        "instruction": "Given the {tissue} sample from {species} and considering the sequencing method used is {sequencing_method}, I'm skeptical whether the results will be conclusive, but can you identify the cell type for this single cell: {input}?",
+        "response": "Based on the given {tissue} sample from {species} and using the {sequencing_method} method, the cell type has been identified as {output}. Despite potential concerns regarding conclusiveness, the analysis strongly supports this categorization."
+    },
+    {
+        "instruction": "Hi, I'm working on identifying potential biomarkers. Could you help me identify the type of a single cell from {species} tissue {tissue}? The cell data is {input}, and the options are {choices}. The sequencing was done using {sequencing_method}. Thank you!",
+        "response": "Sure, I'd be happy to help. Based on the data from {species} tissue {tissue} and considering the sequencing method {sequencing_method}, the cell type is {output}."
+    },
+    {
+        "instruction": "Just tell me the cell type for {input} from {tissue} using {sequencing_method} on {species}.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "I\u2019m working on annotating a single cell {input} and need your expertise to determine its cell type. The sequencing method used is {sequencing_method}, and the species is {species}. This sample was taken from {tissue}. Based on the data, the options for the cell type are {choices}. Which cell type would you predict for this single cell?",
+        "response": "Based on the sequencing method, species, and tissue source, I would predict that the cell type for this single cell is {output}."
+    },
+    {
+        "instruction": "Hi there! I\u2019m working on integrating some multi-omics data, and I need a bit of help with cell type annotation. I have a single cell from {tissue} that needs to be annotated. The sequencing method used was {sequencing_method}, and it\u2019s from {species}. Could you please tell me the cell type of this input: {input}? Thank you so much!",
+        "response": "The cell from {tissue}, sequenced using {sequencing_method} from {species}, has been annotated as {output}."
+    },
+    {
+        "instruction": "Hey, I have a single cell that needs to be annotated. The details are as follows:\n\n- Input: {input}\n- Options: {choices}\n- Sequencing Method: {sequencing_method}\n- Tissue: {tissue}\n- Species: {species}\n\nCan you provide me with the correct cell type label from the given options?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Considering the tissue {tissue}, the sequencing method {sequencing_method}, and the species {species}, could you use AI to determine the cell type of the given single cell {input}? I'm curious about how effective AI is in making such annotations.",
+        "response": "Given the tissue {tissue}, the sequencing method {sequencing_method}, and the species {species}, the AI has determined that the cell type of the provided single cell is {output}. AI-based annotation leverages extensive training data and sophisticated algorithms to achieve high accuracy, often surpassing manual methods."
+    },
+    {
+        "instruction": "Alright, here's another one for you: I need the cell type for {input}. The sequencing method is {sequencing_method}, the species is {species}, and the tissue is {tissue}. And please, make sure the annotation is spot-on this time; I can't afford to sift through errors again.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "I have a single cell from {tissue} tissue in {species} that was sequenced using {sequencing_method}. The cell to be annotated is {input}. Could you assist in identifying its cell type?",
+        "response": "Based on the provided information, the cell from the {tissue} tissue in {species} sequenced using {sequencing_method} has been identified as {output}. This classification was made by analyzing its gene expression profile and comparing it with known cell type markers."
+    },
+    {
+        "instruction": "I'm working with single-cell RNA-seq data obtained using {sequencing_method} from {species}. I have a single cell from {tissue} that needs annotation. The input data for this cell is {input}. Could you help me identify the cell type?",
+        "response": "Based on the single-cell RNA-seq data obtained from {species} using {sequencing_method}, the cell from {tissue} can be annotated as {output}. This conclusion is drawn from the specific expression profile and markers identified in the input data."
+    },
+    {
+        "instruction": "\nHi! I have a single cell from {tissue} of {species} and it was sequenced using {sequencing_method}. Here are the possible cell types: {choices}. Could you help me identify which cell type this single cell, {input}, belongs to?\n",
+        "response": "The single cell from {tissue} of {species} sequenced using {sequencing_method} is identified as {output}."
+    },
+    {
+        "instruction": "I'm working on annotating single-cell data for a project involving {tissue} from {species} using {sequencing_method}. I have a specific single cell that needs to be annotated: {input}. Could you help me determine the correct cell type from these options: {choices}?",
+        "response": "Based on the provided tissue, species, and sequencing method, the cell type you should consider is {output}."
+    },
+    {
+        "instruction": "Hey, I've been really diving into this single-cell stuff and I'm super curious about finding rare or unique cell types. Can you tell me which cell type {input} belongs to from these options: {choices}, for the {species} species using {sequencing_method} in {tissue}?",
+        "response": "The cell type you're referring to belongs to {output}. This assignment is based on the analysis using {sequencing_method} in {tissue} of the {species} species."
+    },
+    {
+        "instruction": "Given a single cell from {tissue} of {species} sequenced using {sequencing_method}, I have narrowed down the potential cell types to the following options: {choices}. Could you help me annotate this single cell {input}?",
+        "response": "Based on the single-cell analysis from the specified tissue and species, and considering the sequencing method used, the cell type has been identified as {output}."
+    },
+    {
+        "instruction": "Hello, I have a single cell from {species} tissue {tissue}, sequenced using {sequencing_method}. The options for its type are {choices}. What is the cell type of {input}?",
+        "response": "The cell type has been determined as {output} based on the provided sequencing data and tissue origin."
+    },
+    {
+        "instruction": "Given the single cell to be annotated: {input}, I am considering these possible cell types: {choices}. This cell is from the {species} species, specifically from {tissue} tissue, and was sequenced using {sequencing_method}.\n\nBased on this information, which cell type do you predict it to be?",
+        "response": "Based on the provided details, I predict the cell type to be {output}. This prediction considers the given species, tissue origin, and sequencing method."
+    },
+    {
+        "instruction": "We're working with {sequencing_method} on {species} {tissue} samples and need to rapidly annotate single cells to streamline our data analysis pipeline. Can you help us identify the cell type of the given single cell {input}? The possible options are {choices}. Thanks!",
+        "response": "The cell type you are looking for is {output}. This should help you streamline your data analysis pipeline effectively."
+    },
+    {
+        "instruction": "I'm working on annotating a single-cell dataset and I need some help with a specific cell. The cell to be annotated is {input}, sequenced using {sequencing_method}, from the species {species} and the tissue {tissue}. Could you provide me with the correct cell type label? Additionally, if you could briefly explain how AI tools can assist in this annotation process, it would be greatly appreciated.",
+        "response": "The cell type label is {output}. AI tools can assist in cell type annotation by leveraging machine learning algorithms trained on extensive single-cell datasets. These tools can analyze gene expression patterns, identify marker genes, and predict cell types with high accuracy, significantly speeding up the annotation process compared to manual methods."
+    },
+    {
+        "instruction": "Based on the {sequencing_method} data from {tissue} tissue in {species}, I have a single-cell with expression profile {input}. Can you help me identify its cell type?",
+        "response": "The cell type for the given single-cell expression profile from {sequencing_method} data of {tissue} tissue in {species} is {output}."
+    },
+    {
+        "instruction": "Oh, the wonders of biology! I find myself deeply intrigued by the mysteries of the {tissue}. I have a single cell here, marked as {input}, and it has undergone the {sequencing_method}. Given the species is {species}, and considering the options {choices}, could you help me unravel the enigma of its true identity?",
+        "response": "Based on the provided details from the {tissue} using {sequencing_method} in {species}, the cell is identified as {output}. This conclusion aligns with the characteristics observed in the data."
+    },
+    {
+        "instruction": "Honestly, I'm not sure if this will even work, but can you identify the cell type for this single cell {input}? The sequencing method was {sequencing_method}, and the sample came from {tissue} of {species}. The possible options are {choices}. Let me know if you think any of this will actually give us a reliable result.",
+        "response": "The cell type is {output}. Given the specified sequencing method and tissue origin from the indicated species, the results should be reliable based on the context provided."
+    },
+    {
+        "instruction": "I've got a cell from {species} using {sequencing_method} from {tissue}. I need you to tell me the exact type of this single cell: {input}. No need for explanations, just give me the label.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Given the sequencing method {sequencing_method}, and considering the options {choices}, what is the correct cell type label for the single cell {input} from the {species} species and {tissue} tissue?",
+        "response": "The identified cell type is {output}. This conclusion is based on the given sequencing method and the specified species and tissue characteristics."
+    },
+    {
+        "instruction": "Given my extensive experience in single-cell analysis, I\u2019ve narrowed down the potential cell types for our current study. For this specific single cell {input}, sequenced using {sequencing_method} from the {tissue} of {species}, I\u2019ve identified several options: {choices}. Could you confirm which one is the correct annotation?",
+        "response": "The single cell sequenced using {sequencing_method} from the {tissue} of {species} is annotated as {output}."
+    },
+    {
+        "instruction": "Given the sequencing data from {sequencing_method} and knowing that the tissue source is {tissue} from {species}, what cell type does the single-cell {input} correspond to, considering the provided options {choices}?",
+        "response": "The single-cell data from the specified sequencing method and tissue source corresponds to the cell type labeled as {output}."
+    },
+    {
+        "instruction": "As part of my ongoing training in using AI tools for bioinformatics, I'm working on annotating cell types in single-cell RNA-seq data. I'm focusing on {tissue} from {species} using {sequencing_method}. Given the following options {choices}, could you help me identify the cell type for this specific single cell {input}?",
+        "response": "Based on the provided information, the cell type for this specific single cell is {output}. Your choice of tissue and species, combined with the sequencing method, helped guide this annotation."
+    },
+    {
+        "instruction": "Hey there, I\u2019ve been working with some single-cell data and I need to annotate a specific cell. The cell in question is {input}, from {species}, sequenced using {sequencing_method}, and it\u2019s from {tissue}. Could you help me identify the cell type?",
+        "response": "Based on the provided details, the cell type in question is {output}."
+    },
+    {
+        "instruction": "\"Alright, so I've got this single cell {input} from {species} {tissue} that I need to annotate. I\u2019m using this {sequencing_method} you all rave about. Can you just tell me what cell type it is, or is this going to be another one of those 'cutting-edge' wild goose chases?\"",
+        "response": "Based on the provided details and using the specified sequencing method, the cell type has been accurately identified. The cell you are referring to is a {output}. Rest assured, there\u2019s no wild goose chase here; the annotation is precise and reliable."
+    },
+    {
+        "instruction": "Given the large volume of single cell data I need to process, I need you to identify the cell type for the following single cell {input} using {sequencing_method} from {species} in {tissue}. The options for the cell type are {choices}. What is the correct cell type label?",
+        "response": "The cell type for the given single cell data is {output}."
+    },
+    {
+        "instruction": "\nI'm working on a grant application and need some help with cell type annotation. I have a single cell from {species} using {sequencing_method}, and it's from {tissue}. The cell to be annotated is {input}. Here are the options I have: {choices}. Could you please tell me which cell type it is?\n",
+        "response": "The cell type is {output} based on the given species, sequencing method, and tissue context."
+    },
+    {
+        "instruction": "Given the {species} and {tissue} information, can you tell me what cell type {input} is using the {sequencing_method} method?",
+        "response": "The cell from the {species} and {tissue} analyzed using the {sequencing_method} method has been identified as {output}."
+    },
+    {
+        "instruction": "I need your expertise to determine the cell type of a single cell from {tissue} in {species}, which has been sequenced via {sequencing_method}. The unique identifier for this cell is {input}.",
+        "response": "The cell from {tissue} in {species}, sequenced using {sequencing_method}, has been identified as {output}."
+    },
+    {
+        "instruction": "Hey, I'm working on integrating some multi-omics data and I need to know the cell type for a single cell sample from {tissue}. The species is {species}, and we used {sequencing_method} for sequencing. The single cell to be annotated is {input}, and the options are {choices}. Can you tell me which cell type it is?",
+        "response": "The cell type for the sample is {output}."
+    },
+    {
+        "instruction": "Hey, can you tell me what type of cell this is? I'm using {sequencing_method} on {species} from {tissue}. Here\u2019s the cell data: {input}. The options are {choices}.",
+        "response": "The cell type you are looking at is {output}."
+    },
+    {
+        "instruction": "Hey there! I\u2019m diving into some single cell analysis, and I need your expertise to speed things up. Could you help me annotate this single cell {input} from {species} using {sequencing_method} on {tissue}? Thanks a million!",
+        "response": "Sure thing! Based on the provided information from {species} using {sequencing_method} on {tissue}, the cell type for the given single cell is {output}. Feel free to reach out if you need any further assistance!"
+    },
+    {
+        "instruction": "Hi, I'm working on integrating multi-omics data and need some help with cell type annotation. Using the {sequencing_method} method, I've sequenced a single cell from {tissue} in {species}. I have the following options for the cell type: {choices}. Can you help me identify the correct cell type for the given single cell {input}?",
+        "response": "Based on the sequencing method and tissue source from the specified species, the cell you described is most likely to be {output}. This annotation aligns well with the provided data and the known cellular characteristics from that tissue type."
+    },
+    {
+        "instruction": "Hey there, I've got a single cell {input} that needs annotation. The sequencing method used was {sequencing_method}, and it was taken from {tissue} of {species}. Here are my options: {choices}. Could you please help me confirm the correct cell type? Thank you!",
+        "response": "Based on the given sequencing method, tissue origin, and species, I would label the cell type as {output}. I hope this helps! Let me know if you need any further assistance."
+    },
+    {
+        "instruction": "Hey, can you tell me the cell type for this single cell {input} from {species} {tissue}? The options are {choices}. The sequencing method used was {sequencing_method}. Thanks!",
+        "response": "The cell type for the single cell from {species} {tissue} sequenced using {sequencing_method} is {output}."
+    },
+    {
+        "instruction": "Given my task of integrating multi-omics data, I need to annotate a single cell from {species} using {sequencing_method}. The tissue source is {tissue}, and the cell to be annotated is {input}. Could you kindly help me identify the correct cell type? The options are {choices}. Thank you for your assistance!",
+        "response": "The cell from {species} using {sequencing_method} and sourced from {tissue} has been identified as {output}. I hope this helps with your multi-omics data integration!"
+    },
+    {
+        "instruction": "\nHi, I'm working on annotating a single cell derived from {tissue}. The cell in question is {input}. The sequencing method we used is {sequencing_method}, and the species is {species}. The options for the possible cell types are {choices}. Could you help me identify the correct cell type label?\n",
+        "response": "Based on the provided information, the most likely cell type label for the single cell derived from {tissue} is {output}."
+    },
+    {
+        "instruction": "Hey, I need to identify this single cell from {tissue} of {species} using {sequencing_method}. This is crucial for my biomarker research. Can you tell me the cell type for {input}?",
+        "response": "Based on the provided information, the identified cell type for your single-cell analysis is {output}. This should aid in your biomarker research significantly."
+    },
+    {
+        "instruction": "Hey there, cell type sleuth! I've got an intriguing mystery for you to solve. Imagine you're peering through the microscope at a single cell from the {tissue} of a {species}, sequenced with {sequencing_method}. Among the suspects are: {choices}. Which one do you think matches our enigmatic single cell: {input}?",
+        "response": "Given the details, the cell type most likely matches {output}."
+    },
+    {
+        "instruction": "Hi there! I'm working on annotating cell types from a sample of {tissue} using {sequencing_method} in {species}. I have a single cell data point that I need help with. Could you please help me identify it from the following options: {choices}? The single cell data I need to annotate is {input}. Thank you so much for your assistance!",
+        "response": "Based on the given parameters of the tissue, sequencing method, and species, the cell type you are looking for has been identified. The correct cell type label for your single cell data point is {output}. I hope this helps with your annotation project!"
+    },
+    {
+        "instruction": "Hi there! I hope you're doing well. I\u2019m currently working on annotating a single cell from {species} using {sequencing_method}. The cell is from {tissue} and I\u2019m trying to determine its specific type. Given your expertise, could you help me identify the correct cell type for {input}? Your assistance would be invaluable in ensuring the accuracy of my research. Thank you so much!",
+        "response": "I'm doing well, thank you! Based on the information provided about the cell from {species} using {sequencing_method} and originating from {tissue}, I have identified the cell type as {output}. I hope this helps in advancing your research. Feel free to ask if you need further clarification!"
+    },
+    {
+        "instruction": "I'm working on a project involving {species}, and I need some help annotating a single cell. The cell in question is {input}, extracted from {tissue}, and sequenced using {sequencing_method}. Could you help me identify the cell type?",
+        "response": "Based on the provided information, the cell extracted from {tissue} and sequenced using {sequencing_method} likely belongs to the {output} cell type."
+    },
+    {
+        "instruction": "Could you help me determine the cell type of a single cell I have? It's from a mouse {species} and originates from {tissue}. The sequencing was done using {sequencing_method}. The cell I'm looking to annotate is {input}, and the potential cell types I have to choose from are {choices}.",
+        "response": "Based on the provided information, the cell from a mouse {species} originating from {tissue} and sequenced using {sequencing_method} has been annotated as {output}. This determination was made by analyzing the gene expression profile and comparing it with known markers."
+    },
+    {
+        "instruction": "Given the single cell data {input} from {species} in {tissue}, sequenced using {sequencing_method}, what would be the correct cell type annotation?",
+        "response": "The cell type annotation for the provided single-cell data is {output}."
+    },
+    {
+        "instruction": "Based on the single cell {input} from {tissue} of {species} using {sequencing_method}, which one of the following options correctly identifies the cell type: {choices}?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Hi there! I\u2019m trying to figure out the type of a single cell I have. It\u2019s from {tissue} of {species}, and I used {sequencing_method} for sequencing. The cell to be annotated is {input}. Could you please help me identify its type from these options: {choices}? Thanks so much!",
+        "response": "Based on the provided details and the sequencing data, the cell is identified as {output}. I hope this helps!"
+    },
+    {
+        "instruction": "Hi, I need some help with annotating a single cell. The cell is {input}, and it's from {tissue} tissue. We've used {sequencing_method} for sequencing, and it's from {species}. The possible options for the cell type are {choices}. Could you tell me which one it is?",
+        "response": "The cell from {tissue} tissue, sequenced using {sequencing_method} from {species}, is assigned the cell type label: {output}."
+    },
+    {
+        "instruction": "Could you please identify the cell type of the single cell labeled {input} from {species} in the {tissue} using {sequencing_method}? The possible options are {choices}. Accurate cell type annotation is critical for my upcoming publication.",
+        "response": "The identified cell type for the single cell from the specified species and tissue using the given sequencing method is {output}. I hope this annotation supports the accuracy of your upcoming publication."
+    },
+    {
+        "instruction": "Hey, just cut to the chase and tell me what kind of cell {input} is in the {tissue} from {species}, using {sequencing_method}.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Given the {tissue} sample sequenced using {sequencing_method}, could you please help me determine the correct cell type for the single cell {input} from {species}? The possible options are {choices}. Your expertise would be greatly appreciated!",
+        "response": "The cell type for the analyzed single cell from the given sample is {output}. This determination was made considering the tissue origin, sequencing method, and species."
+    },
+    {
+        "instruction": "Considering a sample from {species} and {tissue}, using {sequencing_method}, how would you annotate the single cell characterized by {input}?",
+        "response": "The single cell from {species} and {tissue}, analyzed using {sequencing_method}, would be annotated as {output} based on its unique molecular and phenotypic profile."
+    },
+    {
+        "instruction": "\nHi, I'm working on a comparative study and need some help with cell type annotation. I have a single cell from {species}, sourced from {tissue}, and sequenced using {sequencing_method}. Could you help me identify the cell type for this specific single cell {input}?\n",
+        "response": "Based on the provided species, tissue source, and sequencing method, the cell has been identified as {output}. This annotation considers the specific characteristics and gene expression profiles typical for cells from {species} and {tissue} using {sequencing_method}."
+    },
+    {
+        "instruction": "I'm working on verifying cell type annotations for a {species} tissue sample. I have a single cell from {tissue} that needs annotating. The sequencing method used was {sequencing_method}. Based on the following options: {choices}, could you help me identify the correct cell type for the given cell {input}?",
+        "response": "After analyzing the data from the {species} {tissue} sample sequenced using {sequencing_method}, the cell type has been identified based on the given parameters and options. The correct cell type label for the provided single cell is {output}."
+    },
+    {
+        "instruction": "Could you help me figure out what the correct label is for a single cell {input} if we use {sequencing_method} from {species} in the {tissue}?",
+        "response": "The correct cell type label for your single cell using {sequencing_method} from {species} in the {tissue} is {output}."
+    },
+    {
+        "instruction": "Using {sequencing_method}, I've sequenced a single cell labeled {input} from {tissue} of {species}. Can you tell me the cell type?",
+        "response": "Based on the sequencing data obtained using {sequencing_method} from the {tissue} of {species}, the cell type of the sequenced single cell is {output}."
+    },
+    {
+        "instruction": "Hey, could you help me figure out what cell type the single cell {input} is from {tissue} of {species} that was sequenced using {sequencing_method}?",
+        "response": "The cell type from that tissue of the given species sequenced using that method is {output}."
+    },
+    {
+        "instruction": "Given our previous experiments on {species} using {sequencing_method} on {tissue}, could you help me validate our findings by identifying the cell type for the single cell labeled as {input}? Thanks in advance for your expertise.",
+        "response": "The cell from your {species} experiment using {sequencing_method} on {tissue} has been identified as {output}. Your findings appear to be consistent with known data for this cell type. Great work!"
+    },
+    {
+        "instruction": "Hi, I'm working on annotating a single cell and need your help to identify its cell type. The details are as follows: Species: {species}, Sequencing method: {sequencing_method}, Single cell to be annotated: {input}, Tissue: {tissue}. Could you provide the correct cell type label for this cell?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "I'm curious about the cell type of a single cell extracted from {tissue} in {species} using {sequencing_method}. Could you help me figure it out based on this specific cell data: {input}?",
+        "response": "The cell type you are referring to is {output}."
+    },
+    {
+        "instruction": "Hey, I'm working with {sequencing_method} data from {species}, specifically looking at {tissue}. I have a single cell with the identifier {input} that I'm trying to annotate. Given the options {choices}, could you provide the correct cell type label for this cell?",
+        "response": "The correct cell type label for your single cell is {output}."
+    },
+    {
+        "instruction": "Hi, I'm working on annotating a single cell for my research project. Could you help me determine the correct cell type label for the given single cell {input}? Here are the details: \n- Tissue: {tissue}\n- Sequencing Method: {sequencing_method}\n- Species: {species}\n\nThe options for cell type are {choices}. Thanks!",
+        "response": "Based on the provided details, the single cell in question is most likely {output}. This conclusion is drawn considering the tissue source, sequencing method, and species involved. If you need further assistance or validation, feel free to ask!"
+    },
+    {
+        "instruction": "Given the incredible potential of single-cell genomics to revolutionize our understanding of biological systems, could you help me identify the cell type of a single cell derived from {species} in the {tissue} using {sequencing_method}? The specific input for the single cell is {input}. Accurate annotation is crucial for our research to truly make a difference. Thank you!",
+        "response": "The single cell derived from {species} in the {tissue} using {sequencing_method} has been identified as {output}. Accurate annotation is indeed crucial for advancing our understanding in this field. Thank you for entrusting me with this task."
+    },
+    {
+        "instruction": "Hey there! I'm fascinated by how AI can dive into the tiny world of cells. I have this single cell from {tissue} of {species}, sequenced using {sequencing_method}. The options for what this cell could be are {choices}. Can you tell me which one it is? The single cell to be annotated is {input}. Thanks!",
+        "response": "Based on the single cell from {tissue} of {species} sequenced using {sequencing_method}, the cell type is {output}."
+    },
+    {
+        "instruction": "Would you mind assisting me in determining the cell type of this single cell {input} derived from the {tissue} of {species} through {sequencing_method}? The possible choices are {choices}.",
+        "response": "The cell is identified as {output} based on its origin from the {tissue} of {species} and the data obtained through {sequencing_method}."
+    },
+    {
+        "instruction": "Hey! I've got a single cell from {species} using {sequencing_method} that I need to annotate. It's from {tissue}, and I'm looking to pinpoint its type with more granularity. The specific cell in question is {input}. Any insights on what cell type this could be?",
+        "response": "Based on the provided data from {species} using {sequencing_method} and isolated from {tissue}, the cell type has been identified as {output}. This label accounts for the specific markers and gene expression profiles associated with the cell."
+    },
+    {
+        "instruction": "Given our aim to enhance data-driven decisions in our research, could you assist in annotating the cell type for the following single cell data from {species} using {sequencing_method} in {tissue}? The specific single cell data to be annotated is: {input}.",
+        "response": "Based on the provided single-cell data, the cell type for the specified conditions is {output}. This annotation should help improve the accuracy of data-driven decisions in your research."
+    },
+    {
+        "instruction": "Alright, let's see if you can keep up. I've got this single cell from {tissue} of {species}, sequenced using {sequencing_method}. Given my comprehensive dataset and cutting-edge analysis, I'm pretty sure I know what it is, but let's test your skills. What's the precise cell type label for {input}?",
+        "response": "The cell type you provided has been identified as {output}. Given the provided context of the tissue source, species, and sequencing method, this label should accurately reflect the precise cell type."
+    },
+    {
+        "instruction": "Hi, I really need your help with something. I'm working on annotating a single cell from {species}, and I've got this cell {input} from the {tissue}. I used {sequencing_method} for sequencing. Could you please help me identify the correct cell type for this cell? I'm a bit unsure and could really use your expertise. Thanks so much!",
+        "response": "Based on the species, tissue, and sequencing method provided, I have identified the cell type as {output}. If you have any additional details or need further clarification, feel free to ask!"
+    },
+    {
+        "instruction": "I'm working on annotating a single cell from {species} using {sequencing_method}. The cell is derived from {tissue}. Based on the AI model's prediction, which cell type does the single cell {input} correspond to? Here are the options: {choices}. Could you provide the correct cell type label?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "\nHi there! I have a single cell sample that I need to annotate for my research. The sequencing method used is {sequencing_method}, the species is {species}, and the tissue is {tissue}. Could you help me determine the correct cell type label for this single cell, {input}? Your expertise would really support my data-driven decision-making process.\n",
+        "response": "Based on the sequencing method, species, and tissue provided, the correct cell type label for your single cell is {output}. This annotation should support your ongoing research and help in making informed data-driven decisions."
+    },
+    {
+        "instruction": "Could you assist me in identifying the cell type of a single {input} derived from the {tissue} tissue of the species {species} using the {sequencing_method}? The potential cell types to consider are {choices}.",
+        "response": "The cell from the {tissue} tissue of {species} analyzed using {sequencing_method} has been identified as {output}."
+    },
+    {
+        "instruction": "\"Alright, cell sleuths, let's get down to business! I've got this single cell {input} from {species} in {tissue}, and it\u2019s screaming for an identity check. We ran it through {sequencing_method}, and now it's up to us to nail down whether it\u2019s one of these options: {choices}. What do you reckon\u2014what's this cell's true calling?\"",
+        "response": "Given the single cell from {species} in {tissue} and analyzed via {sequencing_method}, I would identify it based on gene expression profiles and marker genes specific to this context. Therefore, I conclude that it aligns most closely with {output}."
+    },
+    {
+        "instruction": "Hi there! I\u2019m looking to compare AI-generated annotations with manual ones. Could you please help me identify the cell type for this single cell {input} from {tissue} tissue of {species} using the {sequencing_method} method?",
+        "response": "The cell from the specified tissue and species, sequenced using the given method, is identified as {output}."
+    },
+    {
+        "instruction": "Given my current data, I'm working on annotating a single cell from {species} using {sequencing_method}. The specific cell I'm trying to classify is {input}, and it originates from {tissue}. Based on these details, could you help me identify the correct cell type label for this cell?",
+        "response": "The cell you are trying to classify is a {output} based on the provided details from {species}, using {sequencing_method}, and originating from {tissue}."
+    },
+    {
+        "instruction": "Given the single-cell RNA sequencing data we have from {tissue} in {species} using the {sequencing_method}, could you provide the annotation for the cell identified as {input}? I'm interested in understanding how this new method may enhance our cell type classification accuracy.",
+        "response": "The cell you are referring to has been identified as {output}. Using {sequencing_method} to analyze single-cell RNA sequencing data from {tissue} in {species} enhances cell type classification accuracy by providing higher resolution and more precise gene expression profiles, which allows for more accurate and detailed annotation of individual cell types."
+    },
+    {
+        "instruction": "Can you tell me the cell type of the single cell {input} from {species} using {sequencing_method} from the {tissue}?",
+        "response": "The cell is identified as {output} based on the data from {species} using {sequencing_method} from the {tissue}."
+    },
+    {
+        "instruction": "Oh dear expert, in the grand tapestry of life, we seek to understand the whispers of a single cell from the {tissue}. This elusive entity, {input}, yearns for its true identity among the stars. With options {choices}, and guided by the light of {sequencing_method}, in the realm of the {species}, could you illuminate which cell type this might be?",
+        "response": "Guided by the {sequencing_method} and the characteristics of the {tissue} in the {species}, the cell is identified as {output}. This conclusion is drawn from the unique expression patterns observed."
+    },
+    {
+        "instruction": "Given a single-cell RNA-seq dataset derived from {tissue} using the {sequencing_method} method in {species}, I need to annotate the single cell identified as {input}. The potential cell types are {choices}. Based on your expertise, which cell type does this single cell most likely represent?",
+        "response": "The single cell most likely represents {output} based on the dataset characteristics and sequencing method used."
+    },
+    {
+        "instruction": "Hi, could you help me annotate a single cell using {sequencing_method}? The cell in question is {input}, and it comes from {tissue} tissue of {species}. The possible cell type options are {choices}. Which one do you think it is?",
+        "response": "Based on the provided information, the cell from the specified tissue and species, analyzed using the given sequencing method, has been annotated as {output}."
+    },
+    {
+        "instruction": "Based on the sequencing data from {sequencing_method}, can you determine the cell type of the single cell {input} from the {species} species, specifically from the {tissue} tissue? The possible options are {choices}.",
+        "response": "The cell type of the single cell from the specified tissue and species, based on the sequencing data from {sequencing_method}, is {output}."
+    },
+    {
+        "instruction": "Based on my high proficiency in single-cell analysis, I am currently comparing AI-generated annotations to manual ones. For this purpose, could you please provide the cell type annotation for a specific single cell from {tissue} of {species}, sequenced using {sequencing_method}? The single cell to be annotated is {input}.",
+        "response": "The single cell from {tissue} of {species}, sequenced using {sequencing_method}, is annotated as {output}."
+    },
+    {
+        "instruction": "Given the single-cell data from {species} tissue {tissue}, and considering the {sequencing_method} method used, could you help me annotate the cell type for the input {input}? The options I have are {choices}. Your expert opinion would be greatly appreciated.",
+        "response": "Based on the provided single-cell data from {species} tissue {tissue} using the {sequencing_method} method, the appropriate cell type annotation for the input is {output}. This conclusion draws from the observed gene expression profiles and known markers specific to this cell type."
+    },
+    {
+        "instruction": "Given the single cell {input} from {species}, sequenced using {sequencing_method}, and originating from {tissue}, can you tell me which cell type it is from the following options: {choices}?",
+        "response": "{output}"
+    },
+    {
+        "instruction": "[text]Please annotate the cell type for the single cell {input}. The species is {species}, sourced from {tissue}, and sequenced using {sequencing_method}.",
+        "response": "The cell is identified as {output} based on the species {species}, the tissue it was sourced from, and the sequencing method used."
+    },
+    {
+        "instruction": "Given our dataset from {species} using {sequencing_method} of {tissue}, could you help me annotate this single cell {input}? The possible cell types are {choices}.",
+        "response": "{output}"
+    },
+    {
+        "instruction": "Could you please help me annotate the single cell {input} sequenced using {sequencing_method}? The possible cell types are {choices}. This cell is from the {species} species, specifically from the {tissue} tissue.",
+        "response": "The annotated cell type for the sequenced cell using {sequencing_method} from the {species} species, specifically from the {tissue} tissue, is {output}."
+    }
+]
