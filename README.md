@@ -34,6 +34,11 @@ Make sure to specify the paths for `H5AD_PATH` and `GENE_VOCAB_PATH` appropriate
 - `GENE_VOCAB_PATH`: Path to your gene vocabulary file (e.g., `GENE_VOCAB_PATH = "path/to/your/gene_vocab.npy"`).
 
 ```python
+from mmllm.module import InstructCell
+import anndata
+import numpy as np
+from utils import unify_gene_features
+
 # Load the pre-trained InstructCell model from HuggingFace
 model = InstructCell.from_pretrained("zjunlp/InstructCell-chat")
 
