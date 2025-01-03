@@ -27,7 +27,6 @@ By leveraging a specialized multi-modal architecture and our multi-modal single-
 - CUDA 11.7 and above are recommended
 
 We provide a simple example for quick reference. This demonstrates a basic **cell type annotation** workflow. 
-For more detailed explanations and additional examples, please refer to the Jupyter notebook.
 
 Make sure to specify the paths for `H5AD_PATH` and `GENE_VOCAB_PATH` appropriately:
 - `H5AD_PATH`: Path to your `.h5ad` single-cell data file (e.g., `H5AD_PATH = "path/to/your/data.h5ad"`).
@@ -73,6 +72,7 @@ for key, value in model.predict(
     print(f"{key}: {value}")
 ```
 
+For more detailed explanations and additional examples, please refer to the Jupyter notebook.
   
 <h2 id="3">🚀 How to run</h2>
 
