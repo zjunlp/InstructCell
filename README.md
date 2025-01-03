@@ -26,20 +26,35 @@ By leveraging a specialized multi-modal architecture and our multi-modal single-
 - python 3.10 and above are recommended
 - CUDA 11.7 and above are recommended
 
+We provide a simple example for quick reference. This demonstrates a basic **cell type annotation** workflow. 
+For more detailed explanations and additional examples, please refer to the Jupyter notebook.
+
+Make sure to specify the paths for `H5AD_PATH` and `GENE_VOCAB_PATH` appropriately:
+- `H5AD_PATH`: Path to your `.h5ad` single-cell data file (e.g., `H5AD_PATH = "path/to/your/data.h5ad"`).
+- `GENE_VOCAB_PATH`: Path to your gene vocabulary file (e.g., `GENE_VOCAB_PATH = "path/to/your/gene_vocab.npy"`).
+
 ```python
-model = InstructCell.from_pretrained("zjunlp/InstructCell-chat") 
+# Load the pre-trained InstructCell model from HuggingFace
+model = InstructCell.from_pretrained("zjunlp/InstructCell-chat")
+
+# Load the single-cell data (H5AD format) and gene vocabulary file (numpy format)
 adata = anndata.read_h5ad(H5AD_PATH)
 gene_vocab = np.load(GENE_VOCAB_PATH)
 adata = unify_gene_features(adata, gene_vocab, force_gene_symbol_uppercase=False)
+
+# Select a random single-cell sample and extract its gene counts and metadata
 k = np.random.randint(0, len(adata)) 
 gene_counts = adata[k, :].X.toarray()
 sc_metadata = adata[k, :].obs.iloc[0].to_dict()
+
+# Define the model prompt with placeholders for metadata and gene expression profile
 prompt = (
     "Can you help me annotate this single cell from a {species}? " 
     "It was sequenced using {sequencing_method} and is derived from {tissue}. " 
     "The gene expression profile is {input}. Thanks!"
 )
 
+# Use the model to generate predictions
 for key, value in model.predict(
     prompt, 
     gene_counts=gene_counts, 
@@ -49,6 +64,7 @@ for key, value in model.predict(
     top_k=50,
     max_new_tokens=256,
 ).items():
+    # Print each result key-value pair
     print(f"{key}: {value}")
 ```
 
