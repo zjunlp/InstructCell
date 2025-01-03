@@ -227,7 +227,7 @@ python evaluate.py \
 - To evaluate InstructCell on other tasks, modify the `task_type` parameter to "cell type annotation" or "drug sensitivity prediction" accordingly.
 - To test InstructCell’s robustness to different task descriptions, add the flag `--evaluate_single_prompt True`. By default, 20 different task descriptions are used. To increase this number (e.g., to 40), include `--num_single_prompt 40`.
 - If you want to evaluate only test templates that contain options, add `--provide_choices True`. By default, all test templates are evaluated.
-- To evaluate the **chat** version of InstructCell, set the `no_extra_output_ratio` parameter to 0.0.  This will generate content formatted for xFinder’s JSON input requirements.  For detailed evaluation procedures using xFinder, please visit the [xFinder repository](https://github.com/IAAR-Shanghai/xFinder) 👈. 
+- To evaluate the **chat** version of InstructCell, set the `no_extra_output_ratio` parameter to 0.0.  This will generate content formatted for xFinder’s JSON input requirements.  For detailed evaluation procedures using xFinder, please visit the [xFinder repository](https://github.com/IAAR-Shanghai/xFinder) 👈. Alternatively, you can refer to the [README](https://github.com/zjunlp/InstructCell/blob/main/xfinder/README.md) provided in [our repository](https://github.com/zjunlp/InstructCell/tree/main/xfinder) for additional guidance.
 
 <!-- ## 🧬 Extracting Marker Genes -->
 
