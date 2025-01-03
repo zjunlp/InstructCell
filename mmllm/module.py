@@ -14,8 +14,16 @@ from typing import (
 )
 from scvi.module import CVAE
 from scvi.base import LossOutput
+from scvi.utils import init_library_size
+from mmllm import prepare_cell_text_llm 
 from transformers import (
     PreTrainedModel, 
+    PretrainedConfig, 
+    AutoConfig, 
+    AutoTokenizer, 
+    AutoModelForSeq2SeqLM, 
+    AutoModelForCausalLM, 
+    CONFIG_MAPPING, 
     PreTrainedTokenizer, 
     PreTrainedTokenizerFast, 
     Blip2QFormerConfig, 
@@ -971,3 +979,684 @@ class CellTextLLM(nn.Module):
         outputs.loss = outputs.loss + generative_outputs.loss * num_generative_samples / batch_size
         
         return outputs
+    
+class InstructCellConfig(PretrainedConfig):
+    """
+    A configuration class for the ``InstructCell`` model, which integrates a base language model
+    configuration, a feature encoder configuration, and a feature decoder configuration for
+    multimodal cell-language tasks.
+
+    Parameters
+    ----------
+    base_model_config: transformers.PretrainedConfig, optional, default None
+        The configuration of the base language model. If this argument is a dictionary, the
+        corresponding configuration class will be instantiated based on the ``model_type`` key
+        in the dictionary. If it is None, a default configuration is created (e.g., T5).
+    feature_encoder_config: Dict[str, Any], default {
+        "is_q_former_encoder": True,
+        "count_dim": 18961,
+        "cross_attention_frequency": 1,
+        "num_hidden_layers": 4,
+        "num_key_value_tokens": 6,
+        "num_blocks": 3,
+        "num_query_tokens": 8,
+        "hidden_dropout_prob": 0.1,
+    }
+        The configuration dictionary for the feature encoder. This dictionary can specify
+        whether a Q-Former module is used, the dimensionality of the input cell counts,
+        dropout probabilities, and other hyperparameters for the encoder architecture.
+    feature_decoder_config: Dict[str, Any], default {
+        "use_layer_norm": "both",
+        "use_batch_norm": "none",
+        "n_latent": 256,
+        "condition_input_dim": 256,
+        "log_variational": True,
+        "n_layers": 4,
+        "n_hidden": 1024,
+        "dropout_rate": 0.1,
+        "adaptive_library": True,
+    }
+        The configuration dictionary for the feature decoder. This dictionary can specify
+        normalization schemes, number of latent dimensions, dimensionality of condition
+        inputs, number of hidden layers, dropout rate, and whether library size is adaptive.
+    tokenizer_use_fast: bool, default False
+        Whether to use the fast tokenizer implementation from ``transformers`` library.
+    normalize_total: bool, default True
+        Whether to normalize total read count for each single-cell input.
+    log_variational: bool, default True
+        Whether to apply the log1p-transformation to to each single-cell input.
+    **kwargs
+        Additional keyword arguments passed to ``transformers.PretrainedConfig``.
+    """
+
+    model_type = "instructcell"
+    sub_configs = {"base_model_config": AutoConfig}
+
+    def __init__(
+        self, 
+        base_model_config: Optional[PretrainedConfig] = None, 
+        feature_encoder_config: Dict[str, Any] = {
+            "is_q_former_encoder": True, 
+            "count_dim": 18961, 
+            "cross_attention_frequency": 1, 
+            "num_hidden_layers": 4, 
+            "num_key_value_tokens": 6, 
+            "num_blocks": 3, 
+            "num_query_tokens": 8, 
+            "hidden_dropout_prob": 0.1, 
+        },
+        feature_decoder_config: Dict[str, Any] = {
+            "use_layer_norm": "both", 
+            "use_batch_norm": "none", 
+            "n_latent": 256, 
+            "condition_input_dim": 256, 
+            "log_variational": True, 
+            "n_layers": 4, 
+            "n_hidden": 1024, 
+            "dropout_rate": 0.1, 
+            "adaptive_library": True, 
+        },
+        tokenizer_use_fast: bool = False, 
+        normalize_total: bool = True, 
+        log_variational: bool = True,
+        **kwargs,  
+    ) -> "InstructCellConfig":
+        # initialize the configuration of base language model 
+        if isinstance(base_model_config, dict):
+            base_model_config["model_type"] = (
+                base_model_config["model_type"] if "model_type" in base_model_config else "t5"
+            )
+            base_model_config = CONFIG_MAPPING[base_model_config["model_type"]](**base_model_config)
+        elif base_model_config is None:
+            base_model_config = CONFIG_MAPPING["t5"]()
+        self.base_model_config = base_model_config
+        for attr_names in [
+            "special_tokens_index_dict", 
+            "pad_token_id", 
+            "eos_token_id", 
+            "ignore_index", 
+            "num_signal_tokens",
+        ]:
+            if not hasattr(self.base_model_config, attr_names):
+                self.base_model_config.__setattr__(attr_names, None)
+
+        # initialize the configuration of feature encoder 
+        self.feature_encoder_config = feature_encoder_config
+
+        # initialize the configuration of feature decoder 
+        self.feature_decoder_config = feature_decoder_config 
+
+        # the configuration of tokenizer
+        self.tokenizer_use_fast = tokenizer_use_fast
+
+        # other parameters of InstructCell 
+        self.normalize_total = normalize_total 
+        self.log_variational = log_variational 
+
+        super().__init__(**kwargs)
+
+class InstructCell(PreTrainedModel):
+    """
+    A model class that integrates a base language model, a feature encoder, and a feature
+    decoder to support multimodal interaction between text and single-cell data.
+
+    The ``InstructCell`` model contains:
+    - A base language model (e.g., T5, GPT).
+    - A feature encoder (e.g., SCQFormer) to encode the input cell counts.
+    - A feature decoder (e.g., Generator) to reconstruct or generate cell data (gene expression)
+      from sampled latent vectors and given biological conditions.
+
+    This class leverages a ``CellTextLLM`` instance, referred to as the assistant, to combine
+    text embeddings and cell embeddings in a single forward pass or generation pipeline. 
+    It provides methods for tokenizing text, performing multimodal forward passes, and 
+    generating text or cell data outputs.
+
+    Parameters
+    ----------
+    config: InstructCellConfig
+        The configuration object containing hyperparameters and settings for the base model,
+        feature encoder, feature decoder, tokenizer usage, and other relevant attributes.
+
+    Notes
+    -----
+    - The model relies on a placeholder or signal tokens to identify where the cell embeddings 
+      should be inserted. Therefore, the user must invoke ``initialize_special_tokens``
+      to set up these tokens in the tokenizer and in the model configuration if cell-based
+      functionalities are needed.
+    - The feature encoder and decoder used here typically expect preprocessed cell data,
+      such as counts that may be normalized or log1p-transformed (controlled by
+      ``config.normalize_total`` and ``config.log_variational``).
+    """
+
+    config_class = InstructCellConfig
+
+    def __init__(self, config: InstructCellConfig) -> "InstructCell":
+        # load the pretrained language model
+        if config.base_model_config.is_encoder_decoder:
+            model = AutoModelForSeq2SeqLM.from_config(config.base_model_config)
+        else:
+            model = AutoModelForCausalLM.from_config(config.base_model_config)
+
+        # load the Q-former module  
+        count_dim = config.feature_encoder_config["count_dim"]
+        is_q_former_encoder = config.feature_encoder_config["is_q_former_encoder"] 
+        if is_q_former_encoder:
+            cross_attention_frequency = config.feature_encoder_config["cross_attention_frequency"]
+            num_hidden_layers = config.feature_encoder_config["num_hidden_layers"]
+            qformer_config = Blip2QFormerConfig(
+                vocab_size=0, 
+                hidden_size=model.config.hidden_size,
+                hidden_dropout_prob=config.feature_encoder_config["hidden_dropout_prob"], 
+                num_hidden_layers=num_hidden_layers,
+                num_attention_heads=model.config.num_attention_heads,
+                intermediate_size=model.config.hidden_size * 4,
+                pad_token_id=model.config.pad_token_id, 
+                cross_attention_frequency=cross_attention_frequency, 
+                encoder_hidden_size=model.config.hidden_size,
+            )
+            num_key_value_tokens = config.feature_encoder_config["num_key_value_tokens"]
+            num_blocks = config.feature_encoder_config["num_blocks"]
+            num_query_tokens = config.feature_encoder_config["num_query_tokens"]
+            feature_encoder = SCQFormer(
+                count_dim, 
+                num_query_tokens, 
+                num_key_value_tokens, 
+                qformer_config, 
+                num_hidden_layers=num_blocks,
+            )
+        else:
+            feature_encoder = nn.Sequential(
+                nn.Linear(count_dim, (count_dim + model.config.hidden_size) // 2),
+                nn.GELU(),
+                nn.Linear((count_dim + model.config.hidden_size) // 2, model.config.hidden_size),
+                nn.Dropout(config.feature_encoder_config["hidden_dropout_prob"]),
+            )
+        
+        # load the cell reconstruction module 
+        condition_input_dim = config.feature_decoder_config["condition_input_dim"]
+        use_layer_norm = config.feature_decoder_config["use_layer_norm"]
+        use_batch_norm = config.feature_decoder_config["use_batch_norm"]
+        n_latent = config.feature_decoder_config["n_latent"]
+        log_variational = config.feature_decoder_config["log_variational"]
+        n_layers = config.feature_decoder_config["n_layers"]
+        n_hidden = config.feature_decoder_config["n_hidden"]
+        dropout_rate = config.feature_decoder_config["dropout_rate"]
+        adaptive_library = config.feature_decoder_config["adaptive_library"]
+        # create a dummy matrix to initialize library size
+        dummy_counts_for_init = np.random.randint(0, 1000, (10, count_dim))
+        library_log_means, library_log_vars = init_library_size(dummy_counts_for_init)
+        feature_decoder = Generator(
+            count_dim,
+            condition_dim=model.config.hidden_size,
+            condition_input_dim=condition_input_dim,
+            n_layers=n_layers,
+            n_hidden=n_hidden,
+            n_latent=n_latent,
+            dropout_rate=dropout_rate,
+            use_layer_norm=use_layer_norm,
+            use_batch_norm=use_batch_norm,
+            encode_covariates=True,
+            deeply_inject_covariates=False,
+            log_variational=log_variational,
+            adaptive_library=adaptive_library,
+            use_observed_lib_size=False,
+            library_log_means=library_log_means,
+            library_log_vars=library_log_vars,
+        )
+
+        super().__init__(config) 
+        # the submodule of InstructCell  
+        self.assistant = CellTextLLM(
+            model, 
+            None, 
+            feature_encoder=feature_encoder, 
+            feature_decoder=feature_decoder,
+            normalize_total=config.normalize_total, 
+            log_variational=config.log_variational, 
+        )
+    
+    def _check_tokenizer(self) -> None:
+        """Check whether the tokenizer is set."""
+        if self.assistant.tokenizer is None:
+            raise ValueError("The tokenizer has not been set. Please configure the tokenizer first.")
+    
+    def save_pretrained(
+        self, 
+        save_directory: Optional[str], 
+        save_tokenizer_kwargs: Dict[str, Any] = {}, 
+        **kwargs
+    ) -> None:
+        """
+        Save the ``InstructCell`` model and its tokenizer to a directory, so that it can be 
+        reloaded using the ``from_pretrained`` method.
+
+        Parameters
+        ----------
+        save_directory: str, optional
+            The directory where the model and tokenizer files will be saved.
+        save_tokenizer_kwargs: dict, default {}
+            Additional keyword arguments passed to the tokenizer's ``save_pretrained`` method.
+        **kwargs
+            Additional keyword arguments passed to the ``save_pretrained`` method of the parent
+            class (``transformers.PreTrainedModel``).
+        """
+        self._check_tokenizer()
+        self.assistant.tokenizer.save_pretrained(save_directory, **save_tokenizer_kwargs)
+        super().save_pretrained(save_directory, **kwargs)
+    
+    @classmethod
+    def from_pretrained(
+        cls, 
+        pretrained_model_name_or_path: Optional[str],
+        load_tokenizer_kwargs: Dict[str, Any] = {},
+        **kwargs 
+    ) -> "InstructCell":
+        """
+        Load a pre-trained ``InstructCell`` model from a local directory or remote model hub.
+
+        This method loads both the model weights and its tokenizer from the specified
+        directory or model repository.
+
+        Parameters
+        ----------
+        pretrained_model_name_or_path: str, optional
+            The path (local directory) or name of the remote repository to load the model from.
+        **kwargs
+            Additional keyword arguments passed to the ``from_pretrained`` method of the parent
+            class (``transformers.PreTrainedModel``).
+
+        Returns
+        -------
+        model: InstructCell
+            The InstructCell model with trained base language model, feature encoder, feature
+            decoder, and tokenizer.
+        """
+        model = super().from_pretrained(pretrained_model_name_or_path, **kwargs)
+        load_tokenizer_kwargs = {
+            **load_tokenizer_kwargs, 
+            "use_fast": model.config.tokenizer_use_fast, 
+        }
+        # load the corresponding tokenizer 
+        model.assistant.tokenizer = AutoTokenizer.from_pretrained(
+            pretrained_model_name_or_path,
+            **load_tokenizer_kwargs 
+        )
+        return model 
+    
+    def initialize_special_tokens(
+        self, 
+        modality_tag: str = "CELL", 
+        num_signal_tokens: int = 1, 
+        pad_to_multiple_of: Optional[int] = 8
+    ) -> None:
+        """
+        Initialize and register special tokens for cell-language modeling, such as placeholder
+        tokens and signal tokens for inserting or extracting cell embeddings.
+
+        Parameters
+        ----------
+        modality_tag: str, default "CELL"
+            The tag that represents the modality to be added to the tokenizer. It will be used to create
+            start and end tags as well as signal tokens.
+        num_signal_tokens: int, default 1
+            The number of signal tokens to add. These tokens serve as signals enabling the model to generate
+            data in the specified modality.
+        pad_to_multiple_of: int, optional, default 8
+            If set will pad the embedding matrix to a multiple of the provided value after resizing embedding 
+            layer. This is especially useful to enable the use of Tensor Cores on NVIDIA hardware with compute 
+            capability ``>= 7.5`` (Volta), or on TPUs which benefit from having sequence lengths be a multiple 
+            of 128.
+        """
+        self._check_tokenizer()
+        # ensure the tokenizer has a pad token
+        if self.assistant.tokenizer.pad_token_id is None:
+            self.assistant.tokenizer.pad_token = self.assistant.tokenizer.eos_token
+        ignore_index = -100 if not hasattr(self.assistant.base_model.config, "ignore_index") else None
+        pad_token_id = self.assistant.tokenizer.pad_token_id if not hasattr(self.assistant.base_model.config, "pad_token_id") else None
+
+        # prepare the model for cell-language modelling 
+        prepare_cell_text_llm(
+            self.assistant.base_model, 
+            self.assistant.tokenizer, 
+            modality_tag=modality_tag,
+            num_signal_tokens=num_signal_tokens, 
+            ignore_index=ignore_index, 
+            pad_token_id=pad_token_id,
+            pad_to_multiple_of=pad_to_multiple_of, 
+        )
+
+    def prepare_model_inputs(
+        self, 
+        prompt: str,
+        gene_counts: Optional[np.ndarray] = None,     
+        sc_metadata: Dict[str, str] = {}, 
+    ) -> Dict[str, torch.Tensor]: 
+        """
+        Prepare the input dictionary for the model, which includes tokenized text (``input_ids``)
+        and optionally gene counts (``input_counts``).
+
+        This method formats the prompt with single-cell metadata placeholders, tokenizes the
+        resulting string, and wraps the input tokens in a PyTorch tensor. If gene counts are
+        provided, they are also wrapped in a tensor.
+
+        Parameters
+        ----------
+        prompt: str
+            The text prompt that might include placeholders for single-cell metadata (e.g., 
+            `{input}`, `{species}`). For example: ``"Please give the cell type of {input} from {species}."``
+        gene_counts: np.ndarray, optional, default None
+            The matrix of shape (num_cells, count_dim) or (count_dim,) that represents the
+            input cell gene counts.
+        sc_metadata: dict, default {}
+            Additional metadata used to format the prompt string. For instance,
+            ``{"species": "human"}``, which can be used to substitute for ``{species}`` in the prompt.
+            By default, ``{input}`` in the prompt is automatically replaced with the special placeholder 
+            token (see method ``initialize_special_tokens``).
+
+        Returns
+        -------
+        inputs: dict
+            A dictionary containing:
+            - "input_ids": torch.Tensor
+              The tokenized text prompt of shape (1, sequence_length).
+            - "input_counts": torch.Tensor or None
+              The cell count tensor of shape (num_cells, count_dim) if gene_counts is not None, 
+              otherwise None.
+        """
+        if not hasattr(self.config.base_model_config, "special_tokens_dict"):
+            raise ValueError(
+                "Cannot get special tokens. ", 
+                "Please invoke `initialize_special_tokens` for cell-language modelling."
+            )
+        self._check_tokenizer()
+
+        if gene_counts is not None and len(gene_counts.shape) == 1:
+            gene_counts = gene_counts.reshape(1, -1)
+        
+        placeholder = self.config.base_model_config.special_tokens_dict["placeholder"]
+        start_tag = self.config.base_model_config.special_tokens_dict["start_tag"]
+        end_tag = self.config.base_model_config.special_tokens_dict["end_tag"]
+        
+        # users can define the value of key `input` in `sc_metadata` by themselves
+        sc_metadata = {
+            "input": f"{start_tag}{placeholder}{end_tag}", 
+            **sc_metadata, 
+        }
+        prompt = prompt.format(**sc_metadata)
+        prompt = f"User:\n{prompt}\n\nAssistant:\n" 
+
+        input_ids = self.assistant.tokenizer(prompt, return_tensors="np").input_ids 
+        inputs = {"input_ids": torch.from_numpy(input_ids)} 
+        if gene_counts is not None:
+            inputs["input_counts"] = torch.from_numpy(gene_counts) 
+        else:
+            inputs["input_counts"] = None 
+        for key, value in inputs.items():
+            if value is not None:
+                inputs[key] = value.to(device=self.assistant.base_model.device)
+        if inputs["input_counts"] is not None:
+            inputs["input_counts"] = inputs["input_counts"].to(dtype=self.dtype)
+        
+        return inputs 
+
+    def forward(
+        self, 
+        input_ids: torch.Tensor,
+        attention_mask: Optional[torch.Tensor] = None,
+        input_counts: Optional[torch.Tensor] = None,
+        output_counts: Optional[torch.Tensor] = None,
+        labels: Optional[torch.Tensor] = None,
+        output_attentions: Optional[bool] = None,
+        output_hidden_states: Optional[bool] = None,
+        generative_model_kwargs: Optional[Dict[str, Any]] = None, 
+        **base_model_kwargs
+    ) -> Seq2SeqLMOutput | CausalLMOutput:
+        """
+        Perform a forward pass for the CellTextLLM model, integrating cell feature generation 
+        and text generation in a multimodal setup.
+
+        Parameters
+        ----------
+        input_ids: torch.Tensor
+            The token IDs of the input text sequence of shape (batch_size, sequence_length). 
+        attention_mask: torch.Tensor, optional, default None
+            A mask that indicates which tokens should be attended to, where 1 indicates a token should be attended 
+            to and 0 indicates it should not be. If None, it is computed from ``input_ids``.
+        input_counts: torch.Tensor, optional, default None
+            A tensor of shape (num_cells, count_dim) representing the input cell counts to be processed by the feature encoder.
+        output_counts: torch.Tensor, optional, default None
+            A tensor representing expected output cell counts for supervision in the cell generation process.
+        labels: torch.Tensor, optional, default None
+            Ground truth labels for text generation. Used for supervised training when provided.
+        output_attentions: bool, optional, default None
+            If set to True, the model returns attention weights in addition to the output.
+        output_hidden_states: bool, optional, default None
+            If set to True, the model returns hidden states in addition to the output.
+        generative_model_kwargs: dict, optional, default None
+            Additional keyword arguments passed to the ``forward`` method of cell generative model if output cell counts 
+            are provided.
+        **base_model_kwargs: dict
+            Additional keyword arguments passed to the ``forward`` method of base language model.
+
+        Returns
+        -------
+        outputs: transformers.modeling_outputs.Seq2SeqLMOutput or transformers.modeling_outputs.CausalLMOutput
+            The outputs of the model. 
+        """
+        return self.assistant(
+            input_ids,
+            attention_mask = attention_mask,
+            input_counts = input_counts,
+            output_counts = output_counts,
+            labels = labels,
+            output_attentions = output_attentions,
+            output_hidden_states = output_hidden_states,
+            generative_model_kwargs = generative_model_kwargs, 
+            **base_model_kwargs, 
+        )
+    
+    def generate(
+        self, 
+        input_ids: torch.Tensor,
+        input_counts: Optional[torch.Tensor] = None,
+        return_conditions: bool = False, 
+        attention_mask: Optional[torch.Tensor] = None,
+        prefix_allowed_tokens_fn: Optional[Callable[[int, torch.Tensor], List[int]]] = None,
+        synced_gpus: Optional[bool] = None,
+        assistant_model: Optional["PreTrainedModel"] = None,
+        streamer: Optional["BaseStreamer"] = None,
+        **kwargs,
+    ) -> Dict[str, List[str | None | np.ndarray]]:
+        """
+        Generate texts or cells from text sequences ``input_ids`` and input counts ``input_counts`` (optionally). 
+
+        This method combines tokenized text input with encoded cell features to generate both text 
+        sequences and optionally cell data. It handles the integration of text and cell data using 
+        a feature encoder and decoder if they are provided. 
+
+        Parameters
+        ----------
+        input_ids: torch.Tensor
+            Input token IDs of shape (batch_size, sequence_length) for the language model.
+        input_counts: torch.Tensor, optional, default None
+            Input counts of shape (num_cells, count_dim), which are passed through the feature encoder. 
+            If not provided, text-only generation is performed.
+        return_conditions: bool, optional, default False
+            Whether to return the condition embeddings (i.e. the last hidden states of signal tokens).
+        attention_mask: torch.Tensor, optional, default None
+            A mask that specifies which tokens should be attended to. If not provided, it is computed from ``input_ids``.
+        prefix_allowed_tokens_fn: Callable[[int, torch.Tensor], List[int]], optional, default None 
+            If provided, this function constraints the beam search to allowed tokens only at each step. If not provided, 
+            no constraint is applied. Please see 
+            https://huggingface.co/docs/transformers/v4.44.2/en/main_classes/text_generation#transformers.GenerationMixin.generate
+            for more details. 
+        synced_gpus: bool, optional, default None
+            Whether to continue running the while loop until max_length. Please see 
+            https://huggingface.co/docs/transformers/v4.44.2/en/main_classes/text_generation#transformers.GenerationMixin.generate
+            for more details.
+        assistant_model: PreTrainedModel, optional, default None 
+            An assistant model that can be used to accelerate generation. The assistant model must have the exact same tokenizer. 
+            The acceleration is achieved when forecasting candidate tokens with the assistent model is much faster than running 
+            generation with the model you are calling generate from. As such, the assistant model should be much smaller.
+            For more details, please see https://arxiv.org/abs/2302.01318. 
+        streamer: BaseStreamer, optional, default None 
+            Streamer object that will be used to stream the generated sequences. Generated tokens are passed through 
+            ``streamer.put(token_ids)`` and the streamer is responsible for any further processing.
+        **kwargs
+            Additional keyword arguments passed to the ``generate`` method of the language model. In general, 
+            the language model is based on the transformers library. Thus, please see 
+            https://huggingface.co/docs/transformers/v4.44.2/en/main_classes/text_generation#transformers.GenerationMixin.generate
+            for more details.
+
+        Returns
+        -------
+        outputs: dict
+            A dict containing the following keys:
+            - "texts": list of str, the generated text sequences. Special tokens are removed.
+            - "cells": list of cell data, where each entry is the decoded cell features. If no signal tokens are detected during 
+            generation, each entry is None.
+            - "conditions": list of numpy array, where each entry is the condition embeddings. If no signal tokens are detected during
+            generation, each entry is None. This key is only present if ``return_conditions`` is True.
+        """
+        self._check_tokenizer()
+        return self.assistant.generate(
+            input_ids, 
+            input_counts=input_counts,
+            return_conditions=return_conditions, 
+            attention_mask=attention_mask,
+            prefix_allowed_tokens_fn=prefix_allowed_tokens_fn,
+            synced_gpus=synced_gpus,
+            assistant_model=assistant_model,
+            streamer=streamer,
+            **kwargs,
+        )
+
+    def predict(
+        self, 
+        prompt: str,
+        gene_counts: Optional[np.ndarray] = None,     
+        sc_metadata: Dict[str, str] = {}, 
+        **kwargs
+    ) -> Dict[str, str | np.ndarray]:
+        """
+        A high-level helper method for inference, combining text prompt processing and generation
+        in a single call.
+
+        This method:
+        1. Prepares the model inputs using ``prepare_model_inputs`` (tokenizes the prompt and
+           optionally includes the cell counts).
+        2. Calls the model's ``generate`` method to produce text (and optionally cell data).
+        3. Returns the generated text and cell data in a dictionary.
+
+        Parameters
+        ----------
+        prompt: str
+            The user prompt or instruction, which may contain placeholders for single-cell data.
+        gene_counts: np.ndarray, optional, default None
+            The cell count array of shape (num_cells, count_dim) or (count_dim,).
+        sc_metadata: Dict[str, str], default {}
+            Additional metadata to format the prompt. Keys can be placeholders used in ``prompt``.
+        **kwargs
+            Additional keyword arguments passed to the model's ``generate`` method
+            (e.g., ``top_p``).
+
+        Returns
+        -------
+        outputs: dict
+            A dictionary containing:
+            - "text": str, the generated text in response to the prompt.
+            - "cell": np.ndarray or None, the generated cell data, if applicable.
+
+        Notes
+        -----
+        - This method is particularly convenient for quick inference scenarios where the user
+          has cell data (counts) and a text prompt, and wants a single call to retrieve both 
+          text and cell outputs.
+        """
+        inputs = self.prepare_model_inputs(
+            prompt, 
+            gene_counts=gene_counts, 
+            sc_metadata=sc_metadata
+        )
+        outputs = self.generate(
+            inputs["input_ids"], 
+            input_counts=inputs["input_counts"],
+            **kwargs
+        )
+        return {
+            "text": outputs["texts"][0], 
+            "cell": outputs["cells"][0]
+        }
+
+    # def save_pretrained(self, save_directory: str):
+    #     """
+    #     Saves the model weights and the base model config into a directory,
+    #     similar to how Hugging Face's PreTrainedModel does.
+
+    #     Args:
+    #         save_directory (str): Path to the directory where model files will be saved.
+    #     """
+    #     os.makedirs(save_directory, exist_ok=True)
+
+    #     # 1) Save the base model config (if it exists and is a transformers-like config)
+    #     if hasattr(self.base_model, "config") and hasattr(self.base_model.config, "to_json_file"):
+    #         self.base_model.config.to_json_file(os.path.join(save_directory, "config.json"))
+    #     else:
+    #         # Optionally, you could serialize some minimal config of your own
+    #         # or just skip if you don't have a config to save
+    #         pass
+
+    #     # 2) Save the entire state_dict (including feature_encoder, feature_decoder, etc.)
+    #     model_path = os.path.join(save_directory, "pytorch_model.bin")
+    #     torch.save(self.state_dict(), model_path)
+
+    #     print(f"Model weights saved in {model_path}")
+        
+    # @classmethod
+    # def from_pretrained(cls, pretrained_dir: str, tokenizer, feature_encoder=None, feature_decoder=None, **kwargs):
+    #     """
+    #     Load the model from a directory containing 'pytorch_model.bin' and optionally 'config.json'.
+        
+    #     Args:
+    #         pretrained_dir (str): Directory where model files are located.
+    #         tokenizer: A tokenizer instance to attach to this CellTextLLM.
+    #         feature_encoder: If needed, pass in the same or new feature encoder.
+    #         feature_decoder: If needed, pass in the same or new feature decoder.
+    #         **kwargs: Additional args you might need for initialization (normalize_total, log_variational, etc.).
+
+    #     Returns:
+    #         CellTextLLM: A new instance of the model, loaded with pretrained weights.
+    #     """
+    #     # 1) If there's a config.json, you might read it:
+    #     #    You can optionally do this if your base model has a config:
+    #     import os 
+    #     config_json_path = os.path.join(pretrained_dir, "config.json")
+    #     if os.path.exists(config_json_path):
+    #         from transformers import T5Config
+    #         base_config = T5Config.from_json_file(config_json_path)
+    #         # Then create your base model from config
+    #         from transformers import AutoModelForSeq2SeqLM
+    #         base_model = AutoModelForSeq2SeqLM.from_config(base_config)
+    #     else:
+    #         # If no config, you'll have to build the same base model class manually
+    #         raise ValueError(
+    #             f"No config.json found in {pretrained_dir}, cannot reconstruct base model automatically."
+    #         )
+        
+    #     # 2) Create an instance of your class
+    #     model = cls(
+    #         base_model=base_model,
+    #         tokenizer=tokenizer,
+    #         feature_encoder=feature_encoder,
+    #         feature_decoder=feature_decoder,
+    #         **kwargs,
+    #     )
+
+    #     # 3) Load state_dict
+    #     weights_path = os.path.join(pretrained_dir, "pytorch_model.bin")
+    #     if not os.path.exists(weights_path):
+    #         raise ValueError(f"No pytorch_model.bin found in {pretrained_dir}")
+    #     state_dict = torch.load(weights_path, map_location="cpu")
+    #     model.load_state_dict(state_dict)
+
+    #     return model
