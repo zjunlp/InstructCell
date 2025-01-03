@@ -26,6 +26,31 @@ By leveraging a specialized multi-modal architecture and our multi-modal single-
 - python 3.10 and above are recommended
 - CUDA 11.7 and above are recommended
 
+```python
+model = InstructCell.from_pretrained("zjunlp/InstructCell-chat") 
+adata = anndata.read_h5ad(H5AD_PATH)
+gene_vocab = np.load(GENE_VOCAB_PATH)
+adata = unify_gene_features(adata, gene_vocab, force_gene_symbol_uppercase=False)
+k = np.random.randint(0, len(adata)) 
+gene_counts = adata[k, :].X.toarray()
+sc_metadata = adata[k, :].obs.iloc[0].to_dict()
+prompt = (
+    "Can you help me annotate this single cell from a {species}? " 
+    "It was sequenced using {sequencing_method} and is derived from {tissue}. " 
+    "The gene expression profile is {input}. Thanks!"
+)
+
+for key, value in model.predict(
+    prompt, 
+    gene_counts=gene_counts, 
+    sc_metadata=sc_metadata, 
+    do_sample=True, 
+    top_p=0.95,
+    top_k=50,
+    max_new_tokens=256,
+).items():
+    print(f"{key}: {value}")
+```
 
   
 <h2 id="3">🚀 How to run</h2>
