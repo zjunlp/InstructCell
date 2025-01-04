@@ -72,7 +72,7 @@ for key, value in model.predict(
     print(f"{key}: {value}")
 ```
 
-For more detailed explanations and additional examples, please refer to the Jupyter notebook.
+For more detailed explanations and additional examples, please refer to the Jupyter notebook [demo.ipynb](https://github.com/zjunlp/InstructCell/blob/main/demo.ipynb).
   
 <h2 id="3">🚀 How to run</h2>
 
