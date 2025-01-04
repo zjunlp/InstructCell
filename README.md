@@ -19,9 +19,9 @@ By leveraging a specialized multi-modal architecture and our multi-modal single-
 
 **InstructCell** has two versions:
 
-1. **Chat Version**: Supports generating both textual answers and single-cell data, providing a comprehensive output.  
-2. **Instruct Version**: Focused solely on generating concise answers without extra text.
-
+1. **Chat Version**: Supports generating both detailed textual answers and single-cell data, offering comprehensive and context-rich outputs.
+2. **Instruct Version**: Supports generating only the answer portion without additional explanatory text, providing concise and task-specific outputs.
+   
 Both versions of the model are available for download from Hugging Face ([zjunlp/InstructCell-chat](https://huggingface.co/zjunlp/InstructCell-chat) and [zjunlp/InstructCell-instruct](https://huggingface.co/zjunlp/InstructCell-instruct)).
 
 <img width="1876" alt="image" src="https://github.com/user-attachments/assets/3fefe71c-3c00-4c21-b388-cf2300fb9f90" />
