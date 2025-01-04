@@ -418,6 +418,7 @@ if __name__ == '__main__':
         model, 
         tokenizer, 
         modality_tag=args.modality_tag,
+        num_signal_tokens=args.num_signal_tokens, 
         ignore_index=ignore_index, 
         pad_token_id=pad_token_id,
         pad_to_multiple_of=8, 
