@@ -68,7 +68,7 @@ for key, value in model.predict(
     top_k=50,
     max_new_tokens=256,
 ).items():
-    # Print each result key-value pair
+    # Print each key-value pair
     print(f"{key}: {value}")
 ```
 
