@@ -17,6 +17,13 @@
 **InstructCell** is a multi-modal AI copilot that integrates natural language with single-cell RNA sequencing data, enabling researchers to perform tasks like cell type annotation, pseudo-cell generation, and drug sensitivity prediction through intuitive text commands. 
 By leveraging a specialized multi-modal architecture and our multi-modal single-cell instruction dataset, InstructCell reduces technical barriers and enhances accessibility for single-cell analysis.
 
+**InstructCell** has two versions:
+
+1. **Chat Version**: Supports generating both textual answers and single-cell data, providing a comprehensive output.  
+2. **Instruct Version**: Focused solely on generating concise answers without extra text.
+
+Both versions of the model are available for download from Hugging Face ([zjunlp/InstructCell-chat](https://huggingface.co/zjunlp/InstructCell-chat) and [zjunlp/InstructCell-instruct](https://huggingface.co/zjunlp/InstructCell-instruct)).
+
 <img width="1876" alt="image" src="https://github.com/user-attachments/assets/3fefe71c-3c00-4c21-b388-cf2300fb9f90" />
 
 
