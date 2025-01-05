@@ -9,7 +9,8 @@
 - 🗞️ [Overview](#1)
 - 🗝️ [Quick start](#2)
 - 🚀 [How to run](#3)
-- 🔖 [Citation](#4)
+- 🌻 [Acknowledgement](#4)
+- 🔖 [Citation](#5)
 
 
 <h2 id="1">🗞️ Overview</h2>
@@ -242,8 +243,12 @@ python evaluate.py \
 
 <!-- ## 🎬 Demo  --> 
 
+<h2 id="4">🌻 Acknowledgement</h2>
 
-<h2 id="4">🔖 Citation</h2>
+We would like to express our sincere gratitude to the excellent work [ALBEF](https://github.com/salesforce/ALBEF), [scvi-tools](https://github.com/scverse/scvi-tools).
+
+
+<h2 id="5">🔖 Citation</h2>
 
 ## ✨ Contributors
 
