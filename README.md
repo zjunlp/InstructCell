@@ -172,7 +172,7 @@ To customize the size of the gene vocabulary, adjust the `n_top_genes` parameter
 
 ### 🧺 Instruction-Response Template Construction
 
-The instruction-response templates used in the projects are stored in this `[folder](https://github.com/zjunlp/InstructCell/tree/main/exp_templates)`.
+The instruction-response templates used in the projects are stored in this [folder](https://github.com/zjunlp/InstructCell/tree/main/exp_log/exp_templates).
 
 <div align="center">
 
