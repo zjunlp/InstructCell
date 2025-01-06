@@ -253,7 +253,7 @@ We would like to express our sincere gratitude to the excellent work [ALBEF](htt
 ## ✨ Contributors
 
 <a href="https://github.com/zjunlp/InstructCell/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=zjunlp/InstructCell&cacheBust=1234" />
+  <img src="https://contrib.rocks/image?repo=zjunlp/InstructCell" />
 </a>
 
 We will offer long-term maintenance to fix bugs and solve issues. So if you have any problems, please put issues to us.
