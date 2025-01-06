@@ -168,7 +168,7 @@ After completing the preprocessing steps, split each dataset and build a gene vo
 cd InstructCell
 python preprocess.py --n_top_genes 3600 
 ```
-To customize the size of the gene vocabulary, adjust the `n_top_genes` parameter as needed. For instance, setting it to 2000 will generate a smaller vocabulary.
+To customize the size of the gene vocabulary, adjust the `n_top_genes` parameter as needed. For instance, setting it to 2000 will generate a smaller vocabulary. At this point, two files, `gene_vocab.npy` and `choices.pkl`, are generated. The first file stores the selected genes, while the second holds the category labels for each classification dataset. The gene vocabulary and label set used in this project can both be found in this [folder](https://github.com/zjunlp/InstructCell/tree/main/exp_log/exp_templates).
 
 
 ### 🧺 Instruction-Response Template Construction
