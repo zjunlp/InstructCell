@@ -256,4 +256,6 @@ We would like to express our sincere gratitude to the excellent work [ALBEF](htt
   <img src="https://contrib.rocks/image?repo=zjunlp/InstructCell" />
 </a>
 
+Made with [contrib.rocks](https://contrib.rocks).
+
 We will offer long-term maintenance to fix bugs and solve issues. So if you have any problems, please put issues to us.
