@@ -245,7 +245,7 @@ python evaluate.py \
 
 <h2 id="4">🌻 Acknowledgement</h2>
 
-We would like to express our sincere gratitude to the excellent work [ALBEF](https://github.com/salesforce/ALBEF), [scvi-tools](https://github.com/scverse/scvi-tools).
+We would like to express our sincere gratitude to the excellent work [ALBEF](https://github.com/salesforce/ALBEF), and [scvi-tools](https://github.com/scverse/scvi-tools).
 
 
 <h2 id="5">🔖 Citation</h2>
