@@ -25,7 +25,7 @@ def measure_simulation(
     target_labels: np.ndarray,
     k: int = 20, 
 ) -> float:
-    """The implementation of RKNN."""
+    """The implementation of pKNN."""
     knn = KNeighborsClassifier(n_neighbors=k, metric="minkowski")
     knn.fit(targets, target_labels)
     pred = knn.predict(predictions)
@@ -40,7 +40,7 @@ def measure_bio_preservation(
     target_labels: Optional[np.ndarray] = None,
     k: int = 20, 
 ) -> float:
-    """The implementation of SKNN."""
+    """The implementation of sKNN."""
     if prediction_labels is None:
         raise ValueError("The prediction labels must be provided")
 
