@@ -250,6 +250,18 @@ We would like to express our sincere gratitude to the excellent work [ALBEF](htt
 
 <h2 id="5">🔖 Citation</h2>
 
+If you use the code or data, please cite the following paper:
+
+
+```bibtex
+@article{zhu2023llms,
+  title={A Multi-Modal AI Copilot for Single-Cell Analysis with Instruction Following},
+  author={Fang, Yin and Deng, Xinle and Liu, Kangwei and Zhang, Ningyu and Qian, Jingyang and Yang, Penghui and Fan, Xiaohui and Chen, Huajun},
+  journal={arXiv preprint arXiv:2501.08187},
+  year={2025}
+}
+```
+
 ## ✨ Contributors
 
 <a href="https://github.com/zjunlp/InstructCell/graphs/contributors">
